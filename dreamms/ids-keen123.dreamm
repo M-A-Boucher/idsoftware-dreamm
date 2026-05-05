@@ -1,0 +1,181 @@
+//
+// Commander Keen: Invasion of the Vorticons
+//
+desc[ids-keen123]:
+
+name = Commander Keen: Invasion of the Vorticons
+icon = ids-keen123.png
+machine = pc
+osenv = dos
+rootpath = C:\
+mips = $(MIPS_386SX_20)
+nothrottle = 2
+ramkb = 1024
+filter = id software, action
+audiohw = adlib
+
+//
+// episode configuration
+//
+config[episode]:
+    title = Episode Configuration
+    option[episode1]:
+        name = Episode 1: Marooned on Mars
+        condition = file_exists("$$(rootpath)\\KEEN1.EXE")
+        launch = KEEN1.EXE
+    end
+    option[episode2]:
+        name = Episode 2: The Earth Explodes
+        condition = file_exists("$$(rootpath)\\KEEN2.EXE")
+        launch = KEEN2.EXE
+    end
+    option[episode3]:
+        name = Episode 3: Keen Must Die!
+        condition = file_exists("$$(rootpath)\\KEEN3.EXE")
+        launch = KEEN3.EXE
+    end
+end
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM.BAT
+    contents = [[[$(CRLF)
+        COPY KEEN123.1+KEEN123.2 KEEN123.EXE
+        KEEN123.EXE
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// v1.0 
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = KEEN1.EXE
+    anchordepth = 1
+    file[]: crc = d8458307; size =     15568; name = EGAHEAD.CK1
+    file[]: crc = 3ebde0f1; size =     17488; name = EGAHEAD.CK2
+    file[]: crc = 3a95b5ca; size =     19216; name = EGAHEAD.CK3
+    file[]: crc = 3691797e; size =     57065; name = EGALATCH.CK1
+    file[]: crc = 59fe4320; size =    129856; name = EGALATCH.CK2
+    file[]: crc = fc8beeca; size =    116800; name = EGALATCH.CK3
+    file[]: crc = ece1de1e; size =     17633; name = EGASPRIT.CK1
+    file[]: crc = 539e4c16; size =     35120; name = EGASPRIT.CK2
+    file[]: crc = a38e0306; size =     43840; name = EGASPRIT.CK3
+    file[]: crc = f25ff7b9; size =       942; name = ENDTEXT.CK1
+    file[]: crc = 53f061e3; size =      8565; name = FINALE.CK1
+    file[]: crc = 2353e900; size =     12060; name = FINALE.CK2
+    file[]: crc = c765b670; size =     18480; name = FINALE.CK3
+    file[]: crc = 7b5f557e; size =      1859; name = HELPTEXT.CK1
+    file[]: crc = 14c4ff5f; size =     51190; name = KEEN1.EXE
+    file[]: crc = 69fa894d; size =     58335; name = KEEN2.EXE
+    file[]: crc = 723db48e; size =     61599; name = KEEN3.EXE
+    file[]: crc = a76ed506; size =      1368; name = LEVEL01.CK1
+    file[]: crc = 03102f7c; size =      1248; name = LEVEL01.CK2
+    file[]: crc = d2490b33; size =      1830; name = LEVEL01.CK3
+    file[]: crc = a7dde961; size =       724; name = LEVEL02.CK1
+    file[]: crc = c4813c65; size =      2334; name = LEVEL02.CK2
+    file[]: crc = ccba3c71; size =      2366; name = LEVEL02.CK3
+    file[]: crc = 35afd056; size =      3474; name = LEVEL03.CK1
+    file[]: crc = d137f2b6; size =      2316; name = LEVEL03.CK2
+    file[]: crc = da08505d; size =      2572; name = LEVEL03.CK3
+    file[]: crc = aa0ea8e4; size =      1720; name = LEVEL04.CK1
+    file[]: crc = a851634f; size =      3430; name = LEVEL04.CK2
+    file[]: crc = e4fedb3b; size =      5978; name = LEVEL04.CK3
+    file[]: crc = f7cec532; size =       810; name = LEVEL05.CK1
+    file[]: crc = 4ceb88c7; size =      2618; name = LEVEL05.CK2
+    file[]: crc = 34304c38; size =      5252; name = LEVEL05.CK3
+    file[]: crc = c2bc814c; size =       928; name = LEVEL06.CK1
+    file[]: crc = bd214867; size =      2936; name = LEVEL06.CK2
+    file[]: crc = a13c91e7; size =      1226; name = LEVEL06.CK3
+    file[]: crc = c7b28c7a; size =      5650; name = LEVEL07.CK1
+    file[]: crc = 48bf8c8e; size =      2636; name = LEVEL07.CK2
+    file[]: crc = 56097529; size =      3074; name = LEVEL07.CK3
+    file[]: crc = 4afdd1bc; size =      3416; name = LEVEL08.CK1
+    file[]: crc = 2d5e0fee; size =      3852; name = LEVEL08.CK2
+    file[]: crc = faa3c244; size =      7226; name = LEVEL08.CK3
+    file[]: crc = 98d701f2; size =      1638; name = LEVEL09.CK1
+    file[]: crc = 1a9e7470; size =      3352; name = LEVEL09.CK2
+    file[]: crc = 9a541b7a; size =      9288; name = LEVEL09.CK3
+    file[]: crc = 786430f2; size =      2086; name = LEVEL10.CK1
+    file[]: crc = 916f7f88; size =      4352; name = LEVEL10.CK2
+    file[]: crc = 074cbbb8; size =      2736; name = LEVEL10.CK3
+    file[]: crc = 84af6fca; size =      1636; name = LEVEL11.CK1
+    file[]: crc = aaed26a9; size =      2792; name = LEVEL11.CK2
+    file[]: crc = b50f4475; size =      1624; name = LEVEL11.CK3
+    file[]: crc = ba8a8bad; size =      2178; name = LEVEL12.CK1
+    file[]: crc = 39a56245; size =      3882; name = LEVEL12.CK2
+    file[]: crc = 92920589; size =      3048; name = LEVEL12.CK3
+    file[]: crc = bd1c99e6; size =      9908; name = LEVEL13.CK1
+    file[]: crc = eeffe308; size =      2504; name = LEVEL13.CK2
+    file[]: crc = dba9c55a; size =      6172; name = LEVEL13.CK3
+    file[]: crc = 45529df2; size =      7024; name = LEVEL14.CK1
+    file[]: crc = 0de82d7e; size =      2182; name = LEVEL14.CK2
+    file[]: crc = 0477f134; size =      3130; name = LEVEL14.CK3
+    file[]: crc = a18720a7; size =      2234; name = LEVEL15.CK1
+    file[]: crc = 632dc7a4; size =      3620; name = LEVEL15.CK2
+    file[]: crc = a9dafc34; size =     11018; name = LEVEL15.CK3
+    file[]: crc = c850b8b2; size =      5818; name = LEVEL16.CK1
+    file[]: crc = 5b4d4748; size =      4318; name = LEVEL16.CK2
+    file[]: crc = 20bd5a06; size =       944; name = LEVEL16.CK3
+    file[]: crc = 84c92b10; size =      5638; name = LEVEL80.CK1
+    file[]: crc = aea923ad; size =      5460; name = LEVEL80.CK2
+    file[]: crc = 4205d973; size =      6054; name = LEVEL80.CK3
+    file[]: crc = 178d9663; size =       758; name = LEVEL81.CK1
+    file[]: crc = d9c259c5; size =       742; name = LEVEL81.CK2
+    file[]: crc = 7338ea6c; size =       320; name = LEVEL81.CK3
+    file[]: crc = bc5cea45; size =      1262; name = LEVEL90.CK1
+    file[]: crc = 027629fd; size =      1334; name = LEVEL90.CK2
+    file[]: crc = 15d30fee; size =      1424; name = LEVEL90.CK3
+    file[]: crc = 19996bf1; size =     27886; name = PREVIEW2.CK1
+    file[]: crc = 533ce62b; size =     25429; name = PREVIEW3.CK1
+    file[]: crc = a5021ef9; size =      2160; name = PREVIEWS.CK1
+    file[]: crc = 569e89e0; size =      8898; name = SOUNDS.CK1
+    file[]: crc = 231a12cf; size =      3504; name = STORYTXT.CK1
+end
+
+//
+// 1x720K, Installer
+//
+installer[1x720k-installer]:
+    name = 1x720K, Installer
+    installid = v1.0
+    mips = $(MIPS_MAX)
+    launch = KEEN123.EXE
+    anchorfile = KEEN123.EXE
+    file[]: crc = 2542e795; size =    431611; name = KEEN123.EXE
+end
+
+//
+// 2x360K, Installer
+//
+installer[2x360k-installer]:
+    name = 2x360K, Installer
+    installid = v1.0
+    mips = $(MIPS_MAX)
+    launch = DREAMM.BAT
+    anchorfile = KEEN123.2
+    file[]: crc = e08f817c; size =    291840; name = KEEN123.1
+    file[]: crc = 3547802a; size =    139771; name = KEEN123.2
+end
+
+end

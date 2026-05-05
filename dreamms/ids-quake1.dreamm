@@ -1,0 +1,278 @@
+//
+// Quake
+//
+desc[ids-quake1]:
+
+name = Quake
+icon = ids-quake1.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\QUAKE.EXE
+mips = $(MIPS_MAX)
+ramkb = 16384
+filter = id software, fps
+videohw = svga
+audiohw = sb16
+HIPNOTIC = 0
+ROGUE = 0
+
+//
+// game configuration
+//
+config[game]:
+    title = Game Configuration
+    option[quake]:
+        name = Quake
+        condition = file_exists("$$(rootpath)\\ID1\\PAK0.PAK")
+        launch = QUAKE.EXE
+    end
+    option[hipnotic]:
+        name = Scourge of Armagon
+        condition = file_exists("$$(rootpath)\\HIPNOTIC\\PAK0.PAK")
+        launch = QUAKE.EXE -game hipnotic -hipnoticpnotic
+        HIPNOTIC = 1
+    end
+    option[rogue]:
+        name = Dissolution of Eternity
+        condition = file_exists("$$(rootpath)\\ROGUE\\PAK0.PAK")
+        launch = ROGUE\QUAKE.EXE -rogue
+        ROGUE = 1
+    end
+end
+
+//
+// controls configuration
+//
+config[controls]:
+    title = Controls Configuration
+    option[classic]:
+        name = Classic (Default Quake)
+        OVERRIDES = $(NULL)
+    end
+    option[inverted]:
+        name = Modern (WASD + Mouse)
+        OVERRIDES = [[[$(CRLF)
+            bind "w" "+forward"
+            bind "a" "+moveleft"
+            bind "s" "+back"
+            bind "d" "+moveright"
+            +mlook
+            m_pitch "0.022000"
+            sensitivity "6"
+        ]]]
+    end
+    option[mouse]:
+        name = Modern (WASD + Inverted Mouse)
+        OVERRIDES = [[[$(CRLF)
+            bind "w" "+forward"
+            bind "a" "+moveleft"
+            bind "s" "+back"
+            bind "d" "+moveright"
+            +mlook
+            m_pitch "-0.022000"
+            sensitivity "6"
+        ]]]
+    end
+end
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[320x200]:
+        name = 320x200
+        VIDEO_OVERRIDE = vid_mode 0
+    end
+    option[320x240]:
+        name = 320x240
+        VIDEO_OVERRIDE = vid_mode 3
+    end
+    option[360x350]:
+        name = 360x350
+        VIDEO_OVERRIDE = vid_mode 6
+    end
+    option[360x400]:
+        name = 360x400
+        VIDEO_OVERRIDE = vid_mode 8
+    end
+    option[640x400]:
+        name = 640x400
+        VIDEO_OVERRIDE = vid_mode 11
+    end
+    option[640x480]:
+        name = 640x480
+        priority = 1
+        VIDEO_OVERRIDE = vid_mode 12
+    end
+    option[800x600]:
+        name = 800x600
+        VIDEO_OVERRIDE = vid_mode 13
+    end
+    option[1024x768]:
+        name = 1024x768
+        VIDEO_OVERRIDE = vid_mode 14
+    end
+    option[1280x1024]:
+        name = 1280x1024
+        VIDEO_OVERRIDE = vid_mode 15
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)/DREAMM.BAT
+    contents = [[[$(CRLF)
+        COPY QUAKE101.1+QUAKE101.2 QUAKE101.EXE
+        QUAKE101.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)/DREAMM_SW.BAT
+    contents = [[[$(CRLF)
+        COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
+        QSW101.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)/ID1/AUTOEXEC.CFG
+    contents = [[[$(CRLF)
+        $(OVERRIDES)
+        $(VIDEO_OVERRIDE)
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/ID1_CD        ; condition = is_game(); disc = 1
+mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/HIPNOTIC_CD   ; condition = is_game(); disc = 2; optional = true
+mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/ROGUE_CD      ; condition = is_game(); disc = 3; optional = true
+
+
+script[hipnotic]:
+    condition = $(HIPNOTIC)
+    code = disc_insert(2);
+end
+
+script[rogue]:
+    condition = $(ROGUE)
+    code = disc_insert(3);
+end
+
+//
+// v1.01, CD
+//
+game[v1.01-cd]:
+    name = v1.01, CD
+    anchorfile = QUAKE.EXE
+    file[]: crc = 4fc60ecd; size =     25920; name = CWSDPMI.EXE
+    file[]: crc = d870380f; size =     17408; name = GENVXD.DLL
+    file[]: crc = 6fa6e02a; size =      9883; name = MGENVXD.VXD
+    file[]: crc = 67d084d8; size =     26511; name = PDIPX.COM
+    file[]: crc = 69bf72a2; size =    314880; name = QLAUNCH.EXE
+    file[]: crc = e65c3c5d; size =    396288; name = QUAKE.EXE
+    file[]: crc = ef1b2965; size =     32256; name = QUAKEUDP.DLL
+    file[]: crc = bc98dfe5; size =  18276119; name = ID1\PAK0.PAK
+    file[]: crc = 2e803216; size =  34257856; name = ID1\PAK1.PAK
+    file[]:                                   name = ID1_CD\CDDA.SOU ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// v1.01, CD, Installer
+//
+installer[v1.01-cd-installer]:
+    name = v1.01, CD, Installer
+    installid = v1.01-cd
+    mips = $(MIPS_MAX)
+    launch = DREAMM.BAT
+    anchorfile = QUAKE101.2
+    file[]: crc = 816b3b96; size =  15323569; name = QUAKE101.1
+    file[]: crc = d2699462; size =   9228472; name = QUAKE101.2
+    file[]:                                   name = CDDA.SOU    ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// v1.01, Shareware
+//
+demo[v1.01-sw]:
+    name = v1.01, Shareware
+    imports = v1.01-cd
+    anchorfile = QUAKE.EXE
+    file[]: crc = 2e803216; size =  34257856; remove = ID1\PAK1.PAK
+end
+
+//
+// v1.01, Shareware, Installer
+//
+installer[v1.01-sw-installer]:
+    name = v1.01, Shareware, Installer
+    installid = v1.01-sw
+    mips = $(MIPS_MAX)
+    launch = DREAMM_SW.BAT
+    anchorfile = QSW101.7
+    file[]: crc = 7efa06e3; size =   1397174; name = QSW101.1
+    file[]: crc = 34063b2d; size =   1433600; name = QSW101.2
+    file[]: crc = 2ff3d25f; size =   1433600; name = QSW101.3
+    file[]: crc = dcbf0d7b; size =   1433600; name = QSW101.4
+    file[]: crc = ac28a594; size =   1433600; name = QSW101.5
+    file[]: crc = 9a30e9fb; size =   1433600; name = QSW101.6
+    file[]: crc = f337169a; size =    402762; name = QSW101.7
+end
+
+//
+// v1.06, CD
+//
+game[v1.06-cd]:
+    name = v1.06, CD
+    imports = v1.01-cd
+    anchorfile = QUAKE.EXE
+    file[]: crc = cb6fca15; size =    404480; name = QUAKE.EXE
+    file[]: crc = 74e3b084; size =  18689235; name = ID1\PAK0.PAK
+    file[]:                                   name = ID1_CD\CDDA.SOU ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// v1.06, CD, Installer
+//
+installer[v1.06-cd-installer]:
+    name = v1.06, CD, Installer
+    installid = v1.06-cd
+    mips = $(MIPS_MAX)
+    launch = RESOURCE.EXE
+    anchorfile = CDDA.SOU
+    file[]: crc = 1f50aee9; size =  24684755; name = RESOURCE.EXE
+    file[]:                                   name = CDDA.SOU    ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// Mission Pack No. 1: Scourge of Armagon
+//
+addon[hipnotic]:
+    name = Mission Pack No. 1: Scourge of Armagon
+    upgradeids = v1.01-cd, v1.06-cd
+    anchorfile = QUAKE.EXE
+    file[]: crc = 48119396; size =    409600; name = QUAKE.EXE
+    file[]: crc = d17835fb; size =  35527205; name = HIPNOTIC\PAK0.PAK
+    file[]:                                   name = HIPNOTIC_CD\CDDA.SOU; cdda = 191/191/184/192/193/192/183/183; optional = true
+end
+
+//
+// Mission Pack No. 2: Dissolution of Eternity
+//
+addon[rogue]:
+    name = Mission Pack No. 2: Dissolution of Eternity
+    upgradeids = v1.01-cd, v1.06-cd
+    anchorfile = QUAKE.EXE
+    anchordepth = 1
+    file[]: crc = 38b70ce8; size =  37875279; name = ROGUE\PAK0.PAK
+    file[]: crc = 3bc26700; size =    409600; name = ROGUE\QUAKE.EXE
+    file[]:                                   name = ROGUE_CD\CDDA.SOU   ; cdda = 192/190/187/189/197/184/187/189; optional = true
+end
+
+
+end

@@ -1,0 +1,227 @@
+//
+// Commander Keen: Aliens Ate My Babysitter!
+//
+desc[ids-keen6]:
+
+name = Commander Keen: Aliens Ate My Babysitter!
+icon = ids-keen6.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = KEEN6.EXE
+mips = $(MIPS_386DX_33)
+nothrottle = 2
+ramkb = 8192
+filter = id software, action
+audiohw = sb16
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[cga]:
+        name = $(CGA_NAME)
+        videohw = cga
+        condition = file_exists("$$(rootpath)\\CGAGRAPH.CK6")
+    end
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMMC.BAT
+    contents = [[[$(CRLF)
+        CK6-1C.EXE
+        CK6-2C.EXE
+        CK6-3.EXE
+        CK6-4.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMMV.BAT
+    contents = [[[$(CRLF)
+        CK6-1V.EXE
+        CK6-2V.EXE
+        CK6-3.EXE
+        CK6-4.EXE
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// v1.0, CGA
+//
+game[v1.0-cga]:
+    name = v1.0, CGA
+    anchorfile = KEEN6.EXE
+    file[]: crc = 472e62f3; size =     56265; name = AUDIO.CK6
+    file[]: crc = 39d32d6e; size =    311897; name = CGAGRAPH.CK6
+    file[]: crc = 40f298f8; size =     95421; name = GAMEMAPS.CK6
+    file[]: crc = a392f517; size =     98614; name = KEEN6.EXE
+end
+
+//
+// v1.0, 2x720K, CGA, Installer
+//
+installer[v1.0-2x720k-cga-installer]:
+    name = v1.0, 2x720K, CGA, Installer
+    installid = v1.0-cga
+    mips = $(MIPS_MAX)
+    launch = DREAMMC.BAT
+    anchorfile = CK6-1C.EXE
+    file[]: crc = ccd2ba6e; size =     93832; name = CK6-1C.EXE
+    file[]: crc = c18edbe7; size =    204122; name = CK6-2C.EXE
+    file[]: crc = 741c7a78; size =     69092; name = CK6-3.EXE
+    file[]: crc = bbc31457; size =     46935; name = CK6-4.EXE
+end
+
+//
+// v1.0, EGA
+//
+game[v1.0-ega]:
+    name = v1.0, EGA
+    anchorfile = KEEN6.EXE
+    file[]: crc = 472e62f3; size =     56265; name = AUDIO.CK6
+    file[]: crc = fe555279; size =    457309; name = EGAGRAPH.CK6
+    file[]: crc = 40f298f8; size =     95421; name = GAMEMAPS.CK6
+    file[]: crc = ec76900b; size =    104938; name = KEEN6.EXE
+end
+
+//
+// v1.0, 2x720K, EGA, Installer
+//
+installer[v1.0-2x720k-ega-installer]:
+    name = v1.0, 2x720K, EGA, Installer
+    installid = v1.0-ega
+    mips = $(MIPS_MAX)
+    launch = DREAMMV.BAT
+    anchorfile = CK6-1V.EXE
+    file[]: crc = 66afdb42; size =    100433; name = CK6-1V.EXE
+    file[]: crc = 3a5af0b8; size =    323773; name = CK6-2V.EXE
+    file[]: crc = 741c7a78; size =     69092; name = CK6-3.EXE
+    file[]: crc = bbc31457; size =     46935; name = CK6-4.EXE
+end
+
+//
+// v1.4, CGA
+//
+game[v1.4-cga]:
+    name = v1.4, CGA
+    imports = v1.0-cga
+    file[]: crc = ce7867b4; size =    311706; name = CGAGRAPH.CK6
+    file[]: crc = 9c04b31e; size =     95541; name = GAMEMAPS.CK6
+    file[]: crc = f36a4c51; size =    100964; name = KEEN6.EXE
+end
+
+//
+// v1.4, 3x360K, CGA, Installer
+//
+installer[v1.4-3x360k-cga-installer]:
+    name = v1.4, 3x360K, CGA, Installer
+    installid = v1.4-cga
+    mips = $(MIPS_MAX)
+    launch = DREAMMC.BAT
+    anchorfile = CK6-1C.EXE
+    file[]: crc = b1c85695; size =     96208; name = CK6-1C.EXE
+    file[]: crc = 801f8983; size =    204046; name = CK6-2C.EXE
+    file[]: crc = 6bf05e7c; size =     69172; name = CK6-3.EXE
+    file[]: crc = b81a2611; size =     46935; name = CK6-4.EXE
+end
+
+//
+// v1.4, EGA
+//
+game[v1.4-ega]:
+    name = v1.4, EGA
+    imports = v1.0-ega
+    file[]: crc = 09cacc50; size =    464726; name = EGAGRAPH.CK6
+    file[]: crc = 9c04b31e; size =     95541; name = GAMEMAPS.CK6
+    file[]: crc = 9cdacdae; size =    107719; name = KEEN6.EXE
+end
+
+//
+// v1.4, 3x360K, EGA, Installer
+//
+installer[v1.4-3x360k-ega-installer]:
+    name = v1.4, 3x360K, EGA, Installer
+    installid = v1.4-ega
+    mips = $(MIPS_MAX)
+    launch = DREAMMV.BAT
+    anchorfile = CK6-1V.EXE
+    file[]: crc = 6ecba8b2; size =    102837; name = CK6-1V.EXE
+    file[]: crc = 985a4ed3; size =    329357; name = CK6-2V.EXE
+    file[]: crc = 6bf05e7c; size =     69172; name = CK6-3.EXE
+    file[]: crc = b81a2611; size =     46935; name = CK6-4.EXE
+end
+
+//
+// v1.5, CGA
+//
+game[v1.5-cga]:
+    name = v1.5, CGA
+    imports = v1.4-cga
+    file[]: crc = 9e19f75a; size =       760; name = AUDIOHED.CK6
+    file[]: crc = a1a3451b; size =      1024; name = CGADICT.CK6
+    file[]: crc = d60ee3a1; size =     16665; name = CGAHEAD.CK6
+    file[]: crc = f9234617; size =     95528; name = GAMEMAPS.CK6
+    file[]: crc = d2f379b8; size =    102166; name = KEEN6.EXE
+end
+
+//
+// v1.5, 3x720K, CGA, Installer
+//
+installer[v1.5-3x720k-cga-installer]:
+    name = v1.5, 3x720K, CGA, Installer
+    installid = v1.5-cga
+    mips = $(MIPS_MAX)
+    launch = DREAMMC.BAT
+    anchorfile = CK6-1C.EXE
+    file[]: crc = 7b8b9afa; size =     97565; name = CK6-1C.EXE
+    file[]: crc = e2015fbc; size =    216556; name = CK6-2C.EXE
+    file[]: crc = f88d2157; size =     69242; name = CK6-3.EXE
+    file[]: crc = 6c8f46da; size =     47354; name = CK6-4.EXE
+end
+
+//
+// v1.5, EGA
+//
+game[v1.5-ega]:
+    name = v1.5, EGA
+    imports = v1.4-ega
+    file[]: crc = 9e19f75a; size =       760; name = AUDIOHED.CK6
+    file[]: crc = 46c31ebd; size =      1024; name = EGADICT.CK6
+    file[]: crc = 3d5149df; size =    464662; name = EGAGRAPH.CK6
+    file[]: crc = 4bc8f17e; size =     16683; name = EGAHEAD.CK6
+    file[]: crc = f9234617; size =     95528; name = GAMEMAPS.CK6
+    file[]: crc = 5b828ee2; size =    109058; name = KEEN6.EXE
+end
+
+//
+// v1.5, 3x720K, EGA, Installer
+//
+installer[v1.5-3x720k-ega-installer]:
+    name = v1.5, 3x720K, EGA, Installer
+    installid = v1.5-ega
+    mips = $(MIPS_MAX)
+    launch = DREAMMV.BAT
+    anchorfile = CK6-1V.EXE
+    file[]: crc = 1d267e89; size =    104318; name = CK6-1V.EXE
+    file[]: crc = 905967c3; size =    342795; name = CK6-2V.EXE
+    file[]: crc = f88d2157; size =     69242; name = CK6-3.EXE
+    file[]: crc = 6c8f46da; size =     47354; name = CK6-4.EXE
+end
+
+end

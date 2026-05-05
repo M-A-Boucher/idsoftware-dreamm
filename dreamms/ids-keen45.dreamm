@@ -1,0 +1,167 @@
+//
+// Commander Keen in "Goodbye Galaxy"
+//
+desc[ids-keen45]:
+
+name = Commander Keen in "Goodbye Galaxy"
+icon = ids-keen45.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\KEEN4C.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+filter = id software, action
+videohw = cga
+audiohw = speaker
+
+//
+// episode configuration
+//
+config[episode]:
+    title = Episode Configuration
+    option[episode4-ega]:
+        name = Episode IV: Secret of the Oracle
+        condition = file_exists("$$(rootpath)\\KEEN4E.EXE")
+        launch = KEEN4E.EXE
+    end
+    option[episode5-ega]:
+        name = Episode V: The Armageddon Machine
+        condition = file_exists("$$(rootpath)\\KEEN5E.EXE")
+        launch = KEEN5E.EXE
+    end
+    option[episode4-cga]:
+        name = Episode IV: Secret of the Oracle
+        condition = file_exists("$$(rootpath)\\KEEN4C.EXE")
+        launch = KEEN4C.EXE
+    end
+    option[episode5-cga]:
+        name = Episode V: The Armageddon Machine
+        condition = file_exists("$$(rootpath)\\KEEN5C.EXE")
+        launch = KEEN5C.EXE
+    end
+end
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        condition = file_exists("$$(rootpath)\\KEEN4E.EXE") || file_exists("$$(rootpath)\\KEEN5E.EXE")
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        condition = file_exists("$$(rootpath)\\KEEN4E.EXE") || file_exists("$$(rootpath)\\KEEN5E.EXE")
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        audiohw = sb16
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM.BAT
+    contents = [[[$(CRLF)
+        COPY KEEN45E.1+KEEN45E.2 KEEN45E.EXE
+        KEEN45E.EXE
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// v1.4, EGA 
+//
+game[v1.4-ega]:
+    name = v1.4, EGA
+    videohw = vga
+    anchorfile = KEEN4E.EXE
+    anchordepth = 1
+    file[]: crc = 4ac87d4a; size =     33325; name = AUDIO.CK4
+    file[]: crc = 23ba4ead; size =    101990; name = AUDIO.CK5
+    file[]: crc = 4acfd648; size =    520581; name = EGAGRAPH.CK4
+    file[]: crc = a70f84e2; size =    573664; name = EGAGRAPH.CK5
+    file[]: crc = e553f51f; size =     99040; name = GAMEMAPS.CK4
+    file[]: crc = fb9dadab; size =     73721; name = GAMEMAPS.CK5
+    file[]: crc = 6646b983; size =    105108; name = KEEN4E.EXE
+    file[]: crc = 2a45589a; size =    106417; name = KEEN5E.EXE
+end
+
+//
+// v1.4, CGA 
+//
+game[v1.4-cga]:
+    name = v1.4, CGA
+    videohw = cga
+    anchorfile = KEEN4C.EXE
+    file[]: crc = 4ac87d4a; size =     33325; name = AUDIO.CK4
+    file[]: crc = 23ba4ead; size =    101990; name = AUDIO.CK5
+    file[]: crc = 9cce60ce; size =    364948; name = CGAGRAPH.CK4
+    file[]: crc = 518c88ae; size =    397618; name = CGAGRAPH.CK5
+    file[]: crc = e553f51f; size =     99040; name = GAMEMAPS.CK4
+    file[]: crc = fb9dadab; size =     73721; name = GAMEMAPS.CK5
+    file[]: crc = f544dd41; size =     98007; name = KEEN4C.EXE
+    file[]: crc = fb9eb429; size =     98880; name = KEEN5C.EXE
+end
+
+//
+// 1x1.44M, EGA, Installer
+//
+installer[1x1.44m-ega-installer]:
+    name = 1x1.44M, EGA, Installer
+    installid = v1.4-ega
+    mips = $(MIPS_MAX)
+    launch = KEEN45E.EXE
+    anchorfile = KEEN45E.EXE
+    file[]: crc = 8886a736; size =   1234070; name = KEEN45E.EXE
+end
+
+//
+// 1x1.2M, EGA, Installer
+//
+installer[1x1.2m-ega-installer]:
+    name = 1x1.2M, EGA, Installer
+    installid = v1.4-ega
+    mips = $(MIPS_MAX)
+    launch = DREAMM.BAT
+    anchorfile = KEEN45E.2
+    file[]: crc = 57ebcb29; size =   1128960; name = KEEN45E.1
+    file[]: crc = a01b62b1; size =    105110; name = KEEN45E.2
+end
+
+//
+// CGA, Installer
+//
+installer[1x1.44m-cga-installer]:
+    name = 1x1.44M, CGA, Installer
+    installid = v1.4-cga
+    mips = $(MIPS_MAX)
+    launch = KEEN45C.EXE
+    anchorfile = KEEN45C.EXE
+    file[]: crc = 054315d5; size =    932577; name = KEEN45C.EXE
+end
+
+end

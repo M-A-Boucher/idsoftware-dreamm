@@ -1,0 +1,119 @@
+//
+// Spear of Destiny
+//
+desc[ids-sod]:
+
+name = Spear of Destiny
+icon = ids-sod.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = SPEAR.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 8192
+filter = id software, action
+videohw = vga
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        audiohw = sb16
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM.BAT
+    contents = [[[$(CRLF)
+        COPY SOD.1+SOD.2+SOD.3+SOD.4+SOD.5+SOD.6+SOD.7+SOD.8+SOD.9+SOD.10 SOD10.EXE
+        SOD10.EXE -Y
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// v1.4, CD
+//
+game[v1.4-cd]:
+    name = v1.4, CD
+    anchorfile = SPEAR.EXE
+    file[]: crc = 13ce3958; size =      1072; name = AUDIOHED.SOD
+    file[]: crc = 96d183ec; size =    328620; name = AUDIOT.SOD
+    file[]: crc = b564a0be; size =     68290; name = GAMEMAPS.SOD
+    file[]: crc = cdb40ca8; size =       402; name = MAPHEAD.SOD
+    file[]: crc = f8dd4a07; size =    112835; name = SPEAR.EXE
+    file[]: crc = b9b960ac; size =      1024; name = VGADICT.SOD
+    file[]: crc = 5936dddb; size =    947979; name = VGAGRAPH.SOD
+    file[]: crc = dfb1b473; size =       510; name = VGAHEAD.SOD
+    file[]: crc = 591cc4dc; size =   1616544; name = VSWAP.SOD
+end
+
+//
+// v1.4, Super CD Pack
+//
+game[v1.4-super-cd]:
+    name = v1.4, Super CD Pack
+    anchorfile = SPEAR.EXE
+    file[]: crc = 9bb774c8; size =      9792; name = 1.CMF
+    file[]: crc = 46f27e39; size =     17154; name = 10.CMF
+    file[]: crc = 214115ae; size =     23427; name = 11.CMF
+    file[]: crc = 1898e7bc; size =     16760; name = 12.CMF
+    file[]: crc = 6a9df343; size =      6527; name = 13.CMF
+    file[]: crc = dc51d83e; size =     18748; name = 14.CMF
+    file[]: crc = b49d9391; size =     19489; name = 15.CMF
+    file[]: crc = 26e5c047; size =     21054; name = 16.CMF
+    file[]: crc = 31c64447; size =     21954; name = 2.CMF
+    file[]: crc = 3f762ffe; size =      6210; name = 3.CMF
+    file[]: crc = ff22bc01; size =     14394; name = 4.CMF
+    file[]: crc = 37de03b6; size =     12398; name = 5.CMF
+    file[]: crc = dae42a2b; size =     13988; name = 6.CMF
+    file[]: crc = 637d1d67; size =     22740; name = 7.CMF
+    file[]: crc = f94c01a8; size =      2406; name = 8.CMF
+    file[]: crc = 830b4d55; size =     17667; name = 9.CMF
+    file[]: crc = f8863cab; size =     50605; name = ADVANCED.PCX
+    file[]: crc = 1993149a; size =      1072; name = AUDIOHED.SOD
+    file[]: crc = 9c4b1d0b; size =    328620; name = AUDIOT.SOD
+    file[]: crc = 03ba4fd2; size =     14635; name = BLOOD.VOC
+    file[]: crc = c4ab3c43; size =     54678; name = CREATE.PCX
+    file[]: crc = 86d89167; size =     26494; name = CREDITS.PCX
+    file[]: crc = b6fa330b; size =     44674; name = DEVIL.VOC
+    file[]: crc = 73cd82e5; size =      4604; name = DOG.VOC
+    file[]: crc = 92569652; size =    149605; name = GAMEGEN.EXE
+    file[]: crc = 367a36f7; size =    135024; name = GAMEMAPS.SD2
+    file[]: crc = c8f791f2; size =    148546; name = GAMEMAPS.SD3
+    file[]: crc = ac0be924; size =     68290; name = GAMEMAPS.SOD
+    file[]: crc = daca8b43; size =      8443; name = INSTALL.EXE
+    file[]: crc = 7489aa5f; size =     37302; name = INTRO.PCX
+    file[]: crc = be9b6bd0; size =      5527; name = MACHINE.VOC
+    file[]: crc = 99a28ad4; size =     37928; name = MAIN.PCX
+    file[]: crc = 93dd676c; size =       402; name = MAPHEAD.SD1
+    file[]: crc = 7863b325; size =        86; name = MAPHEAD.SD2
+    file[]: crc = 7863b325; size =        86; name = MAPHEAD.SD3
+    file[]: crc = 93dd676c; size =       402; name = MAPHEAD.SOD
+    file[]: crc = 90cebbc0; size =      5663; name = SCREAM.VOC
+    file[]: crc = c09d03f1; size =    112835; name = SPEAR.EXE
+    file[]: crc = efb5af2e; size =      1024; name = VGADICT.SOD
+    file[]: crc = a93857e9; size =    947979; name = VGAGRAPH.SOD
+    file[]: crc = ac0d98f1; size =       510; name = VGAHEAD.SOD
+    file[]: crc = e1ae1295; size =   1879712; name = VSWAP.SD2
+    file[]: crc = bf76b199; size =   1881760; name = VSWAP.SD3
+    file[]: crc = cf0c6e6d; size =   1616544; name = VSWAP.SOD
+end
+
+end

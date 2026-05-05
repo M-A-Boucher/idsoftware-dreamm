@@ -1,0 +1,290 @@
+//
+// Doom II
+//
+desc[ids-doom2]:
+
+name = Doom II
+icon = ids-doom2.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\DOOM2.EXE -config DREAMM.CFG
+mips = $(MIPS_486DX4_100)
+ramkb = 8192
+filter = id software, fps
+audiohw = $(SOUNDHW)+$(MUSICHW)
+videohw = vga
+
+//
+//
+//
+config[keyboard]:
+    title = Keyboard Setup
+    option[default]:
+        name = Original (Arrow Keys)
+        CONTROLS_CONFIG = [[[$(CRLF)
+            key_right           77
+            key_left            75
+            key_up              72
+            key_down            80
+            key_strafeleft      51
+            key_straferight     52
+        ]]]
+    end
+    option[wasd]:
+        name = Modern (WASD Keys)
+        CONTROLS_CONFIG = [[[$(CRLF)
+            key_right           32
+            key_left            30
+            key_up              17
+            key_down		31
+            key_strafeleft      16
+            key_straferight     18
+        ]]]
+    end
+end
+
+//
+// music configuration
+//
+config[music]:
+    title = Music Configuration
+
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        MUSICHW = adlib
+        MUSIC = 2
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        MUSICHW = sb16
+        MUSIC = 3
+    end
+    option[gmidi]:
+        name = $(GMIDI_NAME)
+        MUSICHW = gmidi
+        MUSIC = 8
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        SOUNDHW = speaker
+        SOUND = 1
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        SOUNDHW = sb16
+        SOUND = 3
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)/DREAMM.CFG
+    contents = [[[$(CRLF)
+        mouse_sensitivity	10
+        sfx_volume		8
+        music_volume		8
+        show_messages		1
+        $(CONTROLS_CONFIG)
+        key_fire		29
+        key_use		        57
+        key_strafe		56
+        key_speed		54
+        use_mouse		1
+        mouseb_fire		0
+        mouseb_strafe		1
+        mouseb_forward		2
+        use_joystick		1
+        joyb_fire		0
+        joyb_strafe		1
+        joyb_use		3
+        joyb_speed		2
+        screenblocks		10
+        detaillevel		0
+        showmessages		1
+        snd_channels		4
+        snd_musicdevice		$(MUSIC)
+        snd_sfxdevice		$(SOUND)
+        snd_sbport		544
+        snd_sbirq		7
+        snd_sbdma		1
+        snd_mport		816
+        usegamma		0
+        chatmacro0		"no macro"
+        chatmacro1		"no macro"
+        chatmacro2		"no macro"
+        chatmacro3		"no macro"
+        chatmacro4		"no macro"
+        chatmacro5		"no macro"
+        chatmacro6		"no macro"
+        chatmacro7		"no macro"
+        chatmacro8		"no macro"
+        chatmacro9		"no macro"
+		0
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM2A.BAT
+    contents = [[[$(CRLF)
+        COPY DOOM2LZH.1+DOOM2LZH.2+DOOM2LZH.3+DOOM2LZH.4+DOOM2LZH.5 DOOM2LZH.EXE
+        DOOM2LZH.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM2B.BAT
+    contents = [[[$(CRLF)
+        COPY DOOM2B.1+DOOM2B.2+DOOM2B.3+DOOM2B.4+DOOM2B.5 DOOM2B.EXE
+        DOOM2B.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM2C.BAT
+    contents = [[[$(CRLF)
+        COPY DOOM2C.1+DOOM2C.2+DOOM2C.3+DOOM2C.4+DOOM2C.5 DOOM2C.EXE
+        DOOM2C.EXE
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMMCD.BAT
+    contents = [[[$(CRLF)
+        COPY DOOM2_19.1+DOOM2_19.2+DOOM2_19.3+DOOM2_19.4+DOOM2_19.5 DOOM2_19.EXE
+        DOOM2_19.EXE
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// v1.666
+//
+game[v1.666]:
+    name = v1.666
+    anchorfile = DOOM2.EXE
+    file[]: crc = 5f7ede6f; size =    687001; name = DOOM2.EXE
+    file[]: crc = e2a683bd; size =  14943400; name = DOOM2.WAD
+    file[]: crc = f6a5ae25; size =     13787; name = IPXSETUP.EXE; optional = true
+    file[]: crc = d8576c88; size =        61; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR   ; optional = true
+    file[]: crc = 20551591; size =     15506; name = SERSETUP.EXE; optional = true
+    file[]: crc = 7f186cb6; size =     92726; name = SETUP.EXE   ; optional = true
+end
+
+//
+// v1.666, 5x1.44M, Installer
+//
+installer[v1.666-5x1.44m-installer]:
+    name = v1.666, 5x1.44M, Installer
+    installid = v1.666
+    mips = $(MIPS_MAX)
+    launch = DREAMM2A.BAT
+    anchorfile = DOOM2LZH.5
+    file[]: crc = 83cd31e5; size =   1439232; name = DOOM2LZH.1
+    file[]: crc = 8d38fc66; size =   1457664; name = DOOM2LZH.2
+    file[]: crc = 21fc5311; size =   1457664; name = DOOM2LZH.3
+    file[]: crc = c9d7ba48; size =   1457664; name = DOOM2LZH.4
+    file[]: crc = 3fb4c37f; size =   1457464; name = DOOM2LZH.5
+end
+
+//
+// v1.7
+//
+game[v1.7]:
+    name = v1.7
+    imports = v1.666
+    file[]: crc = 9116ce4c; size =    686993; name = DOOM2.EXE
+    file[]: crc = 47daeb2e; size =  14612688; name = DOOM2.WAD
+end
+
+//
+// v1.7, 5x1.44M, Installer
+//
+installer[v1.7-5x1.44m-installer]:
+    name = v1.7, 5x1.44M, Installer
+    installid = v1.7
+    mips = $(MIPS_MAX)
+    launch = DREAMM2B.BAT
+    anchorfile = DOOM2B.5
+    file[]: crc = 0d944b61; size =   1439232; name = DOOM2B.1
+    file[]: crc = 387b30f7; size =   1457664; name = DOOM2B.2
+    file[]: crc = 52b4aeaf; size =   1457664; name = DOOM2B.3
+    file[]: crc = b0718e70; size =   1457664; name = DOOM2B.4
+    file[]: crc = 6a1e23d2; size =   1374818; name = DOOM2B.5
+end
+
+//
+// v1.7a
+//
+game[v1.7a]:
+    name = v1.7a
+    imports = v1.666
+    file[]: crc = e4eadf7e; size =    686997; name = DOOM2.EXE
+    file[]: crc = 952f6baa; size =  14612688; name = DOOM2.WAD
+end
+
+//
+// v1.7a, CD, Installer
+//
+installer[v1.7a-cd-installer]:
+    name = v1.7a, CD, Installer
+    installid = v1.7a
+    mips = $(MIPS_MAX)
+    launch = DREAMM2C.BAT
+    anchorfile = DOOM2C.5
+    file[]: crc = b6cf2a5a; size =   1439232; name = DOOM2C.1
+    file[]: crc = 018181b2; size =   1457664; name = DOOM2C.2
+    file[]: crc = 6f49254c; size =   1457664; name = DOOM2C.3
+    file[]: crc = 6ec78c3b; size =   1457664; name = DOOM2C.4
+    file[]: crc = b1259360; size =   1374846; name = DOOM2C.5
+end
+
+//
+// v1.9
+//
+game[v1.9]:
+    name = v1.9
+    imports = v1.7
+    file[]: crc = be91c727; size =    709905; name = DOOM2.EXE
+    file[]: crc = ec8725db; size =  14604584; name = DOOM2.WAD
+    file[]: crc = 039525a3; size =     10623; name = DWANGO.DOC  ; optional = true
+    file[]: crc = ffa4a9af; size =     65021; name = DWANGO.EXE  ; optional = true
+    file[]: crc = 9429e073; size =      2536; name = DWANGO.STR  ; optional = true
+    file[]: crc = 339c813a; size =     18051; name = IPXSETUP.EXE; optional = true
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR   ; optional = true
+    file[]: crc = 64ea3378; size =     20257; name = SERSETUP.EXE; optional = true
+    file[]: crc = 0025fe95; size =     45745; name = SETUP.EXE   ; optional = true
+end
+
+//
+// v1.9, CD, Installer
+//
+installer[v1.9-cd-installer]:
+    name = v1.9, CD, Installer
+    installid = v1.9
+    mips = $(MIPS_MAX)
+    launch = DREAMMCD.BAT
+    anchorfile = DOOM2_19.5
+    file[]: crc = c8a3d2a7; size =   1439232; name = DOOM2_19.1
+    file[]: crc = 2e5c1807; size =   1457664; name = DOOM2_19.2
+    file[]: crc = 0db0ecfe; size =   1457664; name = DOOM2_19.3
+    file[]: crc = 7fd38db1; size =   1457664; name = DOOM2_19.4
+    file[]: crc = 29acd033; size =   1428533; name = DOOM2_19.5
+end
+
+end

@@ -1,0 +1,199 @@
+//
+// Wolfenstein 3D
+//
+desc[ids-wolf3d]:
+
+name = Wolfenstein 3D
+icon = ids-wolf3d.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = WOLF3D.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 8192
+filter = id software, action
+videohw = vga
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        audiohw = sb16
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMM.BAT
+    contents = [[[$(CRLF)
+        COPY WOLF1-6.1+WOLF1-6.2 WOLF1-6.EXE
+        WOLF1-6.EXE -Y
+    ]]]
+end
+
+dynamicfile[]:
+    path = $(rootpath)\DREAMMGT.BAT
+    contents = [[[$(CRLF)
+        COPY W3DGT.1+W3DGT.2+W3DGT.3+W3DGT.4 W3DGT.EXE
+        W3DGT.EXE
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+script[autoinstall]:
+    condition = is_installer() && file_exists("$$(rootpath)\\W3D_1-6._1")
+    code = [[[$(CRLF)
+        input_lockout(true);
+        wait("int16", 0x00); keyboard_type("\r");
+        wait("int16", 0x00); keyboard_type("C");
+        wait("int16", 0x00); keyboard_type("N");
+        input_lockout(false);
+    ]]]
+end
+
+//
+// v1.2 
+//
+game[v1.2]:
+    name = v1.2
+    anchorfile = WOLF3D.EXE
+    file[]: crc = 056ac3db; size =      1156; name = AUDIOHED.WL6
+    file[]: crc = 1585d305; size =    317049; name = AUDIOT.WL6
+    file[]: crc = 1029c727; size =    150758; name = GAMEMAPS.WL6
+    file[]: crc = 5e43caee; size =       402; name = MAPHEAD.WL6
+    file[]: crc = 28687d1a; size =      1024; name = VGADICT.WL6
+    file[]: crc = e1d6765f; size =    302374; name = VGAGRAPH.WL6
+    file[]: crc = 53b4b582; size =       477; name = VGAHEAD.WL6
+    file[]: crc = 97fe030d; size =   1545400; name = VSWAP.WL6
+    file[]: crc = eeb3decc; size =     98402; name = WOLF3D.EXE
+end
+
+//
+// v1.2, 1x1.44M, Installer
+//
+installer[v1.2-1x1.44m-installer]:
+    name = v1.2, 1x1.44M, Installer
+    installid = v1.2
+    mips = $(MIPS_MAX)
+    launch = WOLF1-6.EXE -Y
+    anchorfile = WOLF1-6.1
+    file[]: crc = 9aad0c46; size =   1149147; name = WOLF1-6.EXE
+end
+
+//
+// v1.2, 2x720K, Installer
+//
+installer[v1.2-2x720k-installer]:
+    name = v1.2, 2x720K, Installer
+    installid = v1.2
+    mips = $(MIPS_MAX)
+    launch = DREAMM.BAT
+    anchorfile = WOLF1-6.1
+    file[]: crc = e3889dbe; size =    670720; name = WOLF1-6.1
+    file[]: crc = 4a5db7d2; size =    478427; name = WOLF1-6.2
+end
+
+//
+// v1.4
+//
+game[v1.4]:
+    name = v1.4
+    anchorfile = WOLF3D.EXE
+    file[]: crc = 2f3bcb70; size =      1156; name = AUDIOHED.WL6
+    file[]: crc = c79efd4c; size =    320209; name = AUDIOT.WL6
+    file[]: crc = ada5c827; size =    150652; name = GAMEMAPS.WL6
+    file[]: crc = 015803e9; size =       402; name = MAPHEAD.WL6
+    file[]: crc = 0be27100; size =      1024; name = VGADICT.WL6
+    file[]: crc = 6aa208a5; size =    334506; name = VGAGRAPH.WL6
+    file[]: crc = eddd83f8; size =       486; name = VGAHEAD.WL6
+    file[]: crc = 859e8ffc; size =   1545400; name = VSWAP.WL6
+    file[]: crc = 7f915e47; size =    110715; name = WOLF3D.EXE
+end
+
+//
+// v1.4, 1x1.44M, ’93, Installer
+//
+installer[v1.4-1x1.44m-93-installer]:
+    name = v1.4, 1x1.44M, Installer
+    installid = v1.4
+    mips = $(MIPS_MAX)
+    launch = WOLF1-6.EXE
+    anchorfile = WOLF1-6.1
+    file[]: crc = cf75de05; size =   1172087; name = WOLF1-6.EXE
+end
+
+//
+// v1.4, ’94
+//
+game[v1.4-94]:
+    name = v1.4, ’94
+    imports = v1.4
+    file[]: crc = fbe11eb3; size =    110715; name = WOLF3D.EXE
+end
+
+//
+// v1.4, ’94, 1x1.44M, Installer
+//
+installer[v1.4-94-1x1.44m-installer]:
+    name = v1.4, ’94, 1x1.44M, Installer
+    installid = v1.4
+    mips = $(MIPS_MAX)
+    launch = INSTALL.EXE
+    anchorfile = W3D_1-6._1
+    file[]: crc = 774b749a; size =     34033; name = INSTALL.EXE
+    file[]: crc = 638c7343; size =   1391769; name = W3D_1-6._1
+end
+
+//
+// v1.4, ’95, CD
+//
+game[v1.4-95-cd]:
+    name = v1.4, ’95, CD
+    imports = v1.4-94
+    file[]: crc = aa22054e; size =      1024; name = VGADICT.WL6
+    file[]: crc = a4b1de1d; size =    275774; name = VGAGRAPH.WL6
+    file[]: crc = ab2b44d3; size =       450; name = VGAHEAD.WL6
+    file[]: crc = e610c664; size =   1544376; name = VSWAP.WL6
+    file[]: crc = fcdf5431; size =    109589; name = WOLF3D.EXE
+end
+
+//
+// v1.4, ’95, CD, Installer
+//
+installer[v1.4-95-cd-installer]:
+    name = v1.4, ’95, CD, Installer
+    installid = v1.4-95-cd
+    mips = $(MIPS_MAX)
+    launch = DREAMMGT.BAT
+    anchorfile = W3DGT.4    
+    file[]: crc = 3051a010; size =    332800; name = W3DGT.1
+    file[]: crc = e6d4fac2; size =    358400; name = W3DGT.2
+    file[]: crc = 8ab7a9cb; size =    358400; name = W3DGT.3
+    file[]: crc = f297e542; size =    124552; name = W3DGT.4
+end
+
+//
+// v1.4, ’98, CD
+//
+game[v1.4-98-cd]:
+    name = v1.4, ’98, CD
+    imports = v1.4-95-cd
+    file[]: crc = 6d818dbe; size =    108779; name = WOLF3D.EXE
+end
+
+end
