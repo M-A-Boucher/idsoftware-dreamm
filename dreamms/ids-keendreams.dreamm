@@ -1,9 +1,9 @@
 //
-// Commander Keen: Keen Dreams
+// Commander Keen in “Keen Dreams”
 //
 desc[ids-keendreams]:
 
-name = Commander Keen: Keen Dreams
+name = Commander Keen in “Keen Dreams”
 icon = ids-keendreams.png
 machine = pc
 osenv = dos

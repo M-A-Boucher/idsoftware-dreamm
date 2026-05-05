@@ -1,9 +1,9 @@
 //
-// Commander Keen: Invasion of the Vorticons
+// Commander Keen in “Invasion of the Vorticons”
 //
 desc[ids-keen123]:
 
-name = Commander Keen: Invasion of the Vorticons
+name = Commander Keen in “Invasion of the Vorticons”
 icon = ids-keen123.png
 machine = pc
 osenv = dos

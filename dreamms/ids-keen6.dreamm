@@ -1,9 +1,9 @@
 //
-// Commander Keen: Aliens Ate My Babysitter!
+// Commander Keen in “Aliens Ate My Babysitter!”
 //
 desc[ids-keen6]:
 
-name = Commander Keen: Aliens Ate My Babysitter!
+name = Commander Keen in “Aliens Ate My Babysitter!”
 icon = ids-keen6.png
 machine = pc
 osenv = dos

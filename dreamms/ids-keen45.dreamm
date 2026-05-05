@@ -1,14 +1,13 @@
 //
-// Commander Keen in "Goodbye Galaxy"
+// Commander Keen in “Goodbye Galaxy”
 //
 desc[ids-keen45]:
 
-name = Commander Keen in "Goodbye Galaxy"
+name = Commander Keen in “Goodbye Galaxy”
 icon = ids-keen45.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\KEEN4C.EXE
 mips = $(MIPS_386DX_33)
 ramkb = 4096
 filter = id software, action
