@@ -1,0 +1,83 @@
+//
+// Catacomb II
+//
+desc[ids-catacomb2]:
+
+name = Catacomb II
+icon = ids-catacomb2.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CATACOMB.EXE
+mips = 1
+ramkb = 1024
+filter = id software, softdisk, action
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[cga]:
+        name = $(CGA_NAME)
+        videohw = cga
+    end
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// Anthology?
+//
+game[anthology]:
+    name = Anthology?
+    anchorfile = CATACOMB.EXE
+    file[]: crc = b6863c6b; size =     33553; name = CATACOMB.EXE
+    file[]: crc = bf7581e2; size =     25888; name = CGACHARS.CA2
+    file[]: crc = 40c8c51d; size =     38096; name = CGAPICS.CA2
+    file[]: crc = f3cca9e9; size =       347; name = DEMO1.CA2
+    file[]: crc = 0a12c13c; size =     51776; name = EGACHARS.CA2
+    file[]: crc = 45084a4b; size =     75888; name = EGAPICS.CA2
+    file[]: crc = 37abedf3; size =      1465; name = LEVEL1.CA2
+    file[]: crc = 36b762ca; size =      1890; name = LEVEL2.CA2
+    file[]: crc = 8ab1a24a; size =      1608; name = LEVEL3.CA2
+    file[]: crc = c25772b9; size =      1205; name = LEVEL4.CA2
+    file[]: crc = a4dcbb04; size =      1312; name = LEVEL5.CA2
+    file[]: crc = 29eaff9f; size =      1565; name = LEVEL6.CA2
+    file[]: crc = cf2a9c0d; size =      2332; name = LEVEL7.CA2
+    file[]: crc = 2498a25a; size =      1212; name = LEVEL8.CA2
+    file[]: crc = a32f1c51; size =      1447; name = LEVEL9.CA2
+    file[]: crc = 5c42f3a6; size =      1605; name = LEVEL10.CA2
+    file[]: crc = 2ce54862; size =      1593; name = LEVEL11.CA2
+    file[]: crc = 53a2a577; size =      1176; name = LEVEL12.CA2
+    file[]: crc = 3a4ab58d; size =      2120; name = LEVEL13.CA2
+    file[]: crc = bd9badc6; size =       640; name = LEVEL14.CA2
+    file[]: crc = 1a15834a; size =      1536; name = LEVEL15.CA2
+    file[]: crc = cd8ce363; size =      1016; name = LEVEL16.CA2
+    file[]: crc = cee9b370; size =       913; name = LEVEL17.CA2
+    file[]: crc = 0bf773e8; size =      1242; name = LEVEL18.CA2
+    file[]: crc = 7997a251; size =      1379; name = LEVEL19.CA2
+    file[]: crc = aa226222; size =      1254; name = LEVEL20.CA2
+    file[]: crc = e10e9348; size =       974; name = LEVEL21.CA2
+    file[]: crc = e02cf1e1; size =       955; name = LEVEL22.CA2
+    file[]: crc = 6b86fd23; size =      1934; name = LEVEL23.CA2
+    file[]: crc = 0e7bf4cc; size =      1502; name = LEVEL24.CA2
+    file[]: crc = 55c61cb2; size =      1253; name = LEVEL25.CA2
+    file[]: crc = fb11255f; size =      1150; name = LEVEL26.CA2
+    file[]: crc = 33b26d9b; size =       961; name = LEVEL27.CA2
+    file[]: crc = 57789312; size =      1759; name = LEVEL28.CA2
+    file[]: crc = a095ad50; size =      1517; name = LEVEL29.CA2
+    file[]: crc = 7719b7d9; size =       897; name = LEVEL30.CA2
+    file[]: crc = 80dbec6a; size =      3796; name = SOUNDS.CA2
+end
+
+end

@@ -1,0 +1,106 @@
+//
+// Catacomb 3-D: The Abyss
+//
+desc[ids-catacomb3d-abyss]:
+
+name = Catacomb 3-D: The Abyss
+icon = ids-catacomb3d-abyss.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CATABYSS.EXE
+mips = $(MIPS_386SX_20)
+ramkb = 8192
+filter = id software, softdisk, fps
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// The Abyss
+//
+game[abyss]:
+    name = The Abyss
+    anchorfile = CATABYSS.EXE
+    file[]: crc = 5f0319db; size =     82479; name = ABYSGAME.EXE
+    file[]: crc = 66a11ac1; size =      7886; name = AQUDUCT.HNT
+    file[]: crc = 462d2eb2; size =      6904; name = AUDIO.ABS
+    file[]: crc = ee2082fe; size =     16606; name = CATABYSS.EXE
+    file[]: crc = f7b3f888; size =     10376; name = CEMETRY.HNT
+    file[]: crc = fa15017f; size =       474; name = CONFIG.ABS  ; optional = true
+    file[]: crc = c3fdd8a4; size =     13550; name = COVEN.HNT
+    file[]: crc = 46ca0a4b; size =     11233; name = CRYPT.HNT
+    file[]: crc = bea64562; size =     10520; name = DEN.HNT
+    file[]: crc = 33cc992a; size =     20580; name = DOCSHELL.EXE
+    file[]: crc = fd9995ad; size =    335994; name = EGAGRAPH.ABS
+    file[]: crc = 97ddb354; size =     20433; name = GAMEMAPS.ABS
+    file[]: crc = 8c2385b6; size =     11125; name = GARDEN.HNT
+    file[]: crc = 2b9ef944; size =      7743; name = HAUNT.HNT
+    file[]: crc = 2bd569ac; size =     16328; name = HINTCAT.EXE
+    file[]: crc = 4fa00485; size =      9751; name = HINTGO1.HNT
+    file[]: crc = 6640c7b6; size =      9902; name = HINTGO2.HNT
+    file[]: crc = 8e743b2c; size =      8372; name = HINTGO3.HNT
+    file[]: crc = 9d59623a; size =     11658; name = INFERNO.HNT
+    file[]: crc = 70655f30; size =     11305; name = MAUSGND.HNT
+    file[]: crc = ee9b8745; size =     12075; name = MAUSOL.HNT
+    file[]: crc = ec01659d; size =       159; name = MENU.SHL
+    file[]: crc = 35502713; size =     12664; name = ORCMINE.HNT
+    file[]: crc = 126e01a5; size =     10159; name = PASSAGE.HNT
+    file[]: crc = 16c785e6; size =     12030; name = SANCTUM.HNT
+    file[]: crc = 985da39a; size =       155; name = SCRIPT.HNT
+    file[]: crc = e04a6d1e; size =      1376; name = SHP01.ABS
+    file[]: crc = ffc72620; size =     14912; name = SHP02.ABS
+    file[]: crc = 7b73bb7b; size =     13186; name = SHP03.ABS
+    file[]: crc = 3bd5ccbc; size =     12648; name = SHP04.ABS
+    file[]: crc = 857573eb; size =       724; name = SHP05.ABS
+    file[]: crc = 86ce4004; size =      9182; name = SHP06.ABS
+    file[]: crc = 6a22743f; size =      9930; name = SHP07.ABS
+    file[]: crc = 99404417; size =       398; name = SHP08.ABS
+    file[]: crc = 201133a8; size =       417; name = SHP09.ABS
+    file[]: crc = aa51f92a; size =       329; name = SHP10.ABS
+    file[]: crc = 08ee65f4; size =     10328; name = SHP11.ABS
+    file[]: crc = beb87fbd; size =      1652; name = SHP12.ABS
+    file[]: crc = fb4d589d; size =     12110; name = SUBVALT.HNT
+    file[]: crc = d491ac71; size =      9821; name = TITANS.HNT
+    file[]: crc = 68a6a6e9; size =     13409; name = TROLLS.HNT
+    file[]: crc = b2a16e89; size =      7301; name = VICTORY.HNT
+end
+
+end

@@ -1,0 +1,108 @@
+//
+// Catacomb 3-D: Armageddon
+//
+desc[ids-catacomb3d-arma]:
+
+name = Catacomb 3-D: Armageddon
+icon = ids-catacomb3d-arma.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CATARM.EXE
+mips = $(MIPS_386SX_20)
+ramkb = 8192
+filter = id software, softdisk, fps
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// Armageddon
+//
+game[armageddon]:
+    name = Armageddon
+    anchorfile = CATARM.EXE
+    file[]: crc = 46df909b; size =     50288; name = ARM_SLIB.ARM
+    file[]: crc = 7bf5e3d5; size =     82198; name = ARMGAME.EXE
+    file[]: crc = b6c28bc7; size =      7104; name = AUDIO.ARM
+    file[]: crc = 5e40ecaf; size =     16749; name = CATARM.EXE
+    file[]: crc = 4db59d45; size =       474; name = CONFIG.ARM  ; optional = true
+    file[]: crc = 1a2edcbb; size =     20714; name = DOCSHELL.EXE
+    file[]: crc = 8eea3210; size =    355832; name = EGAGRAPH.ARM
+    file[]: crc = 787794bf; size =     17653; name = GAMEMAPS.ARM
+    file[]: crc = b6ecee18; size =      9664; name = HINT01.HNT
+    file[]: crc = a01e9cba; size =      9833; name = HINT02.HNT
+    file[]: crc = a8857173; size =     12060; name = HINT03.HNT
+    file[]: crc = 60866c28; size =     10438; name = HINT04.HNT
+    file[]: crc = 0973da05; size =     11555; name = HINT05.HNT
+    file[]: crc = 1e5089d5; size =     10339; name = HINT06.HNT
+    file[]: crc = 0bc7121d; size =     12888; name = HINT07.HNT
+    file[]: crc = 0b33d707; size =     10400; name = HINT08.HNT
+    file[]: crc = 4f787690; size =     10754; name = HINT09.HNT
+    file[]: crc = bddb06e5; size =     10262; name = HINT10.HNT
+    file[]: crc = 47104911; size =     12006; name = HINT11.HNT
+    file[]: crc = 340d8383; size =     12757; name = HINT12.HNT
+    file[]: crc = e2e1890f; size =     11662; name = HINT13.HNT
+    file[]: crc = 74bbe8c7; size =      9271; name = HINT14.HNT
+    file[]: crc = 8e842f18; size =     11624; name = HINT15.HNT
+    file[]: crc = ffccf406; size =     12067; name = HINT16.HNT
+    file[]: crc = f24371ec; size =     12342; name = HINT17.HNT
+    file[]: crc = 18567f5d; size =      8896; name = HINT18.HNT
+    file[]: crc = db5b1b65; size =      9308; name = HINT19.HNT
+    file[]: crc = b2a16e89; size =      7301; name = HINT20.HNT
+    file[]: crc = 79cc6ee3; size =     15973; name = HINTCAT.EXE
+    file[]: crc = 79a7f746; size =        90; name = SCRIPT.HNT
+    file[]: crc = e04a6d1e; size =      1376; name = SHP1.ARM
+    file[]: crc = 6a22743f; size =      9930; name = SHP10.ARM
+    file[]: crc = 99404417; size =       398; name = SHP11.ARM
+    file[]: crc = 201133a8; size =       417; name = SHP12.ARM
+    file[]: crc = aa51f92a; size =       329; name = SHP13.ARM
+    file[]: crc = 98e0af99; size =      1688; name = SHP14.ARM
+    file[]: crc = 1b4bb85b; size =      3991; name = SHP2.ARM
+    file[]: crc = e7c6a5a3; size =     15036; name = SHP3.ARM
+    file[]: crc = 9fa3faee; size =     15568; name = SHP4.ARM
+    file[]: crc = 3f90b11d; size =     13234; name = SHP5.ARM
+    file[]: crc = 42faf6e5; size =     10861; name = SHP6.ARM
+    file[]: crc = 1a969278; size =      9414; name = SHP7.ARM
+    file[]: crc = 086438f0; size =       749; name = SHP8.ARM
+    file[]: crc = 86ce4004; size =      9182; name = SHP9.ARM
+end
+
+end

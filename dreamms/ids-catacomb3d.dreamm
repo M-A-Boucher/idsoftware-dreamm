@@ -1,9 +1,9 @@
 //
-// Catacomb 3D
+// Catacomb 3-D
 //
 desc[ids-catacomb3d]:
 
-name = Catacomb 3D
+name = Catacomb 3-D
 icon = ids-catacomb3d.png
 machine = pc
 osenv = dos
@@ -64,6 +64,19 @@ game[1x1.2m]:
     file[]: crc = e20992c7; size =     78483; name = CAT3D.OLZ
     file[]: crc = 7b756d01; size =    258007; name = EGAGRAPH.C3D
     file[]: crc = 1d8d501e; size =     14288; name = GAMEMAPS.C3D
+end
+
+//
+// The Descent
+//
+game[descent]:
+    name = The Descent
+    anchorfile = CAT3D.EXE
+    file[]: crc = 074f7525; size =      5062; name = AUDIO.C3D
+    file[]: crc = faa27410; size =     78285; name = CAT3D.EXE
+    file[]: crc = 0e241800; size =       474; name = CONFIG.C3D
+    file[]: crc = bc122f40; size =    256899; name = EGAGRAPH.C3D
+    file[]: crc = 1ecb107b; size =     14288; name = GAMEMAPS.C3D
 end
 
 end

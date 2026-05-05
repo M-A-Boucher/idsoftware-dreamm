@@ -1,0 +1,108 @@
+//
+// Catacomb 3-D: Apocalypse
+//
+desc[ids-catacomb3d-apoc]:
+
+name = Catacomb 3-D: Apocalypse
+icon = ids-catacomb3d-apoc.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CAT3D.EXE
+mips = $(MIPS_386SX_20)
+ramkb = 8192
+filter = id software, softdisk, fps
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// Apocalypse
+//
+game[apocalypse]:
+    name = Apocalypse
+    launch = CATAPOC.EXE
+    anchorfile = CATAPOC.EXE
+    file[]: crc = 48ca6808; size =     82386; name = APOCGAME.EXE
+    file[]: crc = 23934cec; size =      7366; name = AUDIO.APC
+    file[]: crc = f517500e; size =     16710; name = CATAPOC.EXE
+    file[]: crc = 8e280785; size =       474; name = CONFIG.APC  ; optional = true
+    file[]: crc = 1a2edcbb; size =     20714; name = DOCSHELL.EXE
+    file[]: crc = 291893c3; size =    382078; name = EGAGRAPH.APC
+    file[]: crc = d317b2c9; size =     18855; name = GAMEMAPS.APC
+    file[]: crc = 1641c8f0; size =      9664; name = HINT01.HNT
+    file[]: crc = 0d319717; size =      9823; name = HINT02.HNT
+    file[]: crc = 994d94cd; size =     10822; name = HINT03.HNT
+    file[]: crc = e754554f; size =     11654; name = HINT04.HNT
+    file[]: crc = fd819cab; size =      8021; name = HINT05.HNT
+    file[]: crc = 13f601ce; size =      9839; name = HINT06.HNT
+    file[]: crc = a049c277; size =     10314; name = HINT07.HNT
+    file[]: crc = a5990371; size =      9616; name = HINT08.HNT
+    file[]: crc = 61e1681e; size =      9074; name = HINT09.HNT
+    file[]: crc = 38ae11c9; size =      9744; name = HINT10.HNT
+    file[]: crc = 7c233efa; size =     14563; name = HINT11.HNT
+    file[]: crc = 714bd15a; size =      9261; name = HINT12.HNT
+    file[]: crc = ebf72992; size =     10056; name = HINT13.HNT
+    file[]: crc = 5039141c; size =      6552; name = HINT14.HNT
+    file[]: crc = 60fd9f81; size =     10738; name = HINT15.HNT
+    file[]: crc = cace81b8; size =      8302; name = HINT16.HNT
+    file[]: crc = 00783edb; size =      8348; name = HINT17.HNT
+    file[]: crc = 04e56bbe; size =      9990; name = HINT18.HNT
+    file[]: crc = b2a16e89; size =      7301; name = HINT19.HNT
+    file[]: crc = fefa177c; size =     16215; name = HINTCAT.EXE
+    file[]: crc = a6f8d33d; size =       164; name = MENU.SHL
+    file[]: crc = 8dd529b2; size =        88; name = SCRIPT.HNT
+    file[]: crc = e04a6d1e; size =      1376; name = SHP1.APC
+    file[]: crc = 6a22743f; size =      9930; name = SHP10.APC
+    file[]: crc = 99404417; size =       398; name = SHP11.APC
+    file[]: crc = 201133a8; size =       417; name = SHP12.APC
+    file[]: crc = aa51f92a; size =       329; name = SHP13.APC
+    file[]: crc = a4a8e44e; size =      1668; name = SHP14.APC
+    file[]: crc = ff48bc57; size =      6329; name = SHP2.APC
+    file[]: crc = 5800b7f5; size =     13187; name = SHP3.APC
+    file[]: crc = 1c498a90; size =     13592; name = SHP4.APC
+    file[]: crc = f2fa1802; size =     12698; name = SHP5.APC
+    file[]: crc = 110da23b; size =     11131; name = SHP6.APC
+    file[]: crc = 9ec74514; size =     13266; name = SHP7.APC
+    file[]: crc = 864e6d0c; size =       640; name = SHP8.APC
+    file[]: crc = 86ce4004; size =      9182; name = SHP9.APC
+end
+
+end
