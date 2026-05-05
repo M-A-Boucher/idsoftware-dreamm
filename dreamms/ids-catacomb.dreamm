@@ -1,0 +1,61 @@
+//
+// Catacomb
+//
+desc[ids-catacomb]:
+
+name = Catacomb
+icon = ids-catacomb.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CATACOMB.EXE
+mips = 1
+nothrottle = 5
+ramkb = 1024
+filter = id software, softdisk, action
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[cga]:
+        name = $(CGA_NAME)
+        videohw = cga
+    end
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// 1x320K
+//
+game[1x320k]:
+    name = 1x320K
+    anchorfile = CATACOMB.EXE
+    file[]: crc = 77e99889; size =     69078; name = CATACOMB.EXE
+    file[]: crc = 56e837ba; size =      3001; name = DEMO.CAT
+    file[]: crc = 821e1a90; size =       943; name = LEVEL1.CAT
+    file[]: crc = c10c6000; size =      1421; name = LEVEL2.CAT
+    file[]: crc = 2d229dcc; size =      1464; name = LEVEL3.CAT
+    file[]: crc = dcbe33e7; size =      1852; name = LEVEL4.CAT
+    file[]: crc = ce4af1c5; size =      1516; name = LEVEL5.CAT
+    file[]: crc = e082ba0e; size =      2170; name = LEVEL6.CAT
+    file[]: crc = 47af8d0c; size =      2369; name = LEVEL7.CAT
+    file[]: crc = 90843ebb; size =      2228; name = LEVEL8.CAT
+    file[]: crc = da665d7e; size =      2350; name = LEVEL9.CAT
+    file[]: crc = be3114b2; size =      1829; name = LEVEL10.CAT
+    file[]: crc = 832dcac8; size =      3796; name = SOUNDS.CAT
+    file[]: crc = 9999bdb2; size =        45; name = TOPSCORS.CAT
+end
+
+end

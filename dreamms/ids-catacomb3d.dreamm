@@ -1,0 +1,69 @@
+//
+// Catacomb 3D
+//
+desc[ids-catacomb3d]:
+
+name = Catacomb 3D
+icon = ids-catacomb3d.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\CAT3D.EXE
+mips = $(MIPS_386SX_20)
+ramkb = 8192
+filter = id software, softdisk, fps
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// 1x1.2M
+//
+game[1x1.2m]:
+    name = 1x1.2M
+    anchorfile = CAT3D.EXE
+    file[]: crc = 074f7525; size =      5062; name = AUDIO.C3D
+    file[]: crc = 7fbfcc13; size =    191536; name = CAT3D.EXE
+    file[]: crc = e20992c7; size =     78483; name = CAT3D.OLZ
+    file[]: crc = 7b756d01; size =    258007; name = EGAGRAPH.C3D
+    file[]: crc = 1d8d501e; size =     14288; name = GAMEMAPS.C3D
+end
+
+end
