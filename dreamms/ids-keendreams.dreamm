@@ -1,10 +1,10 @@
 //
 // Commander Keen: Keen Dreams
 //
-desc[ids-keen3.5]:
+desc[ids-keendreams]:
 
 name = Commander Keen: Keen Dreams
-icon = ids-keen3.5.png
+icon = ids-keendreams.png
 machine = pc
 osenv = dos
 rootpath = C:\
@@ -41,14 +41,11 @@ mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
 game[dreamms]:
     name = Keen Dreams
     anchorfile = KDREAMS.EXE
-    file[]: crc = 1a2edcbb; size =     20714; name = DOCSHELL.EXE; optional = true
     file[]: crc = 80ac85e5; size =      3498; name = KDREAMS.AUD
     file[]: crc = 1681bc21; size =     14620; name = KDREAMS.CMP
     file[]: crc = 2dc94687; size =    213045; name = KDREAMS.EGA
     file[]: crc = 3d0cd9ed; size =     80715; name = KDREAMS.EXE
     file[]: crc = 78bd24fc; size =     65674; name = KDREAMS.MAP
-    file[]: crc = 7be7013b; size =       195; name = MENU.SHL   ; optional = true
-    file[]: crc = 87440ebb; size =       164; name = START.BAT
 end
 
 end
