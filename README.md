@@ -9,3 +9,7 @@ Alternatively:
 
 3. Click on **View DREAMMPack Folder**.
 4. Copy the idsoftware.dreammpack file to this folder, close and relaunch DREAMM.
+
+# Other .dreammpacks
+- 3DRealms/Apogee: https://github.com/M-A-Boucher/3drealms-dreamm
+- Sierra: https://github.com/M-A-Boucher/sierra-dreamm
