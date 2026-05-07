@@ -1,0 +1,34 @@
+//
+// Dangerous Dave
+//
+desc[ids-dave1]:
+
+name = Dangerous Dave
+icon = ids-dave1.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\DAVE.EXE
+mips = 3
+ramkb = 1024
+filter = id software, action
+audiohw = speaker
+videohw = ega
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = EGADAVE.DAV
+    file[]: crc = 538c30dc; size =     76586; name = DAVE.EXE
+    file[]: crc = b14126a5; size =     86332; name = EGADAVE.DAV
+end
+
+end

@@ -1,0 +1,79 @@
+//
+// Dangerous Dave in The Haunted Mansion
+//
+desc[ids-dave2]:
+
+name = Dangerous Dave in The Haunted Mansion
+icon = ids-dave2.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\MANSION.EXE
+mips = 3
+ramkb = 1024
+filter = id software, action
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = LEVEL08.DD2
+    file[]: crc = edc28269; size =        14; name = CTLPANEL.DD2
+    file[]: crc = 791cabdc; size =    109824; name = EGATILES.DD2
+    file[]: crc = b353d8f2; size =      3525; name = INTRO.DD2
+    file[]: crc = 7f720115; size =      2874; name = LEVEL01.DD2
+    file[]: crc = 62fb826e; size =      5532; name = LEVEL02.DD2
+    file[]: crc = a1f381c9; size =      9268; name = LEVEL03.DD2
+    file[]: crc = d496b691; size =       616; name = LEVEL04.DD2
+    file[]: crc = 3864b4a7; size =      9354; name = LEVEL05.DD2
+    file[]: crc = f2f7caf5; size =      5248; name = LEVEL06.DD2
+    file[]: crc = 8b461d73; size =      9156; name = LEVEL07.DD2
+    file[]: crc = c024a664; size =      1622; name = LEVEL08.DD2
+    file[]: crc = 1bb35bee; size =     84222; name = MANSION.EXE
+    file[]: crc = 1e7c845d; size =     10211; name = PROGPIC.DD2
+    file[]: crc = f8e411f3; size =      9844; name = S_CHUNK1.DD2
+    file[]: crc = aec1fd88; size =      9125; name = S_CHUNK2.DD2
+    file[]: crc = b8370ac2; size =     14546; name = S_DAVE.DD2
+    file[]: crc = 96080ee3; size =      8004; name = S_FRANK.DD2
+    file[]: crc = 44553fa0; size =     10420; name = S_MASTER.DD2
+    file[]: crc = 638da54f; size =      6550; name = STARPIC.DD2
+    file[]: crc = 2213ce8d; size =     32008; name = TITLE1.DD2
+    file[]: crc = fbae3cb1; size =     32008; name = TITLE2.DD2
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = v1.0
+    mips = $(MIPS_MAX)
+    launch = DAVEINST.EXE
+    anchorfile = DAVE.EXE
+    file[]: crc = 55363b79; size =    218286; name = DAVEINST.EXE
+end
+
+end

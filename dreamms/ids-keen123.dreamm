@@ -9,7 +9,7 @@ machine = pc
 osenv = dos
 rootpath = C:\
 mips = $(MIPS_386SX_20)
-nothrottle = 2
+nothrottle = 8
 ramkb = 1024
 filter = id software, action
 audiohw = adlib
@@ -176,6 +176,15 @@ installer[2x360k-installer]:
     anchorfile = KEEN123.2
     file[]: crc = e08f817c; size =    291840; name = KEEN123.1
     file[]: crc = 3547802a; size =    139771; name = KEEN123.2
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    imports = 1x720k-installer
+    file[]: crc = 2c1e4e09; size =    434222; name = KEEN123.EXE
 end
 
 end

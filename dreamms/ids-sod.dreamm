@@ -116,4 +116,16 @@ game[v1.4-super-cd]:
     file[]: crc = cf0c6e6d; size =   1616544; name = VSWAP.SOD
 end
 
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = v1.4-cd
+    mips = $(MIPS_MAX)
+    launch = SPEARINS.EXE
+    anchorfile = SPEAR.EXE
+    file[]: crc = 96cf04f9; size =   1676413; name = SPEARINS.EXE
+end
+
 end

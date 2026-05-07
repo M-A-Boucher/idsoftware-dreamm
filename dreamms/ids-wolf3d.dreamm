@@ -24,11 +24,11 @@ config[sound]:
         audiohw = speaker
     end
     option[adlib]:
-        name = $(ADLIB_NAME)
+        name = $(ADLIB_NAME); priority = 1
         audiohw = adlib
     end
     option[sb16]:
-        name = $(SB16_NAME); priority = 1
+        name = $(SB16_NAME)
         audiohw = sb16
     end
 end
@@ -194,6 +194,18 @@ game[v1.4-98-cd]:
     name = v1.4, ’98, CD
     imports = v1.4-95-cd
     file[]: crc = 6d818dbe; size =    108779; name = WOLF3D.EXE
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = v1.4
+    mips = $(MIPS_MAX)
+    launch = WOLF3DIN.EXE
+    anchorfile = WOLF3D.EXE
+    file[]: crc = 13321366; size =   1174204; name = WOLF3DIN.EXE
 end
 
 end

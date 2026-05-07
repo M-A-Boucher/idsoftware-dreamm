@@ -1,0 +1,82 @@
+//
+// Shadow Knights
+//
+desc[ids-shadow]:
+
+name = Shadow Knights
+icon = ids-shadow.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\SHADOW.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+filter = id software, soft disk, action
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// Shadow Knights
+//
+game[shadow]:
+    name = Shadow Knights
+    anchorfile = SHADOW.EXE
+    file[]: crc = e9248e03; size =        42; name = CTLPANEL.NIN
+    file[]: crc = 39ec663a; size =     23104; name = EGAHEAD.NIN
+    file[]: crc = 6145ae0d; size =      1088; name = EGAPLANE.NIN
+    file[]: crc = a7077ea2; size =    124800; name = EGATILES.NIN
+    file[]: crc = 54f7388d; size =     20219; name = ENDPIC.NIN
+    file[]: crc = c35fc7a0; size =      2398; name = LEVEL01.NIN
+    file[]: crc = 5f151c23; size =      8292; name = LEVEL03.NIN
+    file[]: crc = f3e051af; size =      3236; name = LEVEL04.NIN
+    file[]: crc = 394c4551; size =       576; name = LEVEL05.NIN
+    file[]: crc = 9bb05479; size =      9892; name = LEVEL06.NIN
+    file[]: crc = 05c4ad2b; size =      4830; name = LEVEL07.NIN
+    file[]: crc = e798e2ba; size =      9652; name = LEVEL08.NIN
+    file[]: crc = a165e377; size =       644; name = LEVEL09.NIN
+    file[]: crc = e46af2e2; size =       752; name = LEVEL80.NIN
+    file[]: crc = 70305cbb; size =      2926; name = LEVEL81.NIN
+    file[]: crc = b0a99dd4; size =      3846; name = S_ARCHER.NIN
+    file[]: crc = e342172e; size =       900; name = S_BATS.NIN
+    file[]: crc = 0fa5b629; size =     18183; name = S_DEMON.NIN
+    file[]: crc = 7a6c5fcb; size =      1360; name = S_DOGS.NIN
+    file[]: crc = d57edb07; size =      8781; name = S_DRAGON.NIN
+    file[]: crc = d364cc74; size =     15165; name = S_NINJA.NIN
+    file[]: crc = 573200f0; size =     10922; name = S_SKEL.NIN
+    file[]: crc = caa30ba0; size =      5955; name = S_THUG.NIN
+    file[]: crc = d6adabc8; size =     44871; name = SHADOW.EXE
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = shadow
+    mips = $(MIPS_MAX)
+    launch = SHADOWIN.EXE
+    anchorfile = SHADOW.EXE
+    file[]: crc = 5828eff9; size =    160400; name = SHADOWIN.EXE
+end
+
+end

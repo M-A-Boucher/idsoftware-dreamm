@@ -1,0 +1,106 @@
+//
+// Rescue Rover
+//
+desc[ids-rover1]:
+
+name = Rescue Rover
+icon = ids-rover1.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\ROVER.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+filter = id software, soft disk, puzzle
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// Rover
+//
+game[rover]:
+    name = Rover
+    launch = ROVER.EXE
+    anchorfile = ROVER.EXE
+    file[]: crc = 8bdbd897; size =        42; name = CTLPANEL.ROV
+    file[]: crc = cd1cff7d; size =     12288; name = EGABTILE.ROV
+    file[]: crc = d41d97e4; size =      3130; name = EGAFONT0.ROV
+    file[]: crc = 54870ba3; size =     15664; name = EGAHEAD.ROV
+    file[]: crc = 94ce2eba; size =     24896; name = EGAPLANE.ROV
+    file[]: crc = 89e3ac2b; size =      3072; name = EGATILES.ROV
+    file[]: crc = 40d76d46; size =      5049; name = ENDPIC.ROV
+    file[]: crc = c8ef3057; size =       380; name = LEVEL01.ROV
+    file[]: crc = 700faa16; size =       282; name = LEVEL02.ROV
+    file[]: crc = 1fa24e43; size =       374; name = LEVEL03.ROV
+    file[]: crc = 5ff42e5c; size =       500; name = LEVEL04.ROV
+    file[]: crc = f4956a45; size =       360; name = LEVEL05.ROV
+    file[]: crc = 9c2c8656; size =       268; name = LEVEL06.ROV
+    file[]: crc = 9e2da8b2; size =       380; name = LEVEL07.ROV
+    file[]: crc = 366429b6; size =       728; name = LEVEL08.ROV
+    file[]: crc = 68b646d2; size =       670; name = LEVEL09.ROV
+    file[]: crc = 7ba3f4b1; size =       652; name = LEVEL10.ROV
+    file[]: crc = ffb1b6e0; size =       340; name = LEVEL11.ROV
+    file[]: crc = fd8df5b1; size =       262; name = LEVEL12.ROV
+    file[]: crc = 784f85f7; size =      1790; name = LEVEL13.ROV
+    file[]: crc = 059a323b; size =       774; name = LEVEL14.ROV
+    file[]: crc = 6f84f2cf; size =       386; name = LEVEL15.ROV
+    file[]: crc = cf5484d7; size =       320; name = LEVEL16.ROV
+    file[]: crc = 9380471e; size =       410; name = LEVEL17.ROV
+    file[]: crc = baed03f8; size =       808; name = LEVEL18.ROV
+    file[]: crc = e3074458; size =       436; name = LEVEL19.ROV
+    file[]: crc = 318810aa; size =       444; name = LEVEL20.ROV
+    file[]: crc = 98e947ef; size =       570; name = LEVEL21.ROV
+    file[]: crc = 83468374; size =       368; name = LEVEL22.ROV
+    file[]: crc = 5ef33bc0; size =       718; name = LEVEL23.ROV
+    file[]: crc = 1a695a99; size =       564; name = LEVEL24.ROV
+    file[]: crc = 8383aa37; size =      1082; name = LEVEL25.ROV
+    file[]: crc = 04ef4388; size =       788; name = LEVEL26.ROV
+    file[]: crc = ee5c197f; size =       340; name = LEVEL27.ROV
+    file[]: crc = c0e339d7; size =       672; name = LEVEL28.ROV
+    file[]: crc = fc5d7bbb; size =      1356; name = LEVEL29.ROV
+    file[]: crc = a38360ea; size =       976; name = LEVEL30.ROV
+    file[]: crc = a404c347; size =     20054; name = MENUPIC.ROV
+    file[]: crc = 22c56e3a; size =     11755; name = ROOMPIC.ROV
+    file[]: crc = 8647bc80; size =     35207; name = ROVER.EXE
+    file[]: crc = e02ab07e; size =     22350; name = S_DEMO.ROV
+    file[]: crc = aede50e6; size =     41955; name = S_PLAY.ROV
+    file[]: crc = 0e382af6; size =        60; name = SAVEGAME.ROV
+    file[]: crc = 4b036d0c; size =      4043; name = SOFTPIC.ROV
+    file[]: crc = d2a88f9a; size =      2554; name = SOUNDS.ROV
+    file[]: crc = 1bea7cc8; size =        73; name = TILEINFO.ROV
+    file[]: crc = 29605192; size =     22741; name = TITLEPIC.ROV
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = rover
+    mips = $(MIPS_MAX)
+    launch = ROVER1.EXE
+    anchorfile = ROVER1.EXE
+    file[]: crc = a219e4a3; size =    143662; name = ROVER1.EXE
+end
+
+end

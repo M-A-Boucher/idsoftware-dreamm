@@ -1,0 +1,84 @@
+//
+// Hovertank 3-D
+//
+desc[ids-hovertank3d]:
+
+name = Hovertank 3-D
+icon = ids-hovertank3d.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\HOVER.EXE
+mips = $(MIPS_486DX_33)
+ramkb = 4096
+filter = id software, action
+audiohw = adlib
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    launch = HOVER.EXE
+    anchorfile = HOVER.EXE
+    file[]: crc = 6c6ba319; size =    103704; name = DSOUND.HOV
+    file[]: crc = ac59130c; size =    125054; name = EGAGRAPH.HOV
+    file[]: crc = 6be8ce63; size =      1378; name = EGAHEAD.HOV
+    file[]: crc = 1fb3e4fa; size =     55228; name = HOVER.EXE
+    file[]: crc = eae5dc12; size =       930; name = LEVEL01.HOV
+    file[]: crc = cb3ae1f9; size =       750; name = LEVEL02.HOV
+    file[]: crc = 76045015; size =      1478; name = LEVEL03.HOV
+    file[]: crc = cb0c48ce; size =      1090; name = LEVEL04.HOV
+    file[]: crc = 05d79f25; size =      2250; name = LEVEL05.HOV
+    file[]: crc = 390f7d67; size =      2620; name = LEVEL06.HOV
+    file[]: crc = d7348b59; size =      1414; name = LEVEL07.HOV
+    file[]: crc = a8eab9dd; size =      1368; name = LEVEL08.HOV
+    file[]: crc = 6516ab1f; size =      1678; name = LEVEL09.HOV
+    file[]: crc = a703747a; size =      3262; name = LEVEL10.HOV
+    file[]: crc = 4b64ed3c; size =      2208; name = LEVEL11.HOV
+    file[]: crc = c1a6d863; size =      2252; name = LEVEL12.HOV
+    file[]: crc = d882337d; size =      1688; name = LEVEL13.HOV
+    file[]: crc = 2aadea8c; size =      2144; name = LEVEL14.HOV
+    file[]: crc = 4b3dc0d3; size =      3244; name = LEVEL15.HOV
+    file[]: crc = ac787b29; size =      2848; name = LEVEL16.HOV
+    file[]: crc = 19b24915; size =      2438; name = LEVEL17.HOV
+    file[]: crc = d2c42609; size =      1418; name = LEVEL18.HOV
+    file[]: crc = e7fe7986; size =      3934; name = LEVEL19.HOV
+    file[]: crc = a7507f68; size =      5204; name = LEVEL20.HOV
+    file[]: crc = e4b6ec7b; size =      5834; name = SOUNDS.HOV
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = v1.0
+    mips = $(MIPS_MAX)
+    launch = HOVERINS.EXE
+    anchorfile = HOVER.EXE
+    file[]: crc = f28ba1bd; size =    269123; name = HOVERINS.EXE
+end
+
+end

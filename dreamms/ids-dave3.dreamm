@@ -1,0 +1,83 @@
+//
+// Dangerous Dave - Episode 1: Dave’s Risky Rescue
+//
+desc[ids-ddave3]:
+
+name = Dangerous Dave’s Risky Rescue
+icon = ids-ddave3.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\DAVE.EXE
+mips = $(MIPS_386DX_33)
+nothrottle = 6
+ramkb = 4096
+filter = id software, action
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = DAVE.EXE
+    file[]: crc = 358bd453; size =      1172; name = AUDIO.DAV
+    file[]: crc = 49a815ea; size =     81920; name = DAVE.EXE
+    file[]: crc = 5b7d1f75; size =     25657; name = DIGSND.DAV
+    file[]: crc = 53b66c08; size =    299238; name = EGAGRAPH.DAV
+    file[]: crc = f4c854f6; size =     60645; name = GAMEMAPS.DAV
+    file[]: crc = 06d94eca; size =     51658; name = GFX_LIB.DAV
+end
+
+//
+// GOG
+//
+game[gog]:
+    name = GOG
+    imports = v1.0
+    file[]: crc = 0098c6b6; size =     82227; name = DAVE.EXE
+    file[]: crc = f1fbfbbe; size =    298962; name = EGAGRAPH.DAV
+    file[]: crc = 8f229dec; size =     43463; name = GFX_LIB.DAV
+
+end
+
+end

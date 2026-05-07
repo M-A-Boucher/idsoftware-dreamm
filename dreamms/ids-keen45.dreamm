@@ -8,6 +8,7 @@ icon = ids-keen45.png
 machine = pc
 osenv = dos
 rootpath = C:\
+launch = $(rootpath)\KEEN4C.EXE
 mips = $(MIPS_386DX_33)
 ramkb = 4096
 filter = id software, action
@@ -96,7 +97,6 @@ mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
 //
 game[v1.4-ega]:
     name = v1.4, EGA
-    videohw = vga
     anchorfile = KEEN4E.EXE
     anchordepth = 1
     file[]: crc = 4ac87d4a; size =     33325; name = AUDIO.CK4
@@ -161,6 +161,62 @@ installer[1x1.44m-cga-installer]:
     launch = KEEN45C.EXE
     anchorfile = KEEN45C.EXE
     file[]: crc = 054315d5; size =    932577; name = KEEN45C.EXE
+end
+
+//
+// v1.4, Episode 4
+//
+game[v1.4-keen4]:
+    name = v1.4, Episode 4
+    launch = KEEN4.EXE
+    videohw = ega
+    audiohw = adlib
+    anchorfile = KEEN4.EXE
+    file[]: crc = 4ac87d4a; size =     33325; name = AUDIO.CK4
+    file[]: crc = b1dfde29; size =       557; name = CONFIG.CK4
+    file[]: crc = 7c6dd7c5; size =    513074; name = EGAGRAPH.CK4
+    file[]: crc = e553f51f; size =     99040; name = GAMEMAPS.CK4
+    file[]: crc = 0a05442e; size =    106178; name = KEEN4.EXE
+end
+
+//
+// Anthology, Episode 4, Installer
+//
+installer[anthology-keen4-installer]:
+    name = Anthology, Episode 4, Installer
+    installid = v1.4-keen4
+    mips = $(MIPS_MAX)
+    launch = KEEN4INS.EXE
+    anchorfile = KEEN4.EXE
+    file[]: crc = 57684583; size =    591825; name = KEEN4INS.EXE
+end
+
+//
+// v1.4, Episode 5
+//
+game[v1.4-keen5]:
+    name = v1.4, Episode 5
+    launch = KEEN5.EXE
+    videohw = ega
+    audiohw = adlib
+    anchorfile = KEEN5.EXE
+    file[]: crc = 23ba4ead; size =    101990; name = AUDIO.CK5
+    file[]: crc = 3c732389; size =       557; name = CONFIG.CK5
+    file[]: crc = fcaa1f45; size =    572916; name = EGAGRAPH.CK5
+    file[]: crc = d2813c06; size =     73736; name = GAMEMAPS.CK5
+    file[]: crc = 5e450b12; size =    107611; name = KEEN5.EXE
+end
+
+//
+// Anthology, Episode 5, Installer
+//
+installer[anthology-keen5-installer]:
+    name = Anthology, Episode 5, Installer
+    installid = v1.4-keen5
+    mips = $(MIPS_MAX)
+    launch = KEEN5INS.EXE
+    anchorfile = KEEN5.EXE
+    file[]: crc = 00e51033; size =    641949; name = KEEN5INS.EXE
 end
 
 end

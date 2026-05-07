@@ -224,4 +224,16 @@ installer[v1.5-3x720k-ega-installer]:
     file[]: crc = 6c8f46da; size =     47354; name = CK6-4.EXE
 end
 
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = v1.5-ega
+    mips = $(MIPS_MAX)
+    launch = KEEN6INS.EXE
+    anchorfile = KEEN6.EXE
+    file[]: crc = 28fecb3f; size =    731419; name = KEEN6INS.EXE
+end
+
 end

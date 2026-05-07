@@ -1,0 +1,81 @@
+//
+// Rescue Rover II
+//
+desc[ids-rover2]:
+
+name = Rescue Rover II
+icon = ids-rover2.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\ROVER2.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+filter = id software, soft disk, puzzle
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// Rover 2
+//
+game[rover2]:
+    name = Rover 2
+    anchorfile = ROVER2.EXE
+    file[]: crc = d2a26cbf; size =      3142; name = AUDIO.RR2
+    file[]: crc = 0ac3d1fd; size =       528; name = CONFIG.RR2
+    file[]: crc = 39845f1e; size =      1269; name = CONTEXT.RR2
+    file[]: crc = 4b6dd251; size =    211509; name = EGAGRAPH.RR2
+    file[]: crc = dbfa941f; size =     24704; name = GAMEMAPS.RR2
+    file[]: crc = 665a1bb7; size =       469; name = GAMETEXT.RR2
+    file[]: crc = 622f13f6; size =     66555; name = ROVER2.EXE
+    file[]: crc = 4d05f75b; size =      1493; name = STORY.RR2
+
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = rover2
+    mips = $(MIPS_MAX)
+    launch = ROVER2IN.EXE
+    anchorfile = ROVER2.EXE
+    file[]: crc = 219009e8; size =    254903; name = ROVER2IN.EXE
+end
+
+end

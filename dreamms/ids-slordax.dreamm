@@ -1,0 +1,74 @@
+//
+// Slordax: The Unknown Enemy
+//
+desc[ids-slordax]:
+
+name = Slordax: The Unknown Enemy
+icon = ids-shadow.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\SLORDAX.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+filter = id software, soft disk, action
+audiohw = speaker
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// Slordax
+//
+game[slordax]:
+    name = Slordax
+    anchorfile = SLORDAX.EXE
+    file[]: crc = 025f34d6; size =        46; name = CTLPANEL.SLO
+    file[]: crc = 10f51b93; size =       748; name = DEMO1.SLO
+    file[]: crc = 765e48f9; size =      9792; name = EGAHEAD.SLO
+    file[]: crc = 0e9b4cbc; size =     80960; name = EGALATCH.SLO
+    file[]: crc = cba2f652; size =     17120; name = EGASPRIT.SLO
+    file[]: crc = b6070943; size =     32768; name = ENDEGA.SLO
+    file[]: crc = 1ad85c96; size =      2800; name = HELP.SLO
+    file[]: crc = dc08325c; size =      6110; name = LEVEL01.SLO
+    file[]: crc = 3597e66a; size =      6058; name = LEVEL02.SLO
+    file[]: crc = 54571dde; size =      6364; name = LEVEL03.SLO
+    file[]: crc = 0c222c23; size =      5384; name = LEVEL04.SLO
+    file[]: crc = 53eff27c; size =      5130; name = LEVEL05.SLO
+    file[]: crc = a763dffe; size =        50; name = SCORES.SLO
+    file[]: crc = 666b2e3f; size =     39298; name = SLORDAX.EXE
+    file[]: crc = 63ef1c51; size =      5610; name = SOUNDS.SLO
+    file[]: crc = c82385d1; size =         4; name = TILEINFO.SLO
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = slordax
+    mips = $(MIPS_MAX)
+    launch = SLORDAXI.EXE
+    anchorfile = SLORDAX.EXE
+    file[]: crc = 8b54dd44; size =    122145; name = SLORDAXI.EXE
+end
+
+end

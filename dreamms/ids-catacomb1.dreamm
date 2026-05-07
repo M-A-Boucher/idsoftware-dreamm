@@ -58,10 +58,10 @@ game[1x320k]:
 end
 
 //
-// Anthology?
+// GOG
 //
-game[anthology]:
-    name = Anthology?
+game[gog]:
+    name = GOG
     anchorfile = CATACOMB.EXE
     file[]: crc = 7cad358d; size =     67835; name = CATACOMB.EXE
     file[]: crc = 56e837ba; size =      3001; name = DEMO.CAT

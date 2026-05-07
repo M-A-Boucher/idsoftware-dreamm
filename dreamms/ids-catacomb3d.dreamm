@@ -79,4 +79,16 @@ game[descent]:
     file[]: crc = 1ecb107b; size =     14288; name = GAMEMAPS.C3D
 end
 
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = descent
+    mips = $(MIPS_MAX)
+    launch = CAT3DINS.EXE
+    anchorfile = CAT3D.EXE
+    file[]: crc = c856527b; size =    276569; name = CAT3DINS.EXE
+end
+
 end

@@ -36,10 +36,10 @@ mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
 
 //
-// Anthology?
+// Anthology
 //
 game[anthology]:
-    name = Anthology?
+    name = Anthology
     anchorfile = CATACOMB.EXE
     file[]: crc = b6863c6b; size =     33553; name = CATACOMB.EXE
     file[]: crc = bf7581e2; size =     25888; name = CGACHARS.CA2
@@ -78,6 +78,18 @@ game[anthology]:
     file[]: crc = a095ad50; size =      1517; name = LEVEL29.CA2
     file[]: crc = 7719b7d9; size =       897; name = LEVEL30.CA2
     file[]: crc = 80dbec6a; size =      3796; name = SOUNDS.CA2
+end
+
+//
+// Anthology, Installer
+//
+installer[anthology-installer]:
+    name = Anthology, Installer
+    installid = descent
+    mips = $(MIPS_MAX)
+    launch = CATAINST.EXE
+    anchorfile = CATACOMB.EXE
+    file[]: crc = 1e22e732; size =    161582; name = CATAINST.EXE
 end
 
 end

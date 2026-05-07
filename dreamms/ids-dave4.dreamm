@@ -1,0 +1,80 @@
+//
+// Dangerous Dave Goes Nutz!
+//
+desc[ids-ddave4]:
+
+name = Dangerous Dave Goes Nutz!
+icon = ids-ddave4.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\DAVE.EXE
+mips = $(MIPS_386DX_33)
+nothrottle = 10
+ramkb = 4096
+filter = id software, action
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[ega]:
+        name = $(EGA_NAME); priority = 1
+        videohw = ega
+    end
+    option[vga]:
+        name = $(VGA_NAME)
+        videohw = vga
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[speaker]:
+        name = $(SPEAKER_NAME)
+        audiohw = speaker
+    end
+    option[adlib]:
+        name = $(ADLIB_NAME); priority = 1
+        audiohw = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME)
+        audiohw = sb16
+    end
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = DAVE.EXE
+    file[]: crc = ba59f6a0; size =      1253; name = AUDIO.DAV
+    file[]: crc = e5d14407; size =     16388; name = DAVE.EXE
+    file[]: crc = 85750664; size =     76358; name = DAVEGAME.EXE
+    file[]: crc = 5b7d1f75; size =     25657; name = DIGSND.DAV
+    file[]: crc = c0eac117; size =    189720; name = EGAGRAPH.DAV
+    file[]: crc = f8d7a7d2; size =     35874; name = GAMEMAPS.DAV
+    file[]: crc = e04a6d1e; size =      1376; name = SHP01.DAV
+    file[]: crc = b8ecf1b1; size =     13116; name = SHP02.DAV
+    file[]: crc = be652818; size =     10099; name = SHP03.DAV
+    file[]: crc = 687ec829; size =       863; name = SHP04.DAV
+    file[]: crc = 301a5201; size =      9825; name = SHP05.DAV
+    file[]: crc = 012d651a; size =      9536; name = SHP06.DAV
+    file[]: crc = 1dcc9034; size =      9536; name = SHP07.DAV
+    file[]: crc = 87539d8d; size =      9506; name = SHP08.DAV
+    file[]: crc = 230e8434; size =      1733; name = SHP09.DAV
+end
+
+end
