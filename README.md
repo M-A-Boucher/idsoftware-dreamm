@@ -12,4 +12,5 @@ Alternatively:
 
 # Other .dreammpacks
 - 3DRealms/Apogee: https://github.com/M-A-Boucher/3drealms-dreamm
+- Humongous Entertainment: https://github.com/Phredreeke/humongous-dreamm
 - Sierra: https://github.com/M-A-Boucher/sierra-dreamm
