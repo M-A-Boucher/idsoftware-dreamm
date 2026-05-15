@@ -1,4 +1,4 @@
-<img width="2440" height="540" alt="dreampackbannerids" src="https://github.com/user-attachments/assets/ddbfb466-1aeb-4a1a-bdd1-665c148cba42" />
+<img width="2440" height="540" alt="id Software Dreammpack Banner" src="https://github.com/user-attachments/assets/3bdf6a71-b912-4552-8d74-1a1dbe21e680" />
 
 # How to use this .dreammpack with DREAMM
 1. Download the latest here: https://github.com/M-A-Boucher/idsoftware-dreamm/releases/latest/download/idsoftware.dreammpack
