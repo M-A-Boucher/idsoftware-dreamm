@@ -1,0 +1,194 @@
+//
+// Hexen: Beyond Heretic
+//
+desc[ids-hexen1]:
+
+name = Hexen: Beyond Heretic
+icon = ids-hexen1.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\HEXEN.EXE -config $(CONFIG_FILE)
+mips = $(MIPS_MAX)
+ramkb = 8192
+filter = id software, fps
+audiohw = $(SOUNDHW)+$(MUSICHW)
+videohw = svga
+CONFIG_FILE = DREAMM.CFG
+
+//
+// controls configuration
+//
+config[keyboard]:
+    title = Keyboard Setup
+    option[default]:
+        name = Classic (Arrow Keys)
+        CONTROLS_CONFIG = [[[$(CRLF)
+            key_right           77
+            key_left            75
+            key_up              72
+            key_down            80
+            key_strafeleft      51
+            key_straferight     52
+        ]]]
+    end
+    option[wasd]:
+        name = Modern (WASD Keys)
+        CONTROLS_CONFIG = [[[$(CRLF)
+            key_right           77
+            key_left            75
+            key_up              17
+            key_down		31
+            key_strafeleft      30
+            key_straferight     32
+        ]]]
+    end
+    option[custom]:
+        name = Custom (SETUP.EXE)
+        condition = file_exists("$$(rootpath)\\HEXEN.CFG")
+        CONFIG_FILE = HEXEN.CFG
+    end
+end
+
+//
+// music configuration
+//
+config[music]:
+    title = Music Configuration
+
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        MUSICHW = adlib
+        MUSIC = 2
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        MUSICHW = sb16
+        MUSIC = 3
+    end
+    option[gmidi]:
+        name = $(GMIDI_NAME)
+        MUSICHW = gmidi
+        MUSIC = 8
+    end
+    option[cdda]:
+        name = CD Audio; priority = 2
+        MUSIC = 10
+        condition = file_exists("$$(rootpath)\\CD\\CDDA.SOU")
+    end
+end
+
+//
+// sound configuration
+//
+config[sound]:
+    title = Sound Configuration
+    option[sb16]:
+        name = $(SB16_NAME)
+        SOUNDHW = sb16
+        SOUND = 3
+    end
+end
+
+dynamicfile[]:
+    path = $(rootpath)/DREAMM.CFG
+    contents = [[[$(CRLF)
+        mouse_sensitivity	8
+        sfx_volume		    8
+        music_volume		8
+        show_messages		1
+        $(CONTROLS_CONFIG)
+        key_fire		    29
+        key_use			    57
+        key_strafe		    56
+        key_speed		    54
+        key_flydown		    82
+        key_flycenter		71
+        key_flyup		    73
+        key_lookdown		83
+        key_lookcenter		79
+        key_lookup		    81
+        key_invleft		    16
+        key_invright		18
+        key_jump		    57
+        use_mouse		    1
+        mouseb_fire		    0
+        mouseb_strafe		1
+        mouseb_forward		-1
+        mouseb_jump		    2
+        use_joystick		0
+        joyb_fire		    0
+        joyb_strafe		    1
+        joyb_use		    3
+        joyb_speed		    2
+        screenblocks		10
+        detaillevel		    0
+        showmessages		1
+        comport			    1
+        snd_channels		8
+        snd_musicdevice		$(MUSIC)
+        snd_sfxdevice		$(SOUND)
+        snd_sbport		    544
+        snd_sbirq		    7
+        snd_sbdma		    1
+        snd_mport		    816
+        usegamma		    0
+        chatmacro0		    "no macro"
+        chatmacro1		    "no macro"
+        chatmacro2		    "no macro"
+        chatmacro3		    "no macro"
+        chatmacro4		    "no macro"
+        chatmacro5		    "no macro"
+        chatmacro6		    "no macro"
+        chatmacro7		    "no macro"
+        chatmacro8		    "no macro"
+        chatmacro9		    "no macro"
+		0
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD; optional = true
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = HEXEN.WAD
+    file[]: crc = 22fa8d2a; size =     21484; name = DM.EXE      ; optional = true
+    file[]: crc = 4db2d1fa; size =     15169; name = DMOD.EXE    ; optional = true
+    file[]: crc = 430f12c0; size =     18622; name = DWANGO.DOC  ; optional = true
+    file[]: crc = fb24e6fb; size =     75230; name = DWANGO.EXE  ; optional = true
+    file[]: crc = ac48c291; size =       577; name = DWANGO.SRV  ; optional = true
+    file[]: crc = 9429e073; size =      2536; name = DWANGO.STR  ; optional = true
+    file[]: crc = 32d27bdf; size =    931829; name = HEXEN.EXE
+    file[]: crc = eece0236; size =  20128392; name = HEXEN.WAD
+    file[]: crc = 138105f8; size =     14081; name = HEXMOD.EXE  ; optional = true
+    file[]: crc = 416fac55; size =     18003; name = IPXSETUP.EXE; optional = true
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR   ; optional = true
+    file[]: crc = 91f13fa1; size =     20273; name = SERSETUP.EXE; optional = true
+    file[]: crc = 2f3319b1; size =     47682; name = SETUP.EXE   ; optional = true
+    file[]:                                   name = CD\CDDA.SOU; cdda = 236/195/15/45/68/83/251/144/200/213/215/242/250/187/195/205/164/186/152/244/193; optional = true
+end
+
+//
+// v1.0, Installer
+//
+installer[v1.0-installer]:
+    name = v1.0, Installer
+    installid = v1.0
+    mips = $(MIPS_MAX)
+    launch = HEXCD10.EXE
+    anchorfile = HEXCD10.1
+    file[]: crc = d70e4988; size =  10156135; name = HEXCD10.EXE
+    file[]:                                   name = CDDA.SOU; cdda = 236/195/15/45/68/83/251/144/200/213/215/242/250/187/195/205/164/186/152/244/193; optional = true
+end
+
+end

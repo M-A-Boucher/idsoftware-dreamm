@@ -8,15 +8,16 @@ icon = ids-heretic.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\HERETIC.EXE -config DREAMM.CFG
+launch = $(rootpath)\HERETIC.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
 audiohw = $(SOUNDHW)+$(MUSICHW)
 videohw = vga
+CONFIG_FILE = DREAMM.CFG
 
 //
-//
+// controls configuration
 //
 config[keyboard]:
     title = Keyboard Setup
@@ -34,13 +35,18 @@ config[keyboard]:
     option[wasd]:
         name = Modern (WASD Keys)
         CONTROLS_CONFIG = [[[$(CRLF)
-            key_right           32
-            key_left            30
+            key_right           77
+            key_left            75
             key_up              17
             key_down		31
-            key_strafeleft      16
-            key_straferight     18
+            key_strafeleft      30
+            key_straferight     32
         ]]]
+    end
+    option[custom]:
+        name = Custom (SETUP.EXE)
+        condition = file_exists("$$(rootpath)\\HERETIC.CFG")
+        CONFIG_FILE = HERETIC.CFG
     end
 end
 
@@ -72,11 +78,6 @@ end
 //
 config[sound]:
     title = Sound Configuration
-    option[speaker]:
-        name = $(SPEAKER_NAME)
-        SOUNDHW = speaker
-        SOUND = 1
-    end
     option[sb16]:
         name = $(SB16_NAME); priority = 1
         SOUNDHW = sb16
@@ -88,44 +89,53 @@ dynamicfile[]:
     path = $(rootpath)/DREAMM.CFG
     contents = [[[$(CRLF)
         mouse_sensitivity	10
-        sfx_volume		8
+        sfx_volume		    8
         music_volume		8
         show_messages		1
         $(CONTROLS_CONFIG)
-        key_fire		29
+        key_fire		    29
         key_use		        57
-        key_strafe		56
-        key_speed		54
-        use_mouse		1
-        mouseb_fire		0
+        key_strafe		    56
+        key_speed		    54
+        key_flydown		    82
+        key_flycenter		71
+        key_flyup		    73
+        key_lookdown		83
+        key_lookcenter		79
+        key_lookup		    81
+        key_invleft		    26
+        key_invright		27
+        use_mouse		    1
+        mouseb_fire		    0
         mouseb_strafe		1
         mouseb_forward		2
         use_joystick		1
-        joyb_fire		0
-        joyb_strafe		1
-        joyb_use		3
-        joyb_speed		2
+        joyb_fire		    0
+        joyb_strafe		    1
+        joyb_use		    3
+        joyb_speed		    2
         screenblocks		10
-        detaillevel		0
+        detaillevel		    0
         showmessages		1
+        comport			    1
         snd_channels		8
         snd_musicdevice		$(MUSIC)
         snd_sfxdevice		$(SOUND)
-        snd_sbport		544
-        snd_sbirq		7
-        snd_sbdma		1
-        snd_mport		816
-        usegamma		0
-        chatmacro0		"no macro"
-        chatmacro1		"no macro"
-        chatmacro2		"no macro"
-        chatmacro3		"no macro"
-        chatmacro4		"no macro"
-        chatmacro5		"no macro"
-        chatmacro6		"no macro"
-        chatmacro7		"no macro"
-        chatmacro8		"no macro"
-        chatmacro9		"no macro"
+        snd_sbport		    544
+        snd_sbirq		    7
+        snd_sbdma		    1
+        snd_mport		    816
+        usegamma		    0
+        chatmacro0		    "no macro"
+        chatmacro1		    "no macro"
+        chatmacro2		    "no macro"
+        chatmacro3		    "no macro"
+        chatmacro4		    "no macro"
+        chatmacro5		    "no macro"
+        chatmacro6		    "no macro"
+        chatmacro7		    "no macro"
+        chatmacro8		    "no macro"
+        chatmacro9		    "no macro"
 		0
     ]]]
 end
@@ -150,7 +160,7 @@ mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
 //
 game[v1.0]:
     name = v1.0
-    anchorfile = HERETIC.WAD
+    anchorfile = HERETIC.EXE
     file[]: crc = 5d56f9d6; size =     33678; name = DM.EXE      ; optional = true
     file[]: crc = e272977c; size =      6397; name = DM.TXT      ; optional = true
     file[]: crc = ffa4a9af; size =     65021; name = DWANGO.EXE  ; optional = true
@@ -167,6 +177,17 @@ game[v1.0]:
 end
 
 //
+// v1.0, Shareware
+//
+demo[v1.0-sw]:
+    name = v1.0, Shareware
+    imports = v1.0
+    file[]: crc = a3a3758f; size =    717239; name = HERETIC.EXE
+    file[]: crc = 77482d1e; size =  11096488; remove = HERETIC.WAD
+    file[]: crc = 884a3e45; size =   5120300; name = HERETIC1.WAD
+end
+
+//
 // v1.0, CD, Installer
 //
 installer[v1.0-cd-installer]:
@@ -179,6 +200,42 @@ installer[v1.0-cd-installer]:
     file[]: crc = e6fc9905; size =   1457664; name = HREG_V10.2
     file[]: crc = c18b8fac; size =   1457664; name = HREG_V10.3
     file[]: crc = 38f9a52b; size =   1444781; name = HREG_V10.4
+end
+
+//
+// v1.2, Shareware
+//
+game[v1.2-sw]:
+    name = v1.2, Shareware
+    imports = v1.0
+    file[]: crc = baaab071; size =     20937; name = DM.EXE      ; optional = true
+    file[]: crc = a8c969ce; size =     73621; name = DWANGO.EXE  ; optional = true
+    file[]: crc = 86846150; size =       328; name = DWANGO.SRV  ; optional = true
+    file[]: crc = 433ece18; size =     11197; name = DWANGO.TXT  ; optional = true
+    file[]: crc = 236ae36c; size =       462; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = e8a84e57; size =    728031; name = HERETIC.EXE
+    file[]: crc = 77482d1e; size =  11096488; remove = HERETIC.WAD
+    file[]: crc = 22d3f0ca; size =   5120920; name = HERETIC1.WAD
+    file[]: crc = 69eb04d5; size =     78639; name = HTICSAV0.HSG; optional = true
+    file[]: crc = bc5e2121; size =     54779; name = PATCH.EXE   ; optional = true
+    file[]: crc = ed4a5c2c; size =    533824; name = PATCH.RTP   ; optional = true
+    file[]: crc = d2102603; size =        78; name = PSHELL.CFG  ; optional = true
+    file[]: crc = f0e47fa9; size =     87355; name = PSHELL.EXE  ; optional = true
+    file[]: crc = ac8af939; size =       965; name = PSHELL.TXT  ; optional = true
+    file[]: crc = 7b379c84; size =     47096; name = SETUP.EXE   ; optional = true
+    file[]: crc = 2a85dfa2; size =     19203; name = VIOHT.EXE   ; optional = true
+end
+
+//
+// v1.3, Shadow of the Serpent Riders
+//
+game[v1.3]:
+    name = v1.3, Shadow of the Serpent Riders
+    anchorfile = HERETIC.WAD
+    file[]: crc = 5b16049e; size =  14189976; name = HERETIC.WAD
+    file[]: crc = 2a85dfa2; size =     19203; name = VIOHT.EXE
+    file[]: crc = 3b15558c; size =    728031; name = XXHRTIC.EXE
+    file[]: crc = 204b921d; size =     43325; name = XXSETUP.EXE
 end
 
 end
