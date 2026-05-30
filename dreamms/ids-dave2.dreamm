@@ -72,7 +72,7 @@ installer[anthology-installer]:
     installid = v1.0
     mips = $(MIPS_MAX)
     launch = DAVEINST.EXE
-    anchorfile = DAVE.EXE
+    anchorfile = DAVEINST.EXE
     file[]: crc = 55363b79; size =    218286; name = DAVEINST.EXE
 end
 

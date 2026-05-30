@@ -67,7 +67,7 @@ installer[anthology-installer]:
     installid = slordax
     mips = $(MIPS_MAX)
     launch = SLORDAXI.EXE
-    anchorfile = SLORDAX.EXE
+    anchorfile = SLORDAXI.EXE
     file[]: crc = 8b54dd44; size =    122145; name = SLORDAXI.EXE
 end
 

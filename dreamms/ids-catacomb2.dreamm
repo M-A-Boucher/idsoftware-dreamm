@@ -85,10 +85,10 @@ end
 //
 installer[anthology-installer]:
     name = Anthology, Installer
-    installid = descent
+    installid = anthology
     mips = $(MIPS_MAX)
     launch = CATAINST.EXE
-    anchorfile = CATACOMB.EXE
+    anchorfile = CATAINST.EXE
     file[]: crc = 1e22e732; size =    161582; name = CATAINST.EXE
 end
 

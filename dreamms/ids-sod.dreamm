@@ -124,7 +124,7 @@ installer[anthology-installer]:
     installid = v1.4-cd
     mips = $(MIPS_MAX)
     launch = SPEARINS.EXE
-    anchorfile = SPEAR.EXE
+    anchorfile = SPEARINS.EXE
     file[]: crc = 96cf04f9; size =   1676413; name = SPEARINS.EXE
 end
 

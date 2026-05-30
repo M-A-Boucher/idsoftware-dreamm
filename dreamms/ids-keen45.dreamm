@@ -187,7 +187,7 @@ installer[anthology-keen4-installer]:
     installid = v1.4-keen4
     mips = $(MIPS_MAX)
     launch = KEEN4INS.EXE
-    anchorfile = KEEN4.EXE
+    anchorfile = KEEN4INS.EXE
     file[]: crc = 57684583; size =    591825; name = KEEN4INS.EXE
 end
 
@@ -215,7 +215,7 @@ installer[anthology-keen5-installer]:
     installid = v1.4-keen5
     mips = $(MIPS_MAX)
     launch = KEEN5INS.EXE
-    anchorfile = KEEN5.EXE
+    anchorfile = KEEN5INS.EXE
     file[]: crc = 00e51033; size =    641949; name = KEEN5INS.EXE
 end
 

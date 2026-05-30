@@ -87,7 +87,7 @@ installer[anthology-installer]:
     installid = descent
     mips = $(MIPS_MAX)
     launch = CAT3DINS.EXE
-    anchorfile = CAT3D.EXE
+    anchorfile = CAT3DINS.EXE
     file[]: crc = c856527b; size =    276569; name = CAT3DINS.EXE
 end
 

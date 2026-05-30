@@ -56,7 +56,7 @@ installer[anthology-installer]:
     installid = dreamms
     mips = $(MIPS_MAX)
     launch = KDREAMSI.EXE
-    anchorfile = KDREAMS.EXE
+    anchorfile = KDREAMSI.EXE
     file[]: crc = 83f9e257; size =    342721; name = KDREAMSI.EXE
 end
 

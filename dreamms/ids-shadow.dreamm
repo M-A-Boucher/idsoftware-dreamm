@@ -75,7 +75,7 @@ installer[anthology-installer]:
     installid = shadow
     mips = $(MIPS_MAX)
     launch = SHADOWIN.EXE
-    anchorfile = SHADOW.EXE
+    anchorfile = SHADOWIN.EXE
     file[]: crc = 5828eff9; size =    160400; name = SHADOWIN.EXE
 end
 

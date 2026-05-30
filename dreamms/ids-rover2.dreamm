@@ -74,7 +74,7 @@ installer[anthology-installer]:
     installid = rover2
     mips = $(MIPS_MAX)
     launch = ROVER2IN.EXE
-    anchorfile = ROVER2.EXE
+    anchorfile = ROVER2IN.EXE
     file[]: crc = 219009e8; size =    254903; name = ROVER2IN.EXE
 end
 

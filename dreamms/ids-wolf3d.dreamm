@@ -133,7 +133,7 @@ installer[v1.4-1x1.44m-93-installer]:
     installid = v1.4
     mips = $(MIPS_MAX)
     launch = WOLF1-6.EXE
-    anchorfile = WOLF1-6.1
+    anchorfile = WOLF1-6.EXE
     file[]: crc = cf75de05; size =   1172087; name = WOLF1-6.EXE
 end
 
@@ -202,16 +202,21 @@ end
 game[sw]:
     name = Shareware
     anchorfile = WOLF3D.EXE
+    file[]: crc = 1af17851; size =        26; name = 1.BAT
+    file[]: crc = 1492c854; size =        17; name = 2.BAT
     file[]: crc = 52133dc4; size =      1156; name = AUDIOHED.WL1
     file[]: crc = 87bfc399; size =    132613; name = AUDIOT.WL1
+    file[]: crc = 30b855df; size =     34101; name = CATALOG.EXE
     file[]: crc = 77617517; size =       522; name = CONFIG.WL1
     file[]: crc = cc53d341; size =     27425; name = GAMEMAPS.WL1
     file[]: crc = 088f7551; size =       402; name = MAPHEAD.WL1
+    file[]: crc = bae995ae; size =      2564; name = ORDER.FRM
     file[]: crc = 2286df34; size =      6090; name = READ1ST.TXT
     file[]: crc = 358ab877; size =      1024; name = VGADICT.WL1
     file[]: crc = 746da9f0; size =    326568; name = VGAGRAPH.WL1
     file[]: crc = a60a98f0; size =       471; name = VGAHEAD.WL1
     file[]: crc = 85efac55; size =    742912; name = VSWAP.WL1
+    file[]: crc = f071d91e; size =       684; name = WOLF.COM
     file[]: crc = 213d5d76; size =    109959; name = WOLF3D.EXE
 end
 
@@ -223,7 +228,7 @@ installer[anthology-installer]:
     installid = v1.4
     mips = $(MIPS_MAX)
     launch = WOLF3DIN.EXE
-    anchorfile = WOLF3D.EXE
+    anchorfile = WOLF3DIN.EXE
     file[]: crc = 13321366; size =   1174204; name = WOLF3DIN.EXE
 end
 

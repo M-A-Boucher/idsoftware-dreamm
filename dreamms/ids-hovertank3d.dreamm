@@ -77,7 +77,7 @@ installer[anthology-installer]:
     installid = v1.0
     mips = $(MIPS_MAX)
     launch = HOVERINS.EXE
-    anchorfile = HOVER.EXE
+    anchorfile = HOVERINS.EXE
     file[]: crc = f28ba1bd; size =    269123; name = HOVERINS.EXE
 end
 

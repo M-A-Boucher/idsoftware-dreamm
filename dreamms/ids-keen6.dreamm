@@ -232,7 +232,7 @@ installer[anthology-installer]:
     installid = v1.5-ega
     mips = $(MIPS_MAX)
     launch = KEEN6INS.EXE
-    anchorfile = KEEN6.EXE
+    anchorfile = KEEN6INS.EXE
     file[]: crc = 28fecb3f; size =    731419; name = KEEN6INS.EXE
 end
 
