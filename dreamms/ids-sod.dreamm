@@ -13,6 +13,7 @@ mips = $(MIPS_386DX_33)
 ramkb = 8192
 filter = id software, action
 videohw = vga
+drivetypes = FFH[256MB/128MB]C
 
 //
 // sound configuration
@@ -33,35 +34,106 @@ config[sound]:
     end
 end
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM.BAT
-    contents = [[[$(CRLF)
-        COPY SOD.1+SOD.2+SOD.3+SOD.4+SOD.5+SOD.6+SOD.7+SOD.8+SOD.9+SOD.10 SOD10.EXE
-        SOD10.EXE -Y
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath); writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK1; optional = true; disc = 1
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK2; optional = true; disc = 2
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK3; optional = true; disc = 3
+
+dynamicfile[]: path = A:\SPEAR 1; attributes = 8; disc = 1
+dynamicfile[]: path = A:\SPEAR 2; attributes = 8; disc = 2
+dynamicfile[]: path = A:\SPEAR 3; attributes = 8; disc = 3
+
+script[autoinstall]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+       keyboard_type("C");
+       keyboard_type("\r");
+       keyboard_type("\r");
+       wait("int16", 0x00); disc_insert(2); keyboard_type("\r");
+       wait("int16", 0x00); disc_insert(3); keyboard_type("\r");
     ]]]
 end
 
 //
-// filesystem
+// copy protection script
 //
-mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
-mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+$(include cp-sod.inc)
 
 //
-// v1.4, CD
+// v1.0, 3x720K
 //
-game[v1.4-cd]:
-    name = v1.4, CD
+game[v1.0-3x720k]:
+    name = v1.0, 3x720K
     anchorfile = SPEAR.EXE
     file[]: crc = 13ce3958; size =      1072; name = AUDIOHED.SOD
     file[]: crc = 96d183ec; size =    328620; name = AUDIOT.SOD
     file[]: crc = b564a0be; size =     68290; name = GAMEMAPS.SOD
     file[]: crc = cdb40ca8; size =       402; name = MAPHEAD.SOD
-    file[]: crc = f8dd4a07; size =    112835; name = SPEAR.EXE
+    file[]: crc = beebc1f9; size =    113273; name = SPEAR.EXE
     file[]: crc = b9b960ac; size =      1024; name = VGADICT.SOD
     file[]: crc = 5936dddb; size =    947979; name = VGAGRAPH.SOD
     file[]: crc = dfb1b473; size =       510; name = VGAHEAD.SOD
     file[]: crc = 591cc4dc; size =   1616544; name = VSWAP.SOD
+end
+
+//
+// v1.0, 3x720K, Installer
+//
+installer[v1.0-3x720k-installer]:
+    name = v1.0, 3x720K, Installer
+    installid = v1.0-3x720k
+    mips = $(MIPS_MAX)
+    rootpath = A:\
+    launch = $(rootpath)\INSTALL.EXE
+    anchorfile = INSTALL.EXE
+    file[]: crc = f42d8dd3; size =     15456; name = DISK1\INSTALL.EXE
+    file[]: crc = 0d0ae5ca; size =     39283; name = DISK1\INSTALL.OVL
+    file[]: crc = d05e96ea; size =    113325; name = DISK1\SOD.1
+    file[]: crc = 7342d2a4; size =       681; name = DISK1\SOD.2
+    file[]: crc = 463c3511; size =    149182; name = DISK1\SOD.3
+    file[]: crc = a25abd84; size =     51514; name = DISK1\SOD.4
+    file[]: crc = 2b268606; size =       139; name = DISK1\SOD.5
+    file[]: crc = a8dd9f20; size =      1060; name = DISK1\SOD.6
+    file[]: crc = 9d38c5b1; size =    354304; name = DISK1\SOD.7; exactonly = true
+    file[]: crc = ba5bcd0a; size =    505600; name = DISK2\SOD.7; exactonly = true
+    file[]: crc = ca4bd5a8; size =       546; name = DISK2\SOD.8
+    file[]: crc = 599d05d4; size =    223232; name = DISK2\SOD.9; exactonly = true
+    file[]: crc = af85ddc2; size =    696081; name = DISK3\SOD.9; exactonly = true
+end
+
+//
+// v1.4
+//
+game[v1.4]:
+    name = v1.4
+    imports = v1.0-3x720k
+    anchorfile = SPEAR.EXE
+    file[]: crc = f8dd4a07; size =    112835; name = SPEAR.EXE
+end
+
+//
+// v1.4, 3x720K, Installer
+//
+installer[v1.4-3x720k-installer]:
+    name = v1.4, 3x720K, Installer
+    imports = v1.0-3x720k-installer
+    installid = v1.4
+    file[]: crc = 53f4e168; size =     15456; name = DISK1\INSTALL.EXE
+    file[]: crc = a135b0e8; size =     39500; name = DISK1\INSTALL.OVL
+    file[]: crc = 585d1d78; size =    112887; name = DISK1\SOD.1
+    file[]: crc = 532ed392; size =       681; name = DISK1\SOD.2
+    file[]: crc = f07eaab4; size =    149182; name = DISK1\SOD.3
+    file[]: crc = 681b9821; size =     51514; name = DISK1\SOD.4
+    file[]: crc = 16b0a06b; size =       139; name = DISK1\SOD.5
+    file[]: crc = 64500bf2; size =      1060; name = DISK1\SOD.6
+    file[]: crc = ecb6c948; size =    354304; name = DISK1\SOD.7; exactonly = true
+    file[]: crc = 5e160462; size =       546; name = DISK2\SOD.8
+    file[]: crc = ce8dc622; size =    223232; name = DISK2\SOD.9; exactonly = true
+
 end
 
 //
@@ -121,7 +193,7 @@ end
 //
 installer[anthology-installer]:
     name = Anthology, Installer
-    installid = v1.4-cd
+    installid = v1.4
     mips = $(MIPS_MAX)
     launch = SPEARINS.EXE
     anchorfile = SPEARINS.EXE
