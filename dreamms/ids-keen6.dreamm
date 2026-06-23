@@ -9,8 +9,7 @@ machine = pc
 osenv = dos
 rootpath = C:\
 launch = KEEN6.EXE
-mips = $(MIPS_386DX_33)
-nothrottle = 2
+mips = $(MIPS_386SX_20)
 ramkb = 8192
 filter = id software, action
 audiohw = sb16
@@ -22,7 +21,7 @@ config[graphics]:
     title = Graphics Configuration
     option[cga]:
         name = $(CGA_NAME)
-        videohw = cga
+        videohw = cga; priority = 2
         condition = file_exists("$$(rootpath)\\CGAGRAPH.CK6")
     end
     option[ega]:
@@ -60,6 +59,20 @@ end
 //
 mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+script[configscript]:
+    condition = is_game()
+    code = [[[$(CRLF)
+        file = file_load_blob("CONFIG.CK6");
+        blob_fill(file, 0x20c, 1, "HEX:1D,38,47,48,49,4B,4D,4F,50,51,01,00,01,00,00,00,01,00,01,00,01,00,39");
+        file_save("CONFIG.CK6", file);
+    ]]]
+end
+
+//
+// copy protection script
+//
+$(include cp-keen6.inc)
 
 //
 // v1.0, CGA

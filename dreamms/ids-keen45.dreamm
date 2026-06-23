@@ -9,11 +9,10 @@ machine = pc
 osenv = dos
 rootpath = C:\
 launch = $(rootpath)\KEEN4C.EXE
-mips = $(MIPS_386DX_33)
+mips = $(MIPS_386SX_20)
 ramkb = 4096
 filter = id software, action
 videohw = cga
-audiohw = speaker
 
 //
 // episode configuration
@@ -22,8 +21,8 @@ config[episode]:
     title = Episode Configuration
     option[episode4-ega]:
         name = Episode IV: Secret of the Oracle
-        condition = file_exists("$$(rootpath)\\KEEN4E.EXE")
         launch = KEEN4E.EXE
+        condition = file_exists("$$(rootpath)\\KEEN4E.EXE")
     end
     option[episode5-ega]:
         name = Episode V: The Armageddon Machine
@@ -32,8 +31,8 @@ config[episode]:
     end
     option[episode4-cga]:
         name = Episode IV: Secret of the Oracle
-        condition = file_exists("$$(rootpath)\\KEEN4C.EXE")
         launch = KEEN4C.EXE
+        condition = file_exists("$$(rootpath)\\KEEN4C.EXE")
     end
     option[episode5-cga]:
         name = Episode V: The Armageddon Machine
@@ -47,15 +46,19 @@ end
 //
 config[graphics]:
     title = Graphics Configuration
+    option[cga]:
+        name = $(CGA_NAME); priority = 2
+        videohw = cga
+        condition = file_exists("$$(rootpath)\\KEEN4C.EXE") || file_exists("$$(rootpath)\\KEEN5C.EXE")
+    end
     option[ega]:
         name = $(EGA_NAME); priority = 1
-        condition = file_exists("$$(rootpath)\\KEEN4E.EXE") || file_exists("$$(rootpath)\\KEEN5E.EXE")
         videohw = ega
     end
     option[vga]:
         name = $(VGA_NAME)
-        condition = file_exists("$$(rootpath)\\KEEN4E.EXE") || file_exists("$$(rootpath)\\KEEN5E.EXE")
         videohw = vga
+        condition = file_exists("$$(rootpath)\\KEEN4E.EXE") || file_exists("$$(rootpath)\\KEEN5E.EXE")
     end
 end
 
@@ -70,10 +73,10 @@ config[sound]:
     end
     option[adlib]:
         name = $(ADLIB_NAME)
-        audiohw = adlib
+        audiohw = adlib; priority = 1
     end
     option[sb16]:
-        name = $(SB16_NAME); priority = 1
+        name = $(SB16_NAME)
         audiohw = sb16
     end
 end
@@ -91,6 +94,29 @@ end
 //
 mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+script[configscript]:
+    condition = is_game()
+    code = [[[$(CRLF)
+        if (file_exists("CONFIG.CK4"))
+        {
+          file = file_load_blob("CONFIG.CK4");
+          blob_fill(file, 0x20c, 1, "HEX:1D,38,47,48,49,4B,4D,4F,50,51,01,00,01,00,00,00,01,00,01,00,01,00,39");
+          file_save("CONFIG.CK4", file);
+        }
+        else
+        {
+
+        }
+
+        if (file_exists("CONFIG.CK5"))
+        {
+          file = file_load_blob("CONFIG.CK5");
+          blob_fill(file, 0x20c, 1, "HEX:1D,38,47,48,49,4B,4D,4F,50,51,01,00,01,00,00,00,01,00,01,00,01,00,39");
+          file_save("CONFIG.CK5", file);
+        }
+    ]]]
+end
 
 //
 // v1.4, EGA 
