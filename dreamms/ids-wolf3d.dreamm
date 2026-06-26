@@ -91,7 +91,7 @@ installer[v1.2-1x1.44m-installer]:
     installid = v1.2
     mips = $(MIPS_MAX)
     launch = WOLF1-6.EXE -Y
-    anchorfile = WOLF1-6.1
+    anchorfile = WOLF1-6.EXE
     file[]: crc = 9aad0c46; size =   1149147; name = WOLF1-6.EXE
 end
 
