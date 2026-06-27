@@ -101,18 +101,14 @@ script[configscript]:
         if (file_exists("CONFIG.CK4"))
         {
           file = file_load_blob("CONFIG.CK4");
-          blob_fill(file, 0x20c, 1, "HEX:1D,38,47,48,49,4B,4D,4F,50,51,01,00,01,00,00,00,01,00,01,00,01,00,39");
+          blob_fill(file, 0x21e, 1, "HEX:01");
           file_save("CONFIG.CK4", file);
-        }
-        else
-        {
-
         }
 
         if (file_exists("CONFIG.CK5"))
         {
           file = file_load_blob("CONFIG.CK5");
-          blob_fill(file, 0x20c, 1, "HEX:1D,38,47,48,49,4B,4D,4F,50,51,01,00,01,00,00,00,01,00,01,00,01,00,39");
+          blob_fill(file, 0x21e, 1, "HEX:01");
           file_save("CONFIG.CK5", file);
         }
     ]]]
