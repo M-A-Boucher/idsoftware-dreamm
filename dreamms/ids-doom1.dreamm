@@ -22,24 +22,26 @@ config[keyboard]:
     title = Keyboard Setup
     option[default]:
         name = Original (Arrow Keys)
-        CONTROLS_CONFIG = [[[$(CRLF)
+        KEYBINDS = [[[$(CRLF)
             key_right           77
             key_left            75
             key_up              72
             key_down            80
             key_strafeleft      51
             key_straferight     52
+            use_mouse		0
         ]]]
     end
     option[wasd]:
         name = Modern (WASD Keys)
-        CONTROLS_CONFIG = [[[$(CRLF)
-            key_right           32
-            key_left            30
+        KEYBINDS = [[[$(CRLF)
+            key_left            16
+            key_right           18
             key_up              17
             key_down		31
-            key_strafeleft      16
-            key_straferight     18
+            key_strafeleft      30 
+            key_straferight     32 
+            use_mouse		1
         ]]]
     end
 end
@@ -84,19 +86,15 @@ config[sound]:
     end
 end
 
-dynamicfile[]:
-    path = $(rootpath)/DREAMM.CFG
-    contents = [[[$(CRLF)
+CONFIG = [[[$(CRLF)
         mouse_sensitivity	10
         sfx_volume		8
         music_volume		8
         show_messages		1
-        $(CONTROLS_CONFIG)
         key_fire		29
         key_use		        57
         key_strafe		56
         key_speed		54
-        use_mouse		1
         mouseb_fire		0
         mouseb_strafe		1
         mouseb_forward		2
@@ -109,8 +107,6 @@ dynamicfile[]:
         detaillevel		0
         showmessages		1
         snd_channels		4
-        snd_musicdevice		$(MUSIC)
-        snd_sfxdevice		$(SOUND)
         snd_sbport		544
         snd_sbirq		7
         snd_sbdma		1
@@ -126,10 +122,31 @@ dynamicfile[]:
         chatmacro7		"no macro"
         chatmacro8		"no macro"
         chatmacro9		"no macro"
-		0
+        snd_musicdevice		$(MUSIC)
+        snd_sfxdevice		$(SOUND)
+        $(KEYBINDS)
+]]]
+
+
+script[autoconfig]:
+    code = [[[$(CRLF)
+        file = "$$(rootpath)\\DREAMM.CFG";
+
+        if (file_exists(file))
+        {
+          content = file_load_string(file);
+          content = substr(content, 0, strstr(content, "snd_musicdevice"));
+          content = content + "snd_musicdevice $$(MUSIC)$$(CRLF)snd_sfxdevice $$(SOUND)$(CRLF)$$(KEYBINDS)";
+        }
+        else
+        {
+          content = "$$(CONFIG)";
+        }
+
+        file_save(file, content);
     ]]]
 end
-
+          
 dynamicfile[]:
     path = $(rootpath)\DREAMM1R.BAT
     contents = [[[$(CRLF)
