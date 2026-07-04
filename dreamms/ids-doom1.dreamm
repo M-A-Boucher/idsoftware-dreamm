@@ -8,11 +8,10 @@ icon = ids-doom1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\DOOM.EXE -config DREAMM.CFG
+launch = $(rootpath)\DOOM.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
-audiohw = $(SOUNDHW)+$(MUSICHW)
 videohw = vga
 
 $(include cfg-doom.inc)

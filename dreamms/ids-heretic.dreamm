@@ -183,7 +183,7 @@ demo[v1.0-sw]:
     name = v1.0, Shareware
     imports = v1.0
     file[]: crc = a3a3758f; size =    717239; name = HERETIC.EXE
-    file[]: crc = 77482d1e; size =  11096488; remove = HERETIC.WAD
+    file[]: remove = HERETIC.WAD
     file[]: crc = 884a3e45; size =   5120300; name = HERETIC1.WAD
 end
 
@@ -214,7 +214,7 @@ game[v1.2-sw]:
     file[]: crc = 433ece18; size =     11197; name = DWANGO.TXT  ; optional = true
     file[]: crc = 236ae36c; size =       462; name = FILE_ID.DIZ ; optional = true
     file[]: crc = e8a84e57; size =    728031; name = HERETIC.EXE
-    file[]: crc = 77482d1e; size =  11096488; remove = HERETIC.WAD
+    file[]: remove = HERETIC.WAD
     file[]: crc = 22d3f0ca; size =   5120920; name = HERETIC1.WAD
     file[]: crc = 69eb04d5; size =     78639; name = HTICSAV0.HSG; optional = true
     file[]: crc = bc5e2121; size =     54779; name = PATCH.EXE   ; optional = true
