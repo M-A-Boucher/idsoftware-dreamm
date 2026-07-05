@@ -129,7 +129,7 @@ dynamicfile[]:
 end
 
 dynamicfile[]:
-    path = $(rootpath)/DREAMM_SW.BAT
+    path = $(rootpath)/DREAMMSW.BAT
     contents = [[[$(CRLF)
         COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
         QSW101.EXE
@@ -213,7 +213,7 @@ installer[v1.01-sw-installer]:
     name = v1.01, Shareware, Installer
     installid = v1.01-sw
     mips = $(MIPS_MAX)
-    launch = DREAMM_SW.BAT
+    launch = DREAMMSW.BAT
     anchorfile = QSW101.7
     file[]: crc = 7efa06e3; size =   1397174; name = QSW101.1
     file[]: crc = 34063b2d; size =   1433600; name = QSW101.2
@@ -273,6 +273,5 @@ addon[rogue]:
     file[]: crc = 3bc26700; size =    409600; name = ROGUE\QUAKE.EXE
     file[]:                                   name = ROGUE_CD\CDDA.SOU   ; cdda = 192/190/187/189/197/184/187/189; optional = true
 end
-
 
 end
