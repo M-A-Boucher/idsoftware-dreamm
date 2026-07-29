@@ -16,14 +16,17 @@ videohw = svga
 
 $(include cfg-doom.inc)
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM.BAT
-    contents = [[[$(CRLF)
-        COPY HREG_V10.1+HREG_V10.2+HREG_V10.3+HREG_V10.4+HREG_V10.5 HREG_V10.EXE
-        HREG_V10.EXE
+INSTALL = [[[$(CRLF)
+    COPY HREG_V10.1+HREG_V10.2+HREG_V10.3+HREG_V10.4+HREG_V10.5 HREG_V10.EXE
+    HREG_V10.EXE
+]]]
+
+script[init]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
     ]]]
 end
-
 
 //
 // filesystem

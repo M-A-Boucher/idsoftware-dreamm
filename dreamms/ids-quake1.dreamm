@@ -48,11 +48,11 @@ config[controls]:
     title = Controls Configuration
     option[classic]:
         name = Classic (Default Quake)
-        OVERRIDES = $(NULL)
+        KEYBIND_OVERRIDE = $(NULL)
     end
     option[inverted]:
         name = Modern (WASD + Mouse)
-        OVERRIDES = [[[$(CRLF)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
             bind "w" "+forward"
             bind "a" "+moveleft"
             bind "s" "+back"
@@ -64,7 +64,7 @@ config[controls]:
     end
     option[mouse]:
         name = Modern (WASD + Inverted Mouse)
-        OVERRIDES = [[[$(CRLF)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
             bind "w" "+forward"
             bind "a" "+moveleft"
             bind "s" "+back"
@@ -120,27 +120,31 @@ config[graphics]:
     end
 end
 
-dynamicfile[]:
-    path = $(rootpath)/DREAMM.BAT
-    contents = [[[$(CRLF)
-        COPY QUAKE101.1+QUAKE101.2 QUAKE101.EXE
-        QUAKE101.EXE
-    ]]]
-end
+INSTALL = [[[$(CRLF)
+    COPY QUAKE101.1+QUAKE101.2 QUAKE101.EXE
+    QUAKE101.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)/DREAMMSW.BAT
-    contents = [[[$(CRLF)
-        COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
-        QSW101.EXE
-    ]]]
-end
+INSTALL_SW = [[[$(CRLF)
+    COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
+    QSW101.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)/ID1/AUTOEXEC.CFG
-    contents = [[[$(CRLF)
-        $(OVERRIDES)
-        $(VIDEO_OVERRIDE)
+CFG = [[[$(CRLF)
+    $(KEYBIND_OVERRIDE)
+    $(VIDEO_OVERRIDE)
+]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        if (is_installer())
+        {
+          file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
+          file_save("$$(rootpath)\\DREAMMSW.BAT", "$$(INSTALL_SW)");
+        }
+
+        if (is_game())
+          file_save("$$(rootpath)\\ID1\\AUTOEXEC.CFG", "$$(CFG)");
     ]]]
 end
 

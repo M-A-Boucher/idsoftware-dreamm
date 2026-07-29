@@ -16,51 +16,45 @@ videohw = vga
 
 $(include cfg-doom.inc)
    
-dynamicfile[]:
-    path = $(rootpath)\DREAMM1R.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM1_1R.1+DOOM1_1R.2+DOOM1_1R.3+DOOM1_1R.4 DOOM1_1R.EXE
-        DOOM1_1R.EXE
-    ]]]
-end
+DREAMM1R = [[[$(CRLF)
+    COPY DOOM1_1R.1+DOOM1_1R.2+DOOM1_1R.3+DOOM1_1R.4 DOOM1_1R.EXE
+    DOOM1_1R.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM2R.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM1_2R.1+DOOM1_2R.2+DOOM1_1R.3+DOOM1_2R.4 DOOM1_2R.EXE
-        DOOM1_2R.EXE
-    ]]]
-end
+DREAMM2R = [[[$(CRLF)
+    COPY DOOM1_2R.1+DOOM1_2R.2+DOOM1_1R.3+DOOM1_2R.4 DOOM1_2R.EXE
+    DOOM1_2R.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM6R.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM166R.1+DOOM166R.2+DOOM166R.3+DOOM166R.4 DOOM166R.EXE
-        DOOM166R.EXE
-    ]]]
-end
+DREAMM6R = [[[$(CRLF)
+    COPY DOOM166R.1+DOOM166R.2+DOOM166R.3+DOOM166R.4 DOOM166R.EXE
+    DOOM166R.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM9R.BAT
-    contents = [[[$(CRLF)
-        COPY DOOMR_19.1+DOOMR_19.2+DOOMR_19.3+DOOMR_19.4 DOOMR_19.EXE
-        DOOMR_19.EXE
-    ]]]
-end
+DREAMM9R = [[[$(CRLF)
+    COPY DOOMR_19.1+DOOMR_19.2+DOOMR_19.3+DOOMR_19.4 DOOMR_19.EXE
+    DOOMR_19.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM9D.BAT
-    contents = [[[$(CRLF)
-        COPY DOOMS_19.1+DOOMS_19.2 DOOMS_19.EXE
-        DOOMS_19.EXE
-    ]]]
-end
+DREAMM9D = [[[$(CRLF)
+    COPY DOOMS_19.1+DOOMS_19.2 DOOMS_19.EXE
+    DOOMS_19.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMMSE.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM_SE.1+DOOM_SE.2+DOOM_SE.3+DOOM_SE.4 DOOM_SE.EXE
-        DOOM_SE.EXE
+DREAMMSE = [[[$(CRLF)
+    COPY DOOM_SE.1+DOOM_SE.2+DOOM_SE.3+DOOM_SE.4 DOOM_SE.EXE
+    DOOM_SE.EXE
+]]]
+
+script[init]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\DREAMM1R.BAT", "$$(DREAMM1R)");
+        file_save("$$(rootpath)\\DREAMM2R.BAT", "$$(DREAMM2R)");
+        file_save("$$(rootpath)\\DREAMM6R.BAT", "$$(DREAMM6R)");
+        file_save("$$(rootpath)\\DREAMM9R.BAT", "$$(DREAMM9R)");
+        file_save("$$(rootpath)\\DREAMM9D.BAT", "$$(DREAMM9D)");
+        file_save("$$(rootpath)\\DREAMMSE.BAT", "$$(DREAMMSE)");
     ]]]
 end
 

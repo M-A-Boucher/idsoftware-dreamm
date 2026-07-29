@@ -33,19 +33,32 @@ config[sound]:
     end
 end
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM.BAT
-    contents = [[[$(CRLF)
-        COPY WOLF1-6.1+WOLF1-6.2 WOLF1-6.EXE
-        WOLF1-6.EXE -Y
+INSTALL = [[[$(CRLF)
+    COPY WOLF1-6.1+WOLF1-6.2 WOLF1-6.EXE
+    WOLF1-6.EXE -Y
+]]]
+
+INSTALL_GT = [[[$(CRLF)
+    COPY W3DGT.1+W3DGT.2+W3DGT.3+W3DGT.4 W3DGT.EXE
+    W3DGT.EXE
+]]]
+
+script[init]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
+        file_save("$$(rootpath)\\DREAMMGT.BAT", "$$(INSTALL_GT)");
+
     ]]]
 end
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMMGT.BAT
-    contents = [[[$(CRLF)
-        COPY W3DGT.1+W3DGT.2+W3DGT.3+W3DGT.4 W3DGT.EXE
-        W3DGT.EXE
+script[autoinstall]:
+    condition = is_installer() && file_exists("$$(rootpath)\\W3D_1-6._1")
+    code = [[[$(CRLF)
+        input_lockout(true);
+        wait("int16", 0x00); keyboard_type("\r");
+        wait("int16", 0x00); keyboard_type("c");
+        wait("int16", 0x00); keyboard_type("n");
     ]]]
 end
 
@@ -54,17 +67,6 @@ end
 //
 mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
-
-script[autoinstall]:
-    condition = is_installer() && file_exists("$$(rootpath)\\W3D_1-6._1")
-    code = [[[$(CRLF)
-        input_lockout(true);
-        wait("int16", 0x00); keyboard_type("\r");
-        wait("int16", 0x00); keyboard_type("C");
-        wait("int16", 0x00); keyboard_type("N");
-        input_lockout(false);
-    ]]]
-end
 
 //
 // v1.2 

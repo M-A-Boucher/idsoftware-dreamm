@@ -39,22 +39,28 @@ end
 //
 mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath); writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
-mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK1; optional = true; disc = 1
-mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK2; optional = true; disc = 2
-mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK3; optional = true; disc = 3
-
-dynamicfile[]: path = A:\SPEAR 1; attributes = 8; disc = 1
-dynamicfile[]: path = A:\SPEAR 2; attributes = 8; disc = 2
-dynamicfile[]: path = A:\SPEAR 3; attributes = 8; disc = 3
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK1; condition = is_installer(); writable = true; disc = 1
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK2; condition = is_installer(); writable = true; disc = 2
+mount[]: vpath = A:\        ; srcpath = $(ifsinstallpath)\DISK3; condition = is_installer(); writable = true; disc = 3
 
 script[autoinstall]:
     condition = is_installer()
     code = [[[$(CRLF)
+       video_suppress(true);
+       input_lockout(true);
+       drive_set_label("A", "SPEAR 1");
        keyboard_type("C");
        keyboard_type("\r");
        keyboard_type("\r");
-       wait("int16", 0x00); disc_insert(2); keyboard_type("\r");
-       wait("int16", 0x00); disc_insert(3); keyboard_type("\r");
+       wait("int16", 0x00); 
+       disc_insert(2);
+       drive_set_label("A", "SPEAR 2");
+       keyboard_type("\r");
+       wait("int16", 0x00); 
+       disc_insert(3);
+       drive_set_label("A", "SPEAR 3");
+       keyboard_type("\r");
+
     ]]]
 end
 

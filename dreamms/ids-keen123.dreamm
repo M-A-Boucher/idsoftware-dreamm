@@ -51,11 +51,15 @@ config[graphics]:
     end
 end
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM.BAT
-    contents = [[[$(CRLF)
-        COPY KEEN123.1+KEEN123.2 KEEN123.EXE
-        KEEN123.EXE
+INSTALL = [[[$(CRLF)
+    COPY KEEN123.1+KEEN123.2 KEEN123.EXE
+    KEEN123.EXE
+]]]
+
+script[init]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
     ]]]
 end
 

@@ -1,6 +1,7 @@
 CPANSWERS = [[[|
     =
     WhichmanualpageistheOptionsMenufunction"NewGame"on?=3
+    WhichmanualpageistheOptionsMenufunction"Sound...F4"on?=4
     WhichmanualpageistheOptionsMenufunction"Control...F6"on?=4
     WhichmanualpageistheOptionsMenufunction"ChangeView...F5"on?=5
     WhichmanualpageistheOptionsMenufunction"Quit...F10"on?=5

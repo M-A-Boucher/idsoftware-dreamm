@@ -16,35 +16,33 @@ videohw = vga
 
 $(include cfg-doom.inc)
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM2A.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM2LZH.1+DOOM2LZH.2+DOOM2LZH.3+DOOM2LZH.4+DOOM2LZH.5 DOOM2LZH.EXE
-        DOOM2LZH.EXE
-    ]]]
-end
+DREAMM2A = [[[$(CRLF)
+    COPY DOOM2LZH.1+DOOM2LZH.2+DOOM2LZH.3+DOOM2LZH.4+DOOM2LZH.5 DOOM2LZH.EXE
+    DOOM2LZH.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM2B.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM2B.1+DOOM2B.2+DOOM2B.3+DOOM2B.4+DOOM2B.5 DOOM2B.EXE
-        DOOM2B.EXE
-    ]]]
-end
+DREAMM2B = [[[$(CRLF)
+    COPY DOOM2B.1+DOOM2B.2+DOOM2B.3+DOOM2B.4+DOOM2B.5 DOOM2B.EXE
+    DOOM2B.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMM2C.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM2C.1+DOOM2C.2+DOOM2C.3+DOOM2C.4+DOOM2C.5 DOOM2C.EXE
-        DOOM2C.EXE
-    ]]]
-end
+DREAMM2C = [[[$(CRLF)
+    COPY DOOM2C.1+DOOM2C.2+DOOM2C.3+DOOM2C.4+DOOM2C.5 DOOM2C.EXE
+    DOOM2C.EXE
+]]]
 
-dynamicfile[]:
-    path = $(rootpath)\DREAMMCD.BAT
-    contents = [[[$(CRLF)
-        COPY DOOM2_19.1+DOOM2_19.2+DOOM2_19.3+DOOM2_19.4+DOOM2_19.5 DOOM2_19.EXE
-        DOOM2_19.EXE
+DREAMMCD= [[[$(CRLF)
+    COPY DOOM2_19.1+DOOM2_19.2+DOOM2_19.3+DOOM2_19.4+DOOM2_19.5 DOOM2_19.EXE
+    DOOM2_19.EXE
+]]]
+
+script[init]:
+    condition = is_installer()
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\DREAMM2A.BAT", "$$(DREAMM2A)");
+        file_save("$$(rootpath)\\DREAMM2B.BAT", "$$(DREAMM2B)");
+        file_save("$$(rootpath)\\DREAMM2C.BAT", "$$(DREAMM2C)");
+        file_save("$$(rootpath)\\DREAMMCD.BAT", "$$(DREAMMCD)");
     ]]]
 end
 
