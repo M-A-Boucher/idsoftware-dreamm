@@ -248,7 +248,7 @@ installer[v1.06-cd-installer]:
     installid = v1.06-cd
     mips = $(MIPS_MAX)
     launch = RESOURCE.EXE
-    anchorfile = CDDA.SOU
+    anchorfile = RESOURCE.EXE
     file[]: crc = 1f50aee9; size =  24684755; name = RESOURCE.EXE
     file[]:                                   name = CDDA.SOU    ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
 end
