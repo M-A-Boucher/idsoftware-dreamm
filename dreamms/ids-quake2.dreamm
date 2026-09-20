@@ -14,6 +14,104 @@ audiohw = gmidi
 filter = id software, fps
 
 //
+// controls configuration
+//
+config[controls]:
+    title = Controls Configuration
+    option[classic]:
+        name = Classic (Default Quake)
+        KEYBIND_OVERRIDE = $(NULL)
+    end
+    option[inverted]:
+        name = Modern (WASD + Mouse)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
+            bind "w" "+forward"
+            bind "a" "+moveleft"
+            bind "s" "+back"
+            bind "d" "+moveright"
+            bind MWHEELUP "weapnext"
+            bind MWHEELDOWN "weapnext"
+            +mlook
+            m_pitch "0.022"
+            sensitivity "11"
+        ]]]
+    end
+    option[mouse]:
+        name = Modern (WASD + Inverted Mouse)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
+            bind "w" "+forward"
+            bind "a" "+moveleft"
+            bind "s" "+back"
+            bind "d" "+moveright"
+            bind MWHEELUP "weapnext"
+            bind MWHEELDOWN "weapnext"
+            +mlook
+            m_pitch "-0.022"
+            sensitivity "11"
+        ]]]
+    end
+end
+
+//
+// graphics configuration
+//
+config[graphics]:
+    title = Graphics Configuration
+    option[320x240]:
+        name = 320x240
+        VIDEO_OVERRIDE = set sw_mode "0"
+    end
+    option[400x300]:
+        name = 400x300
+        VIDEO_OVERRIDE = set sw_mode "1"
+    end
+    option[512x384]:
+        name = 512x384
+        VIDEO_OVERRIDE = set sw_mode "2"
+    end
+    option[640x480]:
+        name = 640x480
+        VIDEO_OVERRIDE = set sw_mode "3"
+    end
+    option[800x600]:
+        name = 800x600; priority = 1
+        VIDEO_OVERRIDE = set sw_mode "4"
+    end
+    option[960x720]:
+        name = 960x720
+        VIDEO_OVERRIDE = set sw_mode "5"
+    end
+    option[1024x768]:
+        name = 1024x768
+        VIDEO_OVERRIDE = set sw_mode "6"
+    end
+    option[1152x864]:
+        name = 1152x864
+        VIDEO_OVERRIDE = set sw_mode "7"
+    end
+    option[1280x960]:
+        name = 1280x960
+        VIDEO_OVERRIDE = set sw_mode "8"
+    end
+    option[1600x1200]:
+        name = 1600x1200
+        VIDEO_OVERRIDE = set sw_mode "9"
+    end
+end
+
+CFG = [[[$(CRLF)
+    $(KEYBIND_OVERRIDE)
+    $(VIDEO_OVERRIDE)
+]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        if (is_game())
+          file_save("$$(rootpath)\\baseq2\\autoexec.cfg", "$$(CFG)");
+    ]]]
+end
+
+//
 // filesystem
 //
 mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
