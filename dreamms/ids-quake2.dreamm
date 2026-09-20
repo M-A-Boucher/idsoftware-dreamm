@@ -10,6 +10,8 @@ osenv = windows
 rootpath = C:\
 launch = $(rootpath)\quake2.exe
 mips = $(MIPS_MAX)
+winres = 1600x1200
+wincrop = true
 audiohw = gmidi
 filter = id software, fps
 
@@ -102,6 +104,7 @@ end
 CFG = [[[$(CRLF)
     $(KEYBIND_OVERRIDE)
     $(VIDEO_OVERRIDE)
+    set vid_fullscreen "1"
 ]]]
 
 script[init]:
