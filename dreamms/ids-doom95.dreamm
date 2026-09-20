@@ -1,0 +1,740 @@
+//
+// Doom 95
+//
+desc[ids-doom95]:
+
+name = Doom 95
+icon = ids-doom.png
+machine = pc
+rootpath = C:\
+launch = "$(rootpath)\Doom95.exe" $(BASEWAD) $(MONSTER) $(SKILL) $(WARP) $(RESOLUTION) -nosfxformat
+filter = nonlucas, netplay
+osenv = windows 95
+audiohw = gmidi
+winres = 640x480x8
+BASEWAD = ""
+MONSTER = ""
+SKILL = ""
+GAMEID = 0
+SKILLSTART = 0
+WARP = ""
+
+//
+// filesystem
+//
+mount[]: vpath = C:\; srcpath = $(ifsdeltapath); writable = true
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// Registry
+//
+REGISTRY = [[[$(CRLF)
+		REGEDIT4
+		[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\MediaResources\Joystick\Joystick\CurrentJoystickSettings]
+		@=
+		[HKEY_CURRENT_USER\SOFTWARE\id\Doom95\Session]
+		"(Default)"=""
+		"cdrom"=?dword:00000000
+		"customwad"=?""
+		"deathmatch"=?dword:00000000
+		"demosize"=?dword:00000000
+		"fastparm"=?dword:00000000
+		"fullscreen"=?dword:00000001
+		"gamename"=?"DREAMM"
+		"IPXport"=?dword:00000000
+		"loadgame"=?dword:00000000
+		"maxnumplayers"=?dword:00000000
+		"nomonsters"=?dword:00000000
+		"onetdll"=?""
+		"onetstring"=?"r"
+		"playdemo"=?dword:00000000
+		"playdemofile"=?""
+		"playeralias"=?"DREAMMPlayer"
+		"recorddemo"=?dword:00000000
+		"recorddemofile"=?"dreammdemo"
+		"respawnparm"=?dword:00000000
+		"screenrez"=?dword:00000003
+		"startepisode"=?dword:00000004
+		"startmap"=?dword:00000004
+		"startskill"=?dword:00000004
+		"timer"=?dword:00000000
+		"timervalue"=?dword:00000002
+		"turbo"=?dword:00000000
+		"turbovalue"=?dword:0000000a
+		"wadfile"=?"DOOM.WAD"
+		[HKEY_CURRENT_USER\SOFTWARE\ID\Doom95\Config]
+		@=
+		"joy_advanced"=?dword:00000001
+		"joy_id"=?dword:00000000
+		"use_joystick"=?dword:00000001
+		"joyb_use"=?dword:00000003
+		"joyb_fire"=?dword:00000000
+		"joyb_speed"=?dword:00000001
+		"joyb_strafe"=?dword:00000002
+		
+		]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        winregistry_import_raw("$$(REGISTRY)");
+    ]]]
+end
+
+//
+// Game Launch
+//
+config[gametype]:
+    title = Game Mode
+    option[launcher]:  name = Launcher; BASEWAD = ""; MONSTER = ""; SKILL = ""; GAMEID = 0; SKILLSTART = 0; WARP = ""; RESOLUTION = ""; priority = 1
+	option[doom1]: name = Doom Shareware (DOOM1.WAD); BASEWAD = -nodm -basewad doom1.wad; condition = file_exists("$$(rootpath)\\doom1.wad"); GAMEID = 1
+	option[doomua]: name = The Ultimate Doom (DOOM.WAD); BASEWAD = -nodm -basewad doom.wad; condition = (file_exists("$$(rootpath)\\doom.wad")); GAMEID = 2
+	option[doomub]: name = The Ultimate Doom (DOOMU.WAD); BASEWAD = -nodm -basewad doomu.wad; condition = file_exists("$$(rootpath)\\doomu.wad"); GAMEID = 6
+	option[doom2]: name = Doom II Hell on Earth (DOOM2.WAD); BASEWAD = -nodm -basewad doom2.wad; condition = (file_exists("$$(rootpath)\\doom2.wad")); GAMEID = 3
+	option[doom2f]: name = Doom II L'Enfer sur Terre (DOOM2F.WAD); BASEWAD = -nodm -basewad doom2f.wad; condition = (file_exists("$$(rootpath)\\doom2f.wad")); GAMEID = 3
+	option[doom2m]: name = Master Levels for Doom II (DOOM2.WAD); BASEWAD = -nodm -basewad doom2.wad; condition = (file_exists("$$(rootpath)\\doom2.wad")) && (file_exists("$$(rootpath)\\MASTER\\wads\\attack.wad")); GAMEID = 7
+	option[doom2mf]: name = Master Levels for Doom IIF (DOOM2F.WAD); BASEWAD = -nodm -basewad doom2f.wad; condition = (file_exists("$$(rootpath)\\doom2f.wad")) && (file_exists("$$(rootpath)\\MASTER\\wads\\attack.wad")); GAMEID = 7
+	option[plutonia]: name = The Plutonia Experiment (PLUTONIA.WAD); BASEWAD = -nodm -basewad plutonia.wad; condition = file_exists("$$(rootpath)\\plutonia.wad"); GAMEID = 4
+	option[tnt]: name = TNT Evilution (TNT.WAD); BASEWAD = -nodm -basewad tnt.wad; condition = file_exists("$$(rootpath)\\tnt.wad"); GAMEID = 5
+	option[tnt31]: name = TNT Evilution w/ TNT31 (TNT.WAD + TNT31.WAD); BASEWAD = -nodm -basewad tnt.wad -file tnt31.wad -nowarn; condition = file_exists("$$(rootpath)\\tnt.wad") && file_exists("$$(rootpath)\\tnt31.wad"); GAMEID = 5
+	
+end
+
+//
+// SKILL
+//
+config[skill]:
+	condition = ("$$(GAMEID)" != 0)
+    title = SKILL LEVEL
+	option[skilloff]: name = Normal Start. ; SKILL = ""; priority = 1; SKILLSTART = 0; MONSTER = ""; WARP = ""; priority = 1; condition = "$$(GAMEID)" != 7
+    option[skill1]: name = I'M TOO YOUNG TO DIE. (SKILL1); SKILL = -SKILL 1; SKILLSTART = 2
+	option[skill2]: name = HEY, NOT TOO ROUGH. (SKILL2); SKILL = -SKILL 2; SKILLSTART = 2
+    option[skill3]: name = HURT ME PLENTY. (SKILL3); SKILL = -SKILL 3; SKILLSTART = 2
+	option[skill4]: name = ULTRA-VIOLENCE. (SKILL4); SKILL = -SKILL 4; SKILLSTART = 2
+	option[skill5]: name = NIGHTMARE! (SKILL5); SKILL = -SKILL 5; SKILLSTART = 2
+	option[skill0]: name = NO THINGS. (SKILL0); SKILL = -SKILL 0; SKILLSTART = 1
+	
+end
+
+//
+// Monster Toggle (Off/On/Fast/Respawn)
+//
+config[monster]:
+	condition = ("$$(GAMEID)" != 0) && ("$$(SKILLSTART)" > 1)
+    title = Monsters
+    option[off]:  name = Off; MONSTER = -NOMONSTERS
+	option[on]: name = On (Normal); MONSTER = ""; priority = 1
+    option[fast]: name = On + Fast Monsters; MONSTER = -FAST
+	option[respawn]: name = On + Respawn Monsters; MONSTER = -RESPAWN
+	option[both]: name = On + Fast & Respawn Monsters; MONSTER = -FAST -RESPAWN
+	
+end
+
+//
+// Doom / Ultimate Doom
+//
+config[d1map]:
+	condition = ("$$(SKILLSTART)" > 0) && (("$$(GAMEID)" == 1) || ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6))
+    title = Start on D1Map
+    option[warp11]: name = E1M1 HANGAR; WARP = -WARP 1 1; priority = 1
+	option[warp12]: name = E1M2 NUCLEAR PLANT; WARP = -WARP 1 2
+    option[warp13]: name = E1M3 TOXIN REFINERY; WARP = -WARP 1 3
+	option[warp14]: name = E1M4 COMMAND CONTROL; WARP = -WARP 1 4
+	option[warp15]: name = E1M5 PHOBOS LAB; WARP = -WARP 1 5
+	option[warp16]: name = E1M6 CENTRAL PROCESSING; WARP = -WARP 1 6
+	option[warp17]: name = E1M7 COMPUTER STATION; WARP = -WARP 1 7
+	option[warp18]: name = E1M8 PHOBOS ANOMALY; WARP = -WARP 1 8
+	option[warp19]: name = E1M9 MILITARY BASE; WARP = -WARP 1 9
+    option[warp21]: name = E2M1 DEIMOS ANOMALY; WARP = -WARP 2 1; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp22]: name = E2M2 CONTAINMENT AREA; WARP = -WARP 2 2; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+    option[warp23]: name = E2M3 REFINERY; WARP = -WARP 2 3; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp24]: name = E2M4 DEIMOS LAB; WARP = -WARP 2 4; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp25]: name = E2M5 COMMAND CENTER; WARP = -WARP 2 5; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp26]: name = E2M6 HALLS OF THE DAMNED; WARP = -WARP 2 6; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp27]: name = E2M7 SPAWNING VATS; WARP = -WARP 2 7; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp28]: name = E2M8 TOWER OF BABEL; WARP = -WARP 2 8; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp29]: name = E2M9 FORTRESS OF MYSTERY; WARP = -WARP 2 9; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+    option[warp31]: name = E3M1 HELL KEEP; WARP = -WARP 3 1; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp32]: name = E3M2 SLOUGH OF DESPAIR; WARP = -WARP 3 2; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+    option[warp33]: name = E3M3 PANDEMONIUM; WARP = -WARP 3 3; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp34]: name = E3M4 HOUSE OF PAIN; WARP = -WARP 3 4; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp35]: name = E3M5 UNHOLY CATHEDRAL; WARP = -WARP 3 5; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp36]: name = E3M6 MT. EREBUS; WARP = -WARP 3 6; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp37]: name = E3M7 GATE TO LIMBO; WARP = -WARP 3 7; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp38]: name = E3M8 DIS; WARP = -WARP 3 8; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp39]: name = E3M9 WARRENS; WARP = -WARP 3 9; condition =  ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+    option[warp41]: name = E4M1 HELL BENEATH; WARP = -WARP 4 1; condition =  ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp42]: name = E4M2 PERFECT HATRED; WARP = -WARP 4 2; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+    option[warp43]: name = E4M3 SEVER THE WICKED; WARP = -WARP 4 3; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp44]: name = E4M4 UNRULY EVIL; WARP = -WARP 4 4; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp45]: name = E4M5 THEY WILL REPENT; WARP = -WARP 4 5; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp46]: name = E4M6 AGAINST THEE WICKEDLY; WARP = -WARP 4 6; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp47]: name = E4M7 AND HELL FOLLOWED; WARP = -WARP 4 7; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp48]: name = E4M8 UNTO THE CRUEL; WARP = -WARP 4 8; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+	option[warp49]: name = E4M9 FEAR; WARP = -WARP 4 9; condition = ("$$(GAMEID)" == 2) || ("$$(GAMEID)" == 6)
+
+end
+
+//
+// Doom 2 Map
+//
+config[d2map]:
+	condition = ("$$(SKILLSTART)" > 0) && ("$$(GAMEID)" == 3)
+    title = Start on D2Map
+    option[warp1]: name = Map01 ENTRYWAY; WARP = -WARP 1; priority = 1
+	option[warp2]: name = Map02 UNDERHALLS; WARP = -WARP 2
+    option[warp3]: name = Map03 THE GANTLET; WARP = -WARP 3
+	option[warp4]: name = Map04 THE FOCUS; WARP = -WARP 4
+	option[warp5]: name = Map05 THE WASTE TUNNELS; WARP = -WARP 5
+	option[warp6]: name = Map06 THE CRUSHER; WARP = -WARP 6
+	option[warp7]: name = Map07 DEAD SIMPLE; WARP = -WARP 7
+	option[warp8]: name = Map08 TRICKS AND TRAPS; WARP = -WARP 8
+	option[warp9]: name = Map09 THE PIT; WARP = -WARP 9	
+    option[warp10]: name = Map10 REFUELING BASE; WARP = -WARP 10
+    option[warp10]: name = Map11 'O' OF DESTRUCTION; WARP = -WARP 11
+	option[warp12]: name = Map12 THE FACTORY; WARP = -WARP 12
+    option[warp13]: name = Map13 DOWNTOWN; WARP = -WARP 13
+	option[warp14]: name = Map14 THE INMOST DENS; WARP = -WARP 14
+	option[warp15]: name = Map15 INDUSTRIAL ZONE; WARP = -WARP 15
+	option[warp16]: name = Map16 SUBURBS; WARP = -WARP 16
+	option[warp17]: name = Map17 TENEMENTS; WARP = -WARP 17
+	option[warp18]: name = Map18 THE COURTYARD; WARP = -WARP 18
+	option[warp19]: name = Map19 THE CITADEL; WARP = -WARP 19
+    option[warp20]: name = Map20 GOTCHA!; WARP = -WARP 20
+    option[warp21]: name = Map21 NIRVANA; WARP = -WARP 21
+	option[warp22]: name = Map22 THE CATACOMBS; WARP = -WARP 22
+    option[warp23]: name = Map23 BARRELS O' FUN; WARP = -WARP 23
+	option[warp24]: name = Map24 THE CHASM; WARP = -WARP 24
+	option[warp25]: name = Map25 BLOODFALLS; WARP = -WARP 25
+	option[warp26]: name = Map26 THE ABANDONED MINES; WARP = -WARP 26
+	option[warp27]: name = Map27 MONSTER CONDO; WARP = -WARP 27
+	option[warp28]: name = Map28 THE SPIRIT WORLD; WARP = -WARP 28
+	option[warp29]: name = Map29 THE LIVING END; WARP = -WARP 29
+    option[warp30]: name = Map30 ICON OF SIN; WARP = -WARP 30
+    option[warp31]: name = Map31 WOLFENSTEIN; WARP = -WARP 31
+	option[warp32]: name = Map32 GROSSE; WARP = -WARP 32
+end
+
+//
+// Doom 2 Master Levels Map
+//
+config[mastermap]:
+	condition = ("$$(SKILLSTART)" > 0) && ("$$(GAMEID)" == 7)
+    title = Start on Master Map
+    option[warp1]: name = Attack (attack.wad); WARP = -file $(rootpath)\MASTER\WADS\attack.wad -WARP 1 -nowarn; priority = 1
+	option[warp2]: name = Black Tower (blacktwr.wad); WARP = -file $(rootpath)\MASTER\WADS\blacktwr.wad -WARP 25 -nowarn
+    option[warp3]: name = Bloodsea (bloodsea.wad); WARP = -file $(rootpath)\MASTER\WADS\bloodsea.wad -WARP 7 -nowarn
+	option[warp4]: name = Canyon (canyon.wad); WARP = -file $(rootpath)\MASTER\WADS\canyon.wad -WARP 1 -nowarn
+	option[warp5]: name = The Catwalk (catwalk.wad); WARP = -file $(rootpath)\MASTER\WADS\catwalk.wad -WARP 1 -nowarn
+	option[warp6]: name = The Combine (combine.wad); WARP = -file $(rootpath)\MASTER\WADS\combine.wad -WARP 1 -nowarn
+	option[warp7]: name = The Fistula (fistula.wad); WARP = -file $(rootpath)\MASTER\WADS\fistula.wad -WARP 1 -nowarn
+	option[warp8]: name = Garrison (garrison.wad); WARP = -file $(rootpath)\MASTER\WADS\garrison.wad -WARP 1 -nowarn
+	option[warp9]: name = Geryon (geryon.wad); WARP = -file $(rootpath)\MASTER\WADS\geryon.wad -WARP 8 -nowarn
+    option[warp10]: name = Manor (manor.wad); WARP = -file $(rootpath)\MASTER\WADS\manor.wad -WARP 1 -nowarn
+    option[warp11]: name = Mephisto's Maosoleum (mephisto.wad); WARP = -file $(rootpath)\MASTER\WADS\mephisto.wad -WARP 7 -nowarn
+	option[warp12]: name = Minos' Judgement: 4th Canto of INFERNO (minos.wad); WARP = -file $(rootpath)\MASTER\WADS\minos.wad -WARP 5 -nowarn
+    option[warp13]: name = Nessus: 5th Canto of INFERNO (nessus.wad); WARP = -file $(rootpath)\MASTER\WADS\nessus.wad -WARP 7 -nowarn
+	option[warp14]: name = Paradox (paradox.wad); WARP = -file $(rootpath)\MASTER\WADS\paradox.wad -WARP 1 -nowarn
+	option[warp15]: name = Subspace (subspace.wad); WARP = -file $(rootpath)\MASTER\WADS\subspace.wad -WARP 1 -nowarn
+	option[warp16]: name = Subterra (subterra.wad); WARP = -file $(rootpath)\MASTER\WADS\subterra.wad -WARP 1 -nowarn
+	option[warp17]: name = The Express Elevator to Hell (teeth.wad); WARP = -file $(rootpath)\MASTER\WADS\teeth.wad -WARP 31 -nowarn
+	option[warp18]: name = Bad Dream (teeth.wad); WARP = -file $(rootpath)\MASTER\WADS\teeth.wad -WARP 32 -nowarn
+	option[warp19]: name = Trapped on Titan (ttrap.wad); WARP = -file $(rootpath)\MASTER\WADS\ttrap.wad -WARP 1 -nowarn
+	option[warp20]: name = Vesperas: 7th Canto of INFERNO(vesperas.wad); WARP = -file $(rootpath)\MASTER\WADS\vesperas.wad -WARP 9 -nowarn
+	option[warp21]: name = Virgil's Lead: 3rd Canto of INFERNO (virgil.wad); WARP = -file $(rootpath)\MASTER\WADS\virgil.wad -WARP 3 -nowarn
+
+end
+
+//
+// Doom 2 Plutonia Map
+//
+config[fdptmap]:
+	condition = ("$$(SKILLSTART)" > 0) && ("$$(GAMEID)" == 4)
+    title = Start on PTMap
+    option[warp1]: name = Map01 CONGO; WARP = -WARP 1; priority = 1
+	option[warp2]: name = Map02 WELL OF SOULS; WARP = -WARP 2
+    option[warp3]: name = Map03 AZTEC; WARP = -WARP 3
+	option[warp4]: name = Map04 CAGED; WARP = -WARP 4
+	option[warp5]: name = Map05 GHOST TOWN; WARP = -WARP 5
+	option[warp6]: name = Map06 BARON'S LAIR; WARP = -WARP 6
+	option[warp7]: name = Map07 CAUGHTYARD; WARP = -WARP 7
+	option[warp8]: name = Map08 REALM; WARP = -WARP 8
+	option[warp9]: name = Map09 ABATTOIRE; WARP = -WARP 9	
+    option[warp10]: name = Map10 ONSLAUGHT; WARP = -WARP 10
+    option[warp10]: name = Map11 HUNTED; WARP = -WARP 11
+	option[warp12]: name = Map12 SPEED; WARP = -WARP 12
+    option[warp13]: name = Map13 THE CRYPT; WARP = -WARP 13
+	option[warp14]: name = Map14 GENESIS; WARP = -WARP 14
+	option[warp15]: name = Map15 THE TWILIGHT; WARP = -WARP 15
+	option[warp16]: name = Map16 THE OMEN; WARP = -WARP 16
+	option[warp17]: name = Map17 COMPOUND; WARP = -WARP 17
+	option[warp18]: name = Map18 NEUROSPHERE; WARP = -WARP 18
+	option[warp19]: name = Map19 NME; WARP = -WARP 19
+    option[warp20]: name = Map20 THE DEATH DOMAIN; WARP = -WARP 20
+    option[warp21]: name = Map21 SLAYER; WARP = -WARP 21
+	option[warp22]: name = Map22 IMPOSSIBLE MISSION; WARP = -WARP 22
+    option[warp23]: name = Map23 TOMBSTONE; WARP = -WARP 23
+	option[warp24]: name = Map24 THE FINAL FRONTIER; WARP = -WARP 24
+	option[warp25]: name = Map25 THE TEMPLE OF DARKNESS; WARP = -WARP 25
+	option[warp26]: name = Map26 BUNKER; WARP = -WARP 26
+	option[warp27]: name = Map27 ANTI-CHRIST; WARP = -WARP 27
+	option[warp28]: name = Map28 THE SEWERS; WARP = -WARP 28
+	option[warp29]: name = Map29 ODYSSEY OF NOISES; WARP = -WARP 29
+    option[warp30]: name = Map30 THE GATEWAY OF HELL; WARP = -WARP 30
+    option[warp31]: name = Map31 CYBERDEN; WARP = -WARP 31
+	option[warp32]: name = Map32 GO 2 IT; WARP = -WARP 32
+end
+
+//
+// Doom 2 TNT Map
+//
+config[fdtntmap]:
+	condition = ("$$(SKILLSTART)" > 0) && ("$$(GAMEID)" == 5)
+    title = Start on TNTMap
+    option[warp1]: name = Map01 SYSTEM CONTROL; WARP = -WARP 1; priority = 1
+	option[warp2]: name = Map02 HUMAN BBQ; WARP = -WARP 2
+    option[warp3]: name = Map03 POWER CONTROL; WARP = -WARP 3
+	option[warp4]: name = Map04 WORMHOLE; WARP = -WARP 4
+	option[warp5]: name = Map05 HANGER; WARP = -WARP 5
+	option[warp6]: name = Map06 OPEN SEASON; WARP = -WARP 6
+	option[warp7]: name = Map07 PRISON; WARP = -WARP 7
+	option[warp8]: name = Map08 METAL; WARP = -WARP 8
+	option[warp9]: name = Map09 STRONGHOLD; WARP = -WARP 9	
+    option[warp10]: name = Map10 REDEMPTION; WARP = -WARP 10
+    option[warp10]: name = Map11 STORAGE FACILITY; WARP = -WARP 11
+	option[warp12]: name = Map12 CRATER; WARP = -WARP 12
+    option[warp13]: name = Map13 NUKAGE PROCESSING; WARP = -WARP 13
+	option[warp14]: name = Map14 STEEL WORKS; WARP = -WARP 14
+	option[warp15]: name = Map15 DEAD ZONE; WARP = -WARP 15
+	option[warp16]: name = Map16 DEEPEST REACHES; WARP = -WARP 16
+	option[warp17]: name = Map17 PROCESSING AREA; WARP = -WARP 17
+	option[warp18]: name = Map18 MILL; WARP = -WARP 18
+	option[warp19]: name = Map19 SHIPPING/RESPAWNING; WARP = -WARP 19
+    option[warp20]: name = Map20 CENTRAL PROCESSING; WARP = -WARP 20
+    option[warp21]: name = Map21 ADMINISTRATION CENTER; WARP = -WARP 21
+	option[warp22]: name = Map22 HABITAT; WARP = -WARP 22
+    option[warp23]: name = Map23 LUNAR MINING PROJECT; WARP = -WARP 23
+	option[warp24]: name = Map24 QUARRY; WARP = -WARP 24
+	option[warp25]: name = Map25 BARON'S DEN; WARP = -WARP 25
+	option[warp26]: name = Map26 BALLISTYX; WARP = -WARP 26
+	option[warp27]: name = Map27 MOUNT PAIN; WARP = -WARP 27
+	option[warp28]: name = Map28 HECK; WARP = -WARP 28
+	option[warp29]: name = Map29 RIVER STYX; WARP = -WARP 29
+    option[warp30]: name = Map30 LAST CALL; WARP = -WARP 30
+    option[warp31]: name = Map31 PHARAOH; WARP = -WARP 31
+	option[warp32]: name = Map32 CARIBBEAN; WARP = -WARP 32
+	
+end
+
+//
+// video configuration
+//
+config[video]:
+	condition = ("$$(GAMEID)" == 0)
+    title = Video Configuration
+    option[window]:  name = Cropped to Window; wincrop = true
+    option[desktop]: name = Full Desktop;      wincrop = false; priority = 1
+end
+
+//
+// video configuration outside launcher
+//
+config[vidsize]:
+	condition = ("$$(GAMEID)" != 0)
+    title = Video Configuration
+    option[200w]:  name = 320×200 WINDOW; RESOLUTION = -320x200w; winres = 640x480x8; wincrop = false
+    option[240w]:  name = 320×240 WINDOW; RESOLUTION = -320x240w; winres = 640x480x8; wincrop = false
+    option[400w]:  name = 640×400 WINDOW; RESOLUTION = -640x400w; winres = 640x480x8; wincrop = false
+    option[480w]:  name = 640×480 WINDOW; RESOLUTION = -640x480w; winres = 800x600x8; wincrop = false
+    option[200wc]:  name = 320×200 WINDOW CROPPED; RESOLUTION = -320x200w; winres = 640x480x8; wincrop = true
+    option[240wc]:  name = 320×240 WINDOW CROPPED; RESOLUTION = -320x240w; winres = 640x480x8; wincrop = true
+    option[400wc]:  name = 640×400 WINDOW CROPPED; RESOLUTION = -640x400w; winres = 640x480x8; wincrop = true
+    option[480wc]:  name = 640×480 WINDOW CROPPED; RESOLUTION = -640x480w; winres = 800x600x8; wincrop = true
+    option[200]:  name = 320×200 FULL SCREEN; RESOLUTION = -320x200; winres = 640x480x8; wincrop = false; priority = 1
+    option[240]:  name = 320×240 FULL SCREEN; RESOLUTION = -320x240; winres = 640x480x8; wincrop = false
+    //option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400; winres = 640x480x8; wincrop = false
+    option[480]:  name = 640×480 FULL SCREEN; RESOLUTION = -640x480; winres = 640x480x8; wincrop = false
+end
+
+
+//
+// Doom Shareware 1.9
+//
+addon[doomsw19]:
+	name = Doom (Shareware) V1.9
+	anchorfile = DOOM1.WAD
+	anchordepth = 3
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	pc-cd-en-gfw95
+	]]]
+    file[]: crc = 162b696a; size =   4196020; name = DOOM1.WAD
+	
+end
+
+//
+//The Ultimate Doom V1.9ud
+//
+addon[udwad19]:
+	name = The Ultimate Doom V1.9ud
+	anchorfile = doom.wad
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	file[]: crc = bf0eaac0; size =  12408292; name = DOOM.WAD
+	//ULTIMATE = 1
+end
+
+
+//
+//The Ultimate Doom V1.9
+//
+addon[udwad19b]:
+	name = The Ultimate Doom V1.9B
+	anchorfile = doomu.wad
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	file[]: crc = 723e60f9; size =  11159840; name = DOOMU.WAD
+	//ULTIMATE = 1
+end
+
+//
+//Doom II V1.9
+//
+addon[d2wad19]:
+	name = Doom II V1.9
+	anchorfile = doom2.wad
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	 file[]: crc = ec8725db; size =  14604584; name = DOOM2.WAD
+end
+
+//
+//Doom II 1.8f (France Release)
+//
+addon[d2wad18f]:
+	name = Doom II 1.8f
+	anchorfile = doom2f.wad
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	 file[]: crc = 27eaae69; size =  14607420; name = DOOM2F.WAD
+end
+
+//
+//Plutonia Experiment (V1.9)
+//
+addon[ptwad]:
+	name = The Plutonia Experiment V1.9
+	anchorfile = PLUTONIA.WAD
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 48d1453c; size =  17420824; name = PLUTONIA.WAD
+	
+end
+
+//
+//Plutonia Experiment (V1.9) (with FINAL DOOM CD)
+//
+addon[ptwadcd]:
+	name = The Plutonia Experiment V1.9
+	anchorfile = PLUTONIA.WAD
+	anchordepth = 1
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 48d1453c; size =  17420824; name = PLUTONIA.WAD
+	
+end
+
+//
+//Plutonia Experiment (V1.9) (FINAL DOOM idAnthology/GOG)
+//
+addon[ptwadida]:
+	name = The Plutonia Experiment id Anthology
+	anchorfile = PLUTONIA.WAD
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 15cd1448; size =  18240172; name = PLUTONIA.WAD
+	
+end
+
+//
+//Evilution TNT (V1.9)
+//
+addon[tntwad]:
+	name = Evilution TNT V1.9
+	anchorfile = TNT.WAD
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 903dcc27; size =  18195736; name = TNT.WAD	
+	
+end
+
+//
+//Evilution TNT (V1.9) (with FINAL DOOM CD)
+//
+addon[tntwadcd]:
+	name = Evilution TNT V1.9
+	anchorfile = TNT.WAD
+	anchordepth = 1
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 903dcc27; size =  18195736; name = TNT.WAD	
+	
+end
+
+//
+//Evilution (V1.9) (FINAL DOOM idAnthology/GOG)
+//
+addon[tntwadida]:
+	name = Evilution TNT id Anthology
+	anchorfile = TNT.WAD
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = d4bb05c0; size =  18654796; name = TNT.WAD
+
+end
+
+//
+// Evilution Map 31 Fix (TNT31.WAD)
+//
+addon[tnt31]:
+	name = Evilution TNT Map 31 Fix
+	anchorfile = TNT31.WAD
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 047B7ADD; size =  282000; name = TNT31.WAD
+
+end
+
+//
+//Master Levels for Doom II
+//
+addon[master]:
+	name = Master Levels for Doom II
+	anchorfile = geryon.wad
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	file[]:                                   name = MASTER\WADS\ATTACK.TXT
+    file[]: crc = b350c720; size =    185135; name = MASTER\WADS\ATTACK.WAD
+    file[]:                                   name = MASTER\WADS\BLACKTWR.TXT
+    file[]: crc = e8ec0c8e; size =    199534; name = MASTER\WADS\BLACKTWR.WAD
+    file[]:                                   name = MASTER\WADS\BLOODSEA.TXT
+    file[]: crc = 4e3c30d6; size =    258942; name = MASTER\WADS\BLOODSEA.WAD
+    file[]:                                   name = MASTER\WADS\CANYON.TXT
+    file[]: crc = 3d84f23d; size =    157529; name = MASTER\WADS\CANYON.WAD
+    file[]:                                   name = MASTER\WADS\CATWALK.TXT
+    file[]: crc = 120cd525; size =    151817; name = MASTER\WADS\CATWALK.WAD
+    file[]:                                   name = MASTER\WADS\COMBINE.TXT
+    file[]: crc = f36f7a65; size =    141548; name = MASTER\WADS\COMBINE.WAD
+    file[]:                                   name = MASTER\WADS\FISTULA.TXT
+    file[]: crc = 7bdb6497; size =    104654; name = MASTER\WADS\FISTULA.WAD
+    file[]:                                   name = MASTER\WADS\GARRISON.TXT
+    file[]: crc = 24a63b87; size =    116403; name = MASTER\WADS\GARRISON.WAD
+    file[]:                                   name = MASTER\WADS\GERYON.TXT
+    file[]: crc = 521d230f; size =    221009; name = MASTER\WADS\GERYON.WAD
+    file[]:                                   name = MASTER\WADS\MANOR.TXT
+    file[]: crc = e6243374; size =    245444; name = MASTER\WADS\MANOR.WAD
+    file[]:                                   name = MASTER\WADS\MEPHISTO.TXT
+    file[]: crc = 3c9f90af; size =    121406; name = MASTER\WADS\MEPHISTO.WAD
+    file[]:                                   name = MASTER\WADS\MINOS.TXT
+    file[]: crc = c385f0bc; size =    351712; name = MASTER\WADS\MINOS.WAD
+    file[]:                                   name = MASTER\WADS\NESSUS.TXT
+    file[]: crc = f3e1c6cd; size =    158514; name = MASTER\WADS\NESSUS.WAD
+    file[]:                                   name = MASTER\WADS\PARADOX.TXT
+    file[]: crc = 716050f7; size =    223555; name = MASTER\WADS\PARADOX.WAD
+    file[]:                                   name = MASTER\WADS\SUBSPACE.TXT
+    file[]: crc = 311059cb; size =    105780; name = MASTER\WADS\SUBSPACE.WAD
+    file[]:                                   name = MASTER\WADS\SUBTERRA.TXT
+    file[]: crc = ad3094fd; size =    127480; name = MASTER\WADS\SUBTERRA.WAD
+    file[]:                                   name = MASTER\WADS\TEETH.TXT
+    file[]: crc = 9b918d83; size =    190531; name = MASTER\WADS\TEETH.WAD
+    file[]:                                   name = MASTER\WADS\TTRAP.TXT
+    file[]: crc = 2fe2a2e4; size =    286220; name = MASTER\WADS\TTRAP.WAD
+    file[]:                                   name = MASTER\WADS\VESPERAS.TXT
+    file[]: crc = 9b452c7e; size =    235353; name = MASTER\WADS\VESPERAS.WAD
+    file[]:                                   name = MASTER\WADS\VIRGIL.TXT
+    file[]: crc = 4d0b58e8; size =    171232; name = MASTER\WADS\VIRGIL.WAD
+
+end
+
+//
+// Demo Playback Fix
+//
+addon[dmorec]:
+	name = Unoffical Demo Playback Fix
+	anchorfile = doomlnch.dll
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+	file[]: crc = 20E4DFB5; size = 110080; name = doomlnch.dll
+	
+end
+
+//
+//Doom 95 Main Program
+//
+
+//
+// The Ultimate Doom for Windows 95 (V3.0)
+//
+game[pc-cd-en-ud95]:
+    name = Doom 95 V3.0
+    anchorfile = Doom95.exe
+    file[]: crc = d58d38e2; size =    775117; name = DOOM95.EXE
+    file[]: crc = d9098704; size =     50176; name = DOOMCFG.DLL
+    file[]: crc = 377dd1cb; size =     22528; name = DOOMIPX.DLL
+    file[]: crc = 7b5045e9; size =    110080; name = DOOMLNCH.DLL
+    file[]: crc = ca23ac44; size =     72704; name = DOOMMDM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = DOOMSER.DLL
+    file[]:                                   name = README.TXT
+    file[]: crc = e18fd135; size =    382515; name = DOOM.HLP
+	
+end
+
+//
+// Doom II for Windows 95 (V3.0)
+//
+game[pc-cd-en-d295]:
+    name = Doom 95 V3.0
+    anchorfile = Doom95.exe
+    file[]: crc = d58d38e2; size =    775117; name = DOOM95.EXE
+    file[]: crc = d9098704; size =     50176; name = DOOMCFG.DLL
+    file[]: crc = 377dd1cb; size =     22528; name = DOOMIPX.DLL
+    file[]: crc = 7b5045e9; size =    110080; name = DOOMLNCH.DLL
+    file[]: crc = ca23ac44; size =     72704; name = DOOMMDM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = DOOMSER.DLL
+    file[]:                                   name = README.TXT
+    file[]: crc = 3dbe3159; size =    360425; name = DOOM2.HLP
+	
+end
+
+//
+// Final Doom for Windows 95 (V3.0)
+//
+game[pc-cd-en-fd95]:
+	name = Doom 95 V3.0
+    anchorfile = Doom95.exe
+    file[]: crc = d58d38e2; size =    775117; name = DOOM95.EXE
+    file[]: crc = d9098704; size =     50176; name = DOOMCFG.DLL
+    file[]: crc = 377dd1cb; size =     22528; name = DOOMIPX.DLL
+    file[]: crc = 7b5045e9; size =    110080; name = DOOMLNCH.DLL
+    file[]: crc = ca23ac44; size =     72704; name = DOOMMDM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = DOOMSER.DLL
+	file[]:                                   name = README.TXT
+    file[]: crc = 8b7a60ea; size =    427646; name = FINAL.HLP
+	
+end
+
+//
+// Doom Collector's Edition (V3.0)
+//
+game[pc-cd-en-dce]:
+    name = Doom 95 V3.0
+    anchorfile = Doom95.exe
+	anchordepth = 2
+    file[]: crc = d58d38e2; size =    775117; name = DOOM95.EXE
+    file[]: crc = d9098704; size =     50176; name = DOOMCFG.DLL
+    file[]: crc = 377dd1cb; size =     22528; name = DOOMIPX.DLL
+    file[]: crc = 7b5045e9; size =    110080; name = DOOMLNCH.DLL
+    file[]: crc = ca23ac44; size =     72704; name = DOOMMDM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = DOOMSER.DLL
+    file[]:                                   name = readme.rtf
+	file[]: crc = 74ab4698; size =    685149; name = Manual\Ultimate DOOM Manual.pdf
+	file[]: crc = d3b11955; size =    616333; name = Manual\DOOM II Manual.pdf
+    file[]: crc = f1f8f0d8; size =    700279; name = Manual\Final DOOM Manual.pdf
+
+end
+
+//
+//id Anthology Alternative (V3.0idA)
+//
+game[pc-cd-en-ida]:
+    name = Doom 95 V3.0iA
+    anchorfile = Doom95.exe
+    file[]: crc = 712f1b74; size =    775629; name = DOOM95.EXE
+    file[]: crc = d9098704; size =     50176; name = DOOMCFG.DLL
+    file[]: crc = 377dd1cb; size =     22528; name = DOOMIPX.DLL
+    file[]: crc = 7b5045e9; size =    110080; name = DOOMLNCH.DLL
+    file[]: crc = ca23ac44; size =     72704; name = DOOMMDM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = DOOMSER.DLL
+	
+end
+
+//
+//Games for Windows 95 CD 2.0.0.1
+//
+game[pc-cd-en-gfw95]:
+    name = Doom 95 2.0.0.1
+    anchorfile = Doom95.exe
+    file[]: crc = f13dcc29; size =    738059; name = DOOM95.EXE
+    file[]: crc = d7c773c4; size =     37376; name = DOOMCFG.EXE
+	
+end
+
+end

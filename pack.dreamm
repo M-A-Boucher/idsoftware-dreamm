@@ -1,6 +1,6 @@
 pack[idsoftware]:
     name = id Software and related games
-    minversion = 4.0x21
-    author = MAB
+    minversion = 4.0x65
+    author = MAB, Bartman3010
     link = https://github.com/M-A-Boucher/idsoftware-dreamm
 end

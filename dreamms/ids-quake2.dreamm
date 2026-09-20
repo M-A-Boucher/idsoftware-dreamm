@@ -1,0 +1,296 @@
+//
+// Quake 2
+//
+desc[ids-quake2]:
+
+name = Quake 2
+icon = ids-quake2.png
+machine = pc
+osenv = windows
+rootpath = C:\
+launch = $(rootpath)\quake2.exe
+mips = $(MIPS_MAX)
+audiohw = gmidi
+filter = id software, fps
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD
+
+//
+// v3.05
+//
+game[v3.05]:
+    name = v3.05
+    anchorfile = quake2.exe
+    anchordepth = 2
+    file[]: crc = 4fedb203; size =    142336; name = 3dfxgl.dll
+    file[]: crc = fd9ed3e5; size =    227328; name = pvrgl.dll
+    file[]: crc = 03be3a72; size =    291328; name = quake2.exe
+    file[]: crc = a850d596; size =    214528; name = ref_gl.dll
+    file[]: crc = cdb414ee; size =    174592; name = ref_soft.dll
+    file[]: crc = bf165ead; size =    357376; name = baseq2\gamex86.dll
+    file[]: crc = 6888136e; size = 183997730; name = baseq2\pak0.pak
+    file[]: crc = 9cbdae2a; size =     50156; name = baseq2\players\female\athena.pcx
+    file[]: crc = ea65f155; size =      1921; name = baseq2\players\female\athena_i.pcx
+    file[]: crc = 40a81c17; size =     50897; name = baseq2\players\female\brianna.pcx
+    file[]: crc = 09819bbb; size =      1968; name = baseq2\players\female\brianna_i.pcx
+    file[]: crc = deee2bb7; size =     50813; name = baseq2\players\female\cobalt.pcx
+    file[]: crc = e828450f; size =      1940; name = baseq2\players\female\cobalt_i.pcx
+    file[]: crc = 7e438375; size =     52745; name = baseq2\players\female\ensign.pcx
+    file[]: crc = 17f0ae67; size =      1971; name = baseq2\players\female\ensign_i.pcx
+    file[]: crc = cb4c9f90; size =     51062; name = baseq2\players\female\jezebel.pcx
+    file[]: crc = 9c0f4598; size =      1950; name = baseq2\players\female\jezebel_i.pcx
+    file[]: crc = c87a3454; size =     61037; name = baseq2\players\female\jungle.pcx
+    file[]: crc = d96387fd; size =      2118; name = baseq2\players\female\jungle_i.pcx
+    file[]: crc = 1ddc942b; size =     54147; name = baseq2\players\female\lotus.pcx
+    file[]: crc = 8d151c01; size =      2021; name = baseq2\players\female\lotus_i.pcx
+    file[]: crc = 6163079f; size =     54074; name = baseq2\players\female\stiletto.pcx
+    file[]: crc = ec0a3c45; size =      2040; name = baseq2\players\female\stiletto_i.pcx
+    file[]: crc = 3a394fc4; size =    275632; name = baseq2\players\female\tris.md2
+    file[]: crc = 05cd9b0d; size =     50891; name = baseq2\players\female\venus.pcx
+    file[]: crc = a63baeef; size =      1963; name = baseq2\players\female\venus_i.pcx
+    file[]: crc = 55980736; size =     51033; name = baseq2\players\female\voodoo.pcx
+    file[]: crc = 055c4a54; size =      1970; name = baseq2\players\female\voodoo_i.pcx
+    file[]: crc = d8ae1111; size =     38912; name = baseq2\players\female\weapon.md2
+    file[]: crc = 942b09fb; size =      9089; name = baseq2\players\female\weapon.pcx
+    file[]: crc = 082611e3; size =     56554; name = baseq2\players\male\cipher.pcx
+    file[]: crc = c4ccb6fe; size =      1940; name = baseq2\players\male\cipher_i.pcx
+    file[]: crc = 05762bce; size =     56727; name = baseq2\players\male\claymore.pcx
+    file[]: crc = 1b64c029; size =      1939; name = baseq2\players\male\claymore_i.pcx
+    file[]: crc = 8180032f; size =     56636; name = baseq2\players\male\flak.pcx
+    file[]: crc = b97bb3e5; size =      1971; name = baseq2\players\male\flak_i.pcx
+    file[]: crc = c97e896f; size =     58004; name = baseq2\players\male\grunt.pcx
+    file[]: crc = beefff9d; size =      1967; name = baseq2\players\male\grunt_i.pcx
+    file[]: crc = e45dc37f; size =     59655; name = baseq2\players\male\howitzer.pcx
+    file[]: crc = 89db2925; size =      1979; name = baseq2\players\male\howitzer_i.pcx
+    file[]: crc = 58a489a7; size =     58158; name = baseq2\players\male\major.pcx
+    file[]: crc = 57d65b0d; size =      1971; name = baseq2\players\male\major_i.pcx
+    file[]: crc = 72c9c675; size =     57938; name = baseq2\players\male\nightops.pcx
+    file[]: crc = 35d7691b; size =      1976; name = baseq2\players\male\nightops_i.pcx
+    file[]: crc = eff6b8b4; size =     58619; name = baseq2\players\male\pointman.pcx
+    file[]: crc = 3074610c; size =      1956; name = baseq2\players\male\pointman_i.pcx
+    file[]: crc = 3f94907e; size =     56607; name = baseq2\players\male\psycho.pcx
+    file[]: crc = 63b94b33; size =      1937; name = baseq2\players\male\psycho_i.pcx
+    file[]: crc = e782507b; size =     56685; name = baseq2\players\male\rampage.pcx
+    file[]: crc = 20809dcd; size =      1936; name = baseq2\players\male\rampage_i.pcx
+    file[]: crc = 127a5c72; size =     56767; name = baseq2\players\male\razor.pcx
+    file[]: crc = 9a63ebf0; size =      1924; name = baseq2\players\male\razor_i.pcx
+    file[]: crc = d1b0146e; size =     56672; name = baseq2\players\male\recon.pcx
+    file[]: crc = 98fd5335; size =      1936; name = baseq2\players\male\recon_i.pcx
+    file[]: crc = 6bd12a25; size =     57298; name = baseq2\players\male\scout.pcx
+    file[]: crc = 668412dd; size =      1959; name = baseq2\players\male\scout_i.pcx
+    file[]: crc = 3479c1f9; size =     61661; name = baseq2\players\male\sniper.pcx
+    file[]: crc = d936909b; size =      2109; name = baseq2\players\male\sniper_i.pcx
+    file[]: crc = 0661a4e7; size =    278592; name = baseq2\players\male\tris.md2
+    file[]: crc = d8a3c594; size =     56334; name = baseq2\players\male\viper.pcx
+    file[]: crc = 92600e86; size =      1925; name = baseq2\players\male\viper_i.pcx
+    file[]: crc = 47a7291d; size =     38912; name = baseq2\players\male\weapon.md2
+    file[]: crc = 942b09fb; size =      9089; name = baseq2\players\male\weapon.pcx
+    file[]: crc = c9b1461e; size =  19311290; name = baseq2\video\end.cin
+    file[]: crc = 7829021c; size =   6038210; name = baseq2\video\eou1_.cin
+    file[]: crc = 5ae2edce; size =   6586381; name = baseq2\video\eou2_.cin
+    file[]: crc = 7bb7ee4b; size =   6708418; name = baseq2\video\eou3_.cin
+    file[]: crc = c4698367; size =   5464002; name = baseq2\video\eou4_.cin
+    file[]: crc = 8a74de9d; size =   6848133; name = baseq2\video\eou5_.cin
+    file[]: crc = aaba55c8; size =   7099332; name = baseq2\video\eou6_.cin
+    file[]: crc = b0bed9b0; size =   7766671; name = baseq2\video\eou7_.cin
+    file[]: crc = b46ab8a3; size =  11875656; name = baseq2\video\eou8_.cin
+    file[]: crc = 6c91ba56; size =   3159828; name = baseq2\video\idlog.cin
+    file[]: crc = 928c9cd3; size =  82836235; name = baseq2\video\ntro.cin
+    file[]: crc = 03be3a72; size =    291328; name = CD\Install\Data\quake2.exe
+    file[]:                                   name = CD\CDDA.SOU; cdda = 211/140/154/173/157/217/186/158/122/121
+end
+
+//
+// v3.06
+//
+game[v3.06]:
+    name = v3.06
+    imports = v3.05
+    file[]: crc = 5a9c39e4; size =    290816; name = quake2.exe
+    file[]: crc = 5a9c39e4; size =    290816; name = CD\Install\Data\quake2.exe
+    file[]:                                   name = CD\CDDA.SOU; cdda = 211/140/154/173/157/217/186/158/122/121
+end
+
+//
+// v3.14 (1998)
+//
+game[v3.14]:
+    name = v3.14
+    imports = v3.06
+    file[]: crc = 406bd83e; size =    142848; name = 3dfxgl.dll
+    file[]: crc = 2a2badcb; size =    323584; name = quake2.exe
+    file[]: crc = dc135a57; size =    231424; name = ref_gl.dll
+    file[]: crc = 68935408; size =    190464; name = ref_soft.dll
+    file[]: crc = 8c7b4c4b; size =    385024; name = baseq2\gamex86.dll
+    file[]: crc = a77ba6cb; size =      1063; name = baseq2\maps.lst
+    file[]: crc = b232f881; size =  12992754; name = baseq2\pak1.pak
+    file[]: crc = 9de28634; size =     13916; name = baseq2\players\cyborg\bump1.wav
+    file[]: crc = f2cabb71; size =     40296; name = baseq2\players\cyborg\death1.wav
+    file[]: crc = f05cc7a8; size =     67190; name = baseq2\players\cyborg\death2.wav
+    file[]: crc = 4a009e56; size =     29898; name = baseq2\players\cyborg\death3.wav
+    file[]: crc = be553272; size =     48066; name = baseq2\players\cyborg\death4.wav
+    file[]: crc = 7cb6b345; size =     56134; name = baseq2\players\cyborg\drown1.wav
+    file[]: crc = 9560706a; size =     29490; name = baseq2\players\cyborg\fall1.wav
+    file[]: crc = f3d83fdd; size =     21690; name = baseq2\players\cyborg\fall2.wav
+    file[]: crc = 88ba1af2; size =     18382; name = baseq2\players\cyborg\gurp1.wav
+    file[]: crc = 66c90132; size =     18376; name = baseq2\players\cyborg\gurp2.wav
+    file[]: crc = 71b2dab4; size =     15258; name = baseq2\players\cyborg\jump1.wav
+    file[]: crc = 53267ac2; size =     52358; name = baseq2\players\cyborg\oni911.pcx
+    file[]: crc = dbc5acfc; size =      1967; name = baseq2\players\cyborg\oni911_i.pcx
+    file[]: crc = 1fb320ee; size =     17292; name = baseq2\players\cyborg\pain100_1.wav
+    file[]: crc = deeb3176; size =     20282; name = baseq2\players\cyborg\pain100_2.wav
+    file[]: crc = 5654a0d6; size =     21252; name = baseq2\players\cyborg\pain25_1.wav
+    file[]: crc = 0de5eec4; size =     22626; name = baseq2\players\cyborg\pain25_2.wav
+    file[]: crc = 3e895f39; size =     34010; name = baseq2\players\cyborg\pain50_1.wav
+    file[]: crc = d93fbf10; size =     23452; name = baseq2\players\cyborg\pain50_2.wav
+    file[]: crc = 9595cfc1; size =     18784; name = baseq2\players\cyborg\pain75_1.wav
+    file[]: crc = 42a37c87; size =     22572; name = baseq2\players\cyborg\pain75_2.wav
+    file[]: crc = 31a37af8; size =     52102; name = baseq2\players\cyborg\ps9000.pcx
+    file[]: crc = 92fd9225; size =      1975; name = baseq2\players\cyborg\ps9000_i.pcx
+    file[]: crc = 5a6f6186; size =    280024; name = baseq2\players\cyborg\tris.md2
+    file[]: crc = bd7eb66f; size =     51941; name = baseq2\players\cyborg\tyr574.pcx
+    file[]: crc = 288dbf06; size =      1929; name = baseq2\players\cyborg\tyr574_i.pcx
+    file[]: crc = ebd5ea87; size =     38912; name = baseq2\players\cyborg\weapon.md2
+    file[]: crc = 942b09fb; size =      9089; name = baseq2\players\cyborg\weapon.pcx
+    file[]: crc = 942b09fb; size =      9089; name = baseq2\players\cyborg\weapon.pcx.pcx
+    file[]: crc = 8d3aad14; size =     34330; name = baseq2\players\female\death1.wav
+    file[]: crc = 88858c2a; size =     42764; name = baseq2\players\female\death2.wav
+    file[]: crc = 84d7b5bf; size =     48128; name = baseq2\players\female\death3.wav
+    file[]: crc = 1b862412; size =     52896; name = baseq2\players\female\death4.wav
+    file[]: crc = 1a50e3f0; size =     66440; name = baseq2\players\female\drown.wav
+    file[]: crc = 62fef541; size =      9121; name = baseq2\players\female\fall1.wav
+    file[]: crc = f6c33498; size =     17176; name = baseq2\players\female\fall2.wav
+    file[]: crc = c0e1584e; size =     23348; name = baseq2\players\female\gurp1.wav
+    file[]: crc = 42410671; size =     17062; name = baseq2\players\female\gurp2.wav
+    file[]: crc = 7d373507; size =     14602; name = baseq2\players\female\jump1.wav
+    file[]: crc = be0c075d; size =     30024; name = baseq2\players\female\pain100_1.wav
+    file[]: crc = 44d8742a; size =     32854; name = baseq2\players\female\pain100_2.wav
+    file[]: crc = ddd4e85d; size =     21452; name = baseq2\players\female\pain25_1.wav
+    file[]: crc = 0772f357; size =     29306; name = baseq2\players\female\pain25_2.wav
+    file[]: crc = 5fc92b1c; size =     26216; name = baseq2\players\female\pain50_1.wav
+    file[]: crc = 87b736b9; size =     16274; name = baseq2\players\female\pain50_2.wav
+    file[]: crc = 68ca1693; size =     29568; name = baseq2\players\female\pain75_1.wav
+    file[]: crc = 0ed1d3f6; size =     20754; name = baseq2\players\female\pain75_2.wav
+    file[]: crc = 7f8fc0af; size =     13916; name = baseq2\players\male\bump1.wav
+    file[]: crc = 332855f5; size =     45892; name = baseq2\players\male\death1.wav
+    file[]: crc = e2a02a23; size =     83464; name = baseq2\players\male\death2.wav
+    file[]: crc = 4f290d4d; size =     29898; name = baseq2\players\male\death3.wav
+    file[]: crc = bf0ec742; size =     48066; name = baseq2\players\male\death4.wav
+    file[]: crc = 530c2d9c; size =     56134; name = baseq2\players\male\drown1.wav
+    file[]: crc = 507a464b; size =     25760; name = baseq2\players\male\fall1.wav
+    file[]: crc = 727ed067; size =     12412; name = baseq2\players\male\fall2.wav
+    file[]: crc = 4a9dd946; size =     18382; name = baseq2\players\male\gurp1.wav
+    file[]: crc = a154e394; size =     18376; name = baseq2\players\male\gurp2.wav
+    file[]: crc = a7e16ca9; size =     15288; name = baseq2\players\male\jump1.wav
+    file[]: crc = db523565; size =     17292; name = baseq2\players\male\pain100_1.wav
+    file[]: crc = 0402ff42; size =     20282; name = baseq2\players\male\pain100_2.wav
+    file[]: crc = eb754b78; size =     21252; name = baseq2\players\male\pain25_1.wav
+    file[]: crc = c11f5e23; size =     22626; name = baseq2\players\male\pain25_2.wav
+    file[]: crc = f91fc097; size =     34012; name = baseq2\players\male\pain50_1.wav
+    file[]: crc = e90d0807; size =     23452; name = baseq2\players\male\pain50_2.wav
+    file[]: crc = adbf236e; size =     18786; name = baseq2\players\male\pain75_1.wav
+    file[]: crc = db710b1f; size =     22572; name = baseq2\players\male\pain75_2.wav
+    file[]: crc = 2a2badcb; size =    323584; name = CD\Install\Data\quake2.exe
+    file[]:                                   name = CDDA.SOU; cdda = 211/140/154/173/157/217/186/158/122/121
+end
+
+//
+// v3.20 (2001)
+//
+game[v3.20]:
+    name = v3.20
+    imports = v3.14
+    file[]: crc = 9ac10f52; size =    362496; name = quake2.exe
+    file[]: crc = cda0ec27; size =    234496; name = ref_gl.dll
+    file[]: crc = a9123f37; size =    193024; name = ref_soft.dll
+    file[]: crc = edbd5fae; size =    397824; name = baseq2\gamex86.dll
+    file[]: crc = f3f70bd7; size =     45055; name = baseq2\pak2.pak
+    file[]: crc = 3813d270; size =     31329; name = baseq2\players\crakhor\a_grenades.md2
+    file[]: crc = 3d96be89; size =     96757; name = baseq2\players\crakhor\w_bfg.md2
+    file[]: crc = 653d5f5f; size =     83685; name = baseq2\players\crakhor\w_blaster.md2
+    file[]: crc = 2cc4ef10; size =    151453; name = baseq2\players\crakhor\w_chainfist.md2
+    file[]: crc = 84bf644f; size =     63409; name = baseq2\players\crakhor\w_chaingun.md2
+    file[]: crc = 4c49ab90; size =    155189; name = baseq2\players\crakhor\w_disrupt.md2
+    file[]: crc = ae02d879; size =    107893; name = baseq2\players\crakhor\w_etfrifle.md2
+    file[]: crc = 5dfb97fb; size =     91541; name = baseq2\players\crakhor\w_glauncher.md2
+    file[]: crc = b48fa985; size =     62717; name = baseq2\players\crakhor\w_grapple.md2
+    file[]: crc = 2969b7e4; size =     71613; name = baseq2\players\crakhor\w_hyperblaster.md2
+    file[]: crc = dfd0e60d; size =     65453; name = baseq2\players\crakhor\w_machinegun.md2
+    file[]: crc = 2ef38485; size =    127481; name = baseq2\players\crakhor\w_phalanx.md2
+    file[]: crc = 9b43f9db; size =    101221; name = baseq2\players\crakhor\w_plasma.md2
+    file[]: crc = d7fef82f; size =     91565; name = baseq2\players\crakhor\w_plauncher.md2
+    file[]: crc = 18f8776a; size =     92173; name = baseq2\players\crakhor\w_railgun.md2
+    file[]: crc = c9b07c5c; size =     91881; name = baseq2\players\crakhor\w_ripper.md2
+    file[]: crc = b8b0f7aa; size =     97221; name = baseq2\players\crakhor\w_rlauncher.md2
+    file[]: crc = 45a8b527; size =     38912; name = baseq2\players\crakhor\w_shotgun.md2
+    file[]: crc = f3205d55; size =     85556; name = baseq2\players\crakhor\w_sshotgun.md2
+    file[]: crc = 0948107b; size =     31329; name = baseq2\players\cyborg\a_grenades.md2
+    file[]: crc = 18f3842e; size =     96757; name = baseq2\players\cyborg\w_bfg.md2
+    file[]: crc = f64d845d; size =     72520; name = baseq2\players\cyborg\w_blaster.md2
+    file[]: crc = 7624eae6; size =    151453; name = baseq2\players\cyborg\w_chainfist.md2
+    file[]: crc = f1bd87c8; size =     63409; name = baseq2\players\cyborg\w_chaingun.md2
+    file[]: crc = dd8a2427; size =    155189; name = baseq2\players\cyborg\w_disrupt.md2
+    file[]: crc = 7539f658; size =    107893; name = baseq2\players\cyborg\w_etfrifle.md2
+    file[]: crc = 7cf8c987; size =     81120; name = baseq2\players\cyborg\w_glauncher.md2
+    file[]: crc = 3b5d67d5; size =     62717; name = baseq2\players\cyborg\w_grapple.md2
+    file[]: crc = 7f3087d7; size =     71613; name = baseq2\players\cyborg\w_hyperblaster.md2
+    file[]: crc = b26cdf1f; size =     65453; name = baseq2\players\cyborg\w_machinegun.md2
+    file[]: crc = f555b8e5; size =    127481; name = baseq2\players\cyborg\w_phalanx.md2
+    file[]: crc = 2c03e5ca; size =    101221; name = baseq2\players\cyborg\w_plasma.md2
+    file[]: crc = 04bc30d8; size =     91565; name = baseq2\players\cyborg\w_plauncher.md2
+    file[]: crc = 0acc153e; size =     92173; name = baseq2\players\cyborg\w_railgun.md2
+    file[]: crc = b3c03114; size =     91881; name = baseq2\players\cyborg\w_ripper.md2
+    file[]: crc = 106474ca; size =     97221; name = baseq2\players\cyborg\w_rlauncher.md2
+    file[]: crc = 47a7291d; size =     38912; name = baseq2\players\cyborg\w_shotgun.md2
+    file[]: crc = 476bec1d; size =     85556; name = baseq2\players\cyborg\w_sshotgun.md2
+    file[]: crc = 298ac9eb; size =     31329; name = baseq2\players\female\a_grenades.md2
+    file[]: crc = 7bbe7070; size =     96757; name = baseq2\players\female\w_bfg.md2
+    file[]: crc = 7711b8c0; size =     72520; name = baseq2\players\female\w_blaster.md2
+    file[]: crc = d1d9ad44; size =    151453; name = baseq2\players\female\w_chainfist.md2
+    file[]: crc = 651cc521; size =     63409; name = baseq2\players\female\w_chaingun.md2
+    file[]: crc = 7d345d3a; size =    155189; name = baseq2\players\female\w_disrupt.md2
+    file[]: crc = a53d3576; size =    107893; name = baseq2\players\female\w_etfrifle.md2
+    file[]: crc = 1821a8c8; size =     81120; name = baseq2\players\female\w_glauncher.md2
+    file[]: crc = 2fdbab66; size =     62717; name = baseq2\players\female\w_grapple.md2
+    file[]: crc = 4382e2dc; size =     71613; name = baseq2\players\female\w_hyperblaster.md2
+    file[]: crc = 1e22a557; size =     65453; name = baseq2\players\female\w_machinegun.md2
+    file[]: crc = e96c6241; size =    127481; name = baseq2\players\female\w_phalanx.md2
+    file[]: crc = 2941e79e; size =    101221; name = baseq2\players\female\w_plasma.md2
+    file[]: crc = 003cd10e; size =     91565; name = baseq2\players\female\w_plauncher.md2
+    file[]: crc = f7d0accc; size =     92173; name = baseq2\players\female\w_railgun.md2
+    file[]: crc = 2655f396; size =     91881; name = baseq2\players\female\w_ripper.md2
+    file[]: crc = d7648273; size =     97221; name = baseq2\players\female\w_rlauncher.md2
+    file[]: crc = d8ae1111; size =     38912; name = baseq2\players\female\w_shotgun.md2
+    file[]: crc = 80040fd2; size =     85556; name = baseq2\players\female\w_sshotgun.md2
+    file[]: crc = 0948107b; size =     31329; name = baseq2\players\male\a_grenades.md2
+    file[]: crc = 18f3842e; size =     96757; name = baseq2\players\male\w_bfg.md2
+    file[]: crc = f64d845d; size =     72520; name = baseq2\players\male\w_blaster.md2
+    file[]: crc = 7624eae6; size =    151453; name = baseq2\players\male\w_chainfist.md2
+    file[]: crc = f1bd87c8; size =     63409; name = baseq2\players\male\w_chaingun.md2
+    file[]: crc = dd8a2427; size =    155189; name = baseq2\players\male\w_disrupt.md2
+    file[]: crc = 7539f658; size =    107893; name = baseq2\players\male\w_etfrifle.md2
+    file[]: crc = 7cf8c987; size =     81120; name = baseq2\players\male\w_glauncher.md2
+    file[]: crc = 3b5d67d5; size =     62717; name = baseq2\players\male\w_grapple.md2
+    file[]: crc = 7f3087d7; size =     71613; name = baseq2\players\male\w_hyperblaster.md2
+    file[]: crc = b26cdf1f; size =     65453; name = baseq2\players\male\w_machinegun.md2
+    file[]: crc = f555b8e5; size =    127481; name = baseq2\players\male\w_phalanx.md2
+    file[]: crc = 2c03e5ca; size =    101221; name = baseq2\players\male\w_plasma.md2
+    file[]: crc = 04bc30d8; size =     91565; name = baseq2\players\male\w_plauncher.md2
+    file[]: crc = 0acc153e; size =     92173; name = baseq2\players\male\w_railgun.md2
+    file[]: crc = b3c03114; size =     91881; name = baseq2\players\male\w_ripper.md2
+    file[]: crc = 106474ca; size =     97221; name = baseq2\players\male\w_rlauncher.md2
+    file[]: crc = 47a7291d; size =     38912; name = baseq2\players\male\w_shotgun.md2
+    file[]: crc = 476bec1d; size =     85556; name = baseq2\players\male\w_sshotgun.md2
+    file[]: crc = 911a8829; size =    312832; name = ctf\gamex86.dll
+    file[]: crc = 6e8e6fce; size =  12101005; name = ctf\pak0.pak
+    file[]: crc = edca6d76; size =      1314; name = ctf\server.cfg
+    file[]: crc = 9ac10f52; size =    362496; name = CD\Install\Data\quake2.exe
+    file[]:                                   name = CDDA.SOU; cdda = 211/140/154/173/157/217/186/158/122/121
+end
+
+end

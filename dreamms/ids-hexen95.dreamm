@@ -1,0 +1,153 @@
+//
+// Hexen 95
+//
+desc[ids-hexen95]:
+
+name = Hexen 95
+icon = ids-hexen1.png
+machine = pc
+rootpath = C:\HEXEN95
+launch = "$(rootpath)\$(EXENAME).EXE" $(PARAM)
+filter = nonlucas, netplay
+osenv = windows 95
+audiohw = gmidi
+winres = 640x480x8
+MONSTER = ""
+SKILL = ""
+EXENAME = HLAUNCH
+SKILLSTART = 0
+CDLABEL = ""
+GAMEID = 0
+PARAM = ""
+SKILL = ""
+CLASS = ""
+CLASSNO = ""
+
+//
+// filesystem
+//
+mount[]: vpath = C:\; srcpath = $(ifsdeltapath); writable = true
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = D:\; srcpath = $(ifsinstallpath)\CD
+mount[]: vpath = D:\$(CDLABEL); srcpath = $(ifsinstallpath)\CD
+
+//
+// Registry
+//
+REGISTRY = [[[$(CRLF)
+	REGEDIT4
+	[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\MediaResources\Joystick\Joystick\CurrentJoystickSettings]
+	@=
+	]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        winregistry_import_raw("$$(REGISTRY)");
+    ]]]
+end
+
+//
+//Game Launch
+//
+config[mode]:
+	title = Game Mode
+	option[launcher]: name = Launcher; EXENAME = HLAUNCH; PARAM = ""; GAMEID = 0; priority = 1
+	option[hexen95]: name = Hexen: Beyond Heretic; EXENAME = HEXEN95; PARAM = $(RESOLUTION) $(SKILL) $(MONSTER) $(CLASS); GAMEID = 1
+end
+
+//
+// video resolution
+//
+config[vidsize]:
+	condition = ("$$(GAMEID)" != 0)
+    title = Video Resolution
+    option[200w]:  name = 320×200 WINDOW; RESOLUTION = -320x200w
+    option[240w]:  name = 320×240 WINDOW; RESOLUTION = -320x240w
+    option[400w]:  name = 640×400 WINDOW; RESOLUTION = -640x400w  
+    option[480w]:  name = 640×480 WINDOW; RESOLUTION = -640x480w  
+    option[200]:  name = 320×200 FULL SCREEN; RESOLUTION = -320x200
+    option[240]:  name = 320×240 FULL SCREEN; RESOLUTION = -320x240
+    option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400
+    option[480]:  name = 640×480 FULL SCREEN; RESOLUTION = -640x480  
+end
+
+//
+// Classes
+//
+config[classes]:
+	condition = ("$$(GAMEID)" != 0)
+    title = CHARACTER CLASS
+	option[classoff]: name = Normal Start. ; SKILL = ""; SKILLSTART = 0; MONSTER = ""; CLASSNO = 3
+	option[class0]: name = FIGHTER; CLASS = -class 0; CLASSNO = 0
+    option[class1]: name = CLERIC;  CLASS = -class 1; CLASSNO = 1
+	option[class2]: name = MAGE;    CLASS = -class 2; CLASSNO = 2
+
+end
+
+//
+// SKILL
+//
+config[skill]:
+	condition = ("$$(GAMEID)" != 0) && ("$$(CLASSNO)" <= 2)
+    title = SKILL LEVEL
+    option[skill1f]: name = SQUIRE (SKILL1); SKILL = -SKILL 1; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 0)
+	option[skill2f]: name = KNIGHT (SKILL2); SKILL = -SKILL 2; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 0)
+    option[skill3f]: name = WARRIOR (SKILL3); SKILL = -SKILL 3; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 0)
+	option[skill4f]: name = BERZERKER (SKILL4); SKILL = -SKILL 4; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 0)
+	option[skill5f]: name = TITAN (SKILL5); SKILL = -SKILL 5; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 0)
+    option[skill1c]: name = ALTAR BOY (SKILL1); SKILL = -SKILL 1; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 1)
+	option[skill2c]: name = ACOLUTE (SKILL2); SKILL = -SKILL 2; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 1)
+    option[skill3c]: name = PRIEST (SKILL3); SKILL = -SKILL 3; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 1)
+	option[skill4c]: name = CARDINAL (SKILL4); SKILL = -SKILL 4; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 1)
+	option[skill5c]: name = POPE (SKILL5); SKILL = -SKILL 5; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 1)
+    option[skill1m]: name = APPRENTICE (SKILL1); SKILL = -SKILL 1; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 2)
+	option[skill2m]: name = ENCHANTER (SKILL2); SKILL = -SKILL 2; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 2)
+    option[skill3m]: name = SORCERER (SKILL3); SKILL = -SKILL 3; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 2)
+	option[skill4m]: name = WARLOCK (SKILL4); SKILL = -SKILL 4; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 2)
+	option[skill5m]: name = ARCHIMAGE (SKILL5); SKILL = -SKILL 5; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 2)
+    option[skill1]: name = SKILL1 (SKILL1); SKILL = -SKILL 1; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 3)
+	option[skill2]: name = SKILL2 (SKILL2); SKILL = -SKILL 2; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 3)
+    option[skill3]: name = SKILL3 (SKILL3); SKILL = -SKILL 3; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 3)
+	option[skill4]: name = SKILL4 (SKILL4); SKILL = -SKILL 4; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 3)
+	option[skill5]: name = SKILL5 (SKILL5); SKILL = -SKILL 5; SKILLSTART = 1; condition = ("$$(CLASSNO)" == 3)
+end
+
+//
+// Monster Toggle (Off/On)
+//
+config[monster]:
+	condition = ("$$(GAMEID)" != 0) && ("$$(SKILLSTART)" > 0)
+    title = Monsters
+    option[off]:  name = Off; MONSTER = -NOMONSTERS
+	option[on]: name = On (Normal); MONSTER = ""; priority = 1
+	
+end
+
+//
+// video configuration
+//
+config[video]:
+    title = Video Configuration
+    option[window]:  name = Cropped to Window; wincrop = true; priority = 1
+    option[desktop]: name = Full Desktop;      wincrop = false
+end
+
+game[pc-cd-en]:
+	name = English CD V1.1
+	anchorfile = HEXEN95.EXE
+    file[]: crc = f5b25cbe; size =   1281583; name = HEXEN.HLP
+    file[]: crc = dca9114c; size =  20083672; name = HEXEN.WAD
+    file[]: crc = ef35ca76; size =   1485824; name = HEXEN95.EXE
+    file[]: crc = c0da2116; size =     38700; name = HEXEN95.MID
+    file[]: crc = a2d450f9; size =     69632; name = HEXCFG.DLL
+    file[]: crc = ad4d15b6; size =     40960; name = HEXIPX.DLL
+    file[]: crc = 9dcc7b9c; size =    137216; name = HEXMODEM.DLL
+    file[]: crc = e1ac86f1; size =     37376; name = HEXSER.DLL
+    file[]: crc = c420d6fc; size =    932864; name = HLAUNCH.EXE
+    file[]: crc = fbf7f824; size =     16384; name = README.DOC
+    file[]: crc = 17317858; size =      4859; name = README.TXT	
+	
+	//CD-ROM
+	file[]: name = CD\CDDA.SOU; cdda = 238/197/17/47/70/85/253/146/202/215/217/244/252/189/197/207/166/188/154/246/195
+
+end
