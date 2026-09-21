@@ -1,9 +1,9 @@
 //
-// Quake 2
+// Quake II
 //
 desc[ids-quake2]:
 
-name = Quake 2
+name = Quake II
 icon = ids-quake2.png
 machine = pc
 osenv = windows
@@ -21,7 +21,7 @@ filter = id software, fps
 config[controls]:
     title = Controls Configuration
     option[classic]:
-        name = Classic (Default Quake)
+        name = Customize In-Game (No Overrides)
         KEYBIND_OVERRIDE = $(NULL)
     end
     option[inverted]:
@@ -55,10 +55,25 @@ config[controls]:
 end
 
 //
-// graphics configuration
+// renderer configuration
 //
-config[graphics]:
-    title = Graphics Configuration
+config[renderer]:
+    title = Renderer Configuration
+    option[software]:
+        name = Software
+        RENDERER_OVERRIDE = set vid_ref "soft"
+    end
+    option[opengl]:
+        name = Hardware (OpenGL)
+        RENDERER_OVERRIDE = set vid_ref "hard"
+    end
+end
+
+//
+// resolution configuration
+//
+config[resolution]:
+    title = Resolution Configuration
     option[320x240]:
         name = 320x240
         VIDEO_OVERRIDE = set sw_mode "0"
@@ -101,9 +116,32 @@ config[graphics]:
     end
 end
 
+//
+// sound quality configuration
+//
+config[sound]:
+    title = Sound Quality Configuration
+    option[low]:
+        name = Low
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "11"
+            set s_loadas8bit "1"
+        ]]]
+    end
+    option[high]:
+        name = High; priority = 1
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "22"
+            set s_loadas8bit "0"
+        ]]]
+    end
+end
+
 CFG = [[[$(CRLF)
     $(KEYBIND_OVERRIDE)
+    $(RENDERER_OVERRIDE)
     $(VIDEO_OVERRIDE)
+    $(SOUND_OVERRIDE)
     set vid_fullscreen "1"
 ]]]
 

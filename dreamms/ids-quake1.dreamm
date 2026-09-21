@@ -8,7 +8,6 @@ icon = ids-quake1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\QUAKE.EXE
 mips = $(MIPS_MAX)
 ramkb = 16384
 filter = id software, fps
@@ -18,24 +17,43 @@ HIPNOTIC = 0
 ROGUE = 0
 
 //
+// renderer configuration
+//
+config[renderer]:
+    title = Renderer Configuration
+    condition = !is_installer() && is_windows()
+    option[winquake]:
+        name = Software
+        condition = file_exists("$$(rootpath)\\WINQUAKE.EXE")
+        launch = $(rootpath)\WINQUAKE.EXE
+    end
+     option[glquake]:
+        name = Hardware (OpenGL)
+        condition = file_exists("$$(rootpath)\\GLQUAKE.EXE")
+        launch = $(rootpath)\GLQUAKE.EXE
+    end   
+end
+
+//
 // game configuration
 //
 config[game]:
     title = Game Configuration
+    condition = !is_installer() && is_dos()
     option[quake]:
         name = Quake
-        condition = file_exists("$$(rootpath)\\ID1\\PAK0.PAK")
+        condition = file_exists("$$(rootpath)\\QUAKE.EXE") && file_exists("$$(rootpath)\\ID1\\PAK0.PAK")
         launch = QUAKE.EXE
     end
     option[hipnotic]:
         name = Scourge of Armagon
-        condition = file_exists("$$(rootpath)\\HIPNOTIC\\PAK0.PAK")
+        condition = file_exists("$$(rootpath)\\QUAKE.EXE") && file_exists("$$(rootpath)\\HIPNOTIC\\PAK0.PAK")
         launch = QUAKE.EXE -game hipnotic -hipnoticpnotic
         HIPNOTIC = 1
     end
     option[rogue]:
         name = Dissolution of Eternity
-        condition = file_exists("$$(rootpath)\\ROGUE\\PAK0.PAK")
+        condition = file_exists("$$(rootpath)\\QUAKE.EXE") && file_exists("$$(rootpath)\\ROGUE\\PAK0.PAK")
         launch = ROGUE\QUAKE.EXE -rogue
         ROGUE = 1
     end
@@ -125,6 +143,11 @@ INSTALL = [[[$(CRLF)
     QUAKE101.EXE
 ]]]
 
+INSTALL_106 = [[[$(CRLF)
+    REN RESOURCE.1 RESOURCE.EXE
+    RESOURCE.EXE
+]]]
+
 INSTALL_SW = [[[$(CRLF)
     COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
     QSW101.EXE
@@ -140,6 +163,7 @@ script[init]:
         if (is_installer())
         {
           file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
+          file_save("$$(rootpath)\\DREAMMSW.BAT", "$$(INSTALL_106)");
           file_save("$$(rootpath)\\DREAMMSW.BAT", "$$(INSTALL_SW)");
         }
 
@@ -247,10 +271,99 @@ installer[v1.06-cd-installer]:
     name = v1.06, CD, Installer
     installid = v1.06-cd
     mips = $(MIPS_MAX)
-    launch = RESOURCE.EXE
-    anchorfile = RESOURCE.EXE
-    file[]: crc = 1f50aee9; size =  24684755; name = RESOURCE.EXE
+    launch = DREAMM.BAT
+    anchorfile = RESOURCE.1
+    file[]: crc = 1f50aee9; size =  24684755; name = RESOURCE.1
     file[]:                                   name = CDDA.SOU    ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// v1.06, CD, DOS, Rerelease
+//
+game[v1.06-cd-dos-rerelease]:
+    name = v1.06, CD, DOS, Rerelease
+    imports = v1.06-cd
+    anchorfile = QUAKE.EXE
+    file[]: crc = 3bc26700; size =    409600; name = QUAKE.EXE
+    file[]:                                   name = ID1_CD\CDDA.SOU ; cdda = 308/146/500/365/444/518/335/388/212/315; optional = true
+end
+
+//
+// v1.06, CD, Windows, Rerelease
+//
+game[v1.06-cd-win-rerelease]:
+    name = v1.06, CD, Windows, Rerelease
+    osenv = windows 95
+    audiohw = gmidi
+    launch = $(rootpath)\WINQUAKE.EXE
+    imports = v1.06-cd
+    anchorfile = WINQUAKE.EXE
+    anchordepth = 2
+    file[]: crc = b09fb8a9; size =    423936; name = GLQUAKE.EXE
+    file[]: crc = 6fa6e02a; size =      9883; name = MGENVXD.VXD
+    file[]: crc = 333cbd97; size =    137216; name = OPENGL32.DLL
+    file[]: crc = 3fc7df73; size =     18892; name = PMPRO16.DLL
+    file[]: crc = b8d22cd0; size =     32768; name = PMPRO32.DLL
+    file[]: crc = 81de9058; size =        65; name = Q95.BAT
+    file[]: remove = QUAKE.EXE
+    file[]: crc = d1f70775; size =     80804; name = spd3d.uc
+    file[]: crc = 0d1af955; size =     79620; name = spd3d.uc2
+    file[]: crc = 838fea97; size =    558080; name = vquake.exe
+    file[]: crc = b82ae893; size =     27542; name = WDIR16.DLL
+    file[]: crc = c518bdff; size =     40960; name = WDIR32.DLL
+    file[]: crc = ad287931; size =         5; name = WDIRNOP.COM
+    file[]: crc = e3516fdc; size =       995; name = WDIRNOP.PIF
+    file[]: crc = fee481d9; size =    553472; name = WINQUAKE.EXE
+    file[]: crc = ed9d2f64; size =      1226; name = WQ.BAT
+    file[]: crc = a4881115; size =     32768; name = ID1\GLQUAKE\15to8.pal
+    file[]: crc = 79f6d282; size =      1836; name = ID1\GLQUAKE\armor.ms2
+    file[]: crc = b28f3805; size =      2032; name = ID1\GLQUAKE\backpack.ms2
+    file[]: crc = 05fb4fbc; size =       688; name = ID1\GLQUAKE\bolt.ms2
+    file[]: crc = 5efa8420; size =       520; name = ID1\GLQUAKE\bolt2.ms2
+    file[]: crc = 5efa8420; size =       520; name = ID1\GLQUAKE\bolt3.ms2
+    file[]: crc = 8d38edb4; size =      5384; name = ID1\GLQUAKE\demon.ms2
+    file[]: crc = 45e2d12b; size =      8848; name = ID1\GLQUAKE\dog.ms2
+    file[]: crc = 08917ceb; size =       316; name = ID1\GLQUAKE\eyes.ms2
+    file[]: crc = 7193dc5a; size =      2540; name = ID1\GLQUAKE\flame.ms2
+    file[]: crc = 94665703; size =      1800; name = ID1\GLQUAKE\flame2.ms2
+    file[]: crc = 06af72c4; size =      4748; name = ID1\GLQUAKE\g_nail.ms2
+    file[]: crc = f8c447da; size =      3748; name = ID1\GLQUAKE\g_rock.ms2
+    file[]: crc = 3fc71159; size =      1748; name = ID1\GLQUAKE\g_shot.ms2
+    file[]: crc = 836cbf47; size =       600; name = ID1\GLQUAKE\gib1.ms2
+    file[]: crc = 1a0b8e6a; size =      1780; name = ID1\GLQUAKE\gib2.ms2
+    file[]: crc = 779ed39c; size =       420; name = ID1\GLQUAKE\gib3.ms2
+    file[]: crc = 0c7f8e74; size =       320; name = ID1\GLQUAKE\grenade.ms2
+    file[]: crc = 882e6048; size =      1676; name = ID1\GLQUAKE\h_demon.ms2
+    file[]: crc = 44edf1ce; size =      1824; name = ID1\GLQUAKE\h_dog.ms2
+    file[]: crc = 01be9e81; size =       800; name = ID1\GLQUAKE\h_guard.ms2
+    file[]: crc = c0e6467a; size =       732; name = ID1\GLQUAKE\h_ogre.ms2
+    file[]: crc = 574922a4; size =       828; name = ID1\GLQUAKE\h_player.ms2
+    file[]: crc = d50588ff; size =       544; name = ID1\GLQUAKE\h_wizard.ms2
+    file[]: crc = 28550fe6; size =       936; name = ID1\GLQUAKE\h_zombie.ms2
+    file[]: crc = 4c7e144e; size =       916; name = ID1\GLQUAKE\invisibl.ms2
+    file[]: crc = 13d3b96c; size =       420; name = ID1\GLQUAKE\lavaball.ms2
+    file[]: crc = 023833f1; size =      1296; name = ID1\GLQUAKE\missile.ms2
+    file[]: crc = 04282298; size =      6192; name = ID1\GLQUAKE\ogre.ms2
+    file[]: crc = 3292f18d; size =      7988; name = ID1\GLQUAKE\player.ms2
+    file[]: crc = 88794fb5; size =      2068; name = ID1\GLQUAKE\quaddama.ms2
+    file[]: crc = de36596d; size =       116; name = ID1\GLQUAKE\s_spike.ms2
+    file[]: crc = 398ec1d1; size =      6496; name = ID1\GLQUAKE\soldier.ms2
+    file[]: crc = de36596d; size =       116; name = ID1\GLQUAKE\spike.ms2
+    file[]: crc = d662a949; size =      6208; name = ID1\GLQUAKE\suit.ms2
+    file[]: crc = a3454f85; size =      3676; name = ID1\GLQUAKE\v_axe.ms2
+    file[]: crc = b5384036; size =      3616; name = ID1\GLQUAKE\v_light.ms2
+    file[]: crc = 8f9344d4; size =      4004; name = ID1\GLQUAKE\v_nail.ms2
+    file[]: crc = c490968e; size =      3860; name = ID1\GLQUAKE\v_nail2.ms2
+    file[]: crc = 69bb1856; size =      1108; name = ID1\GLQUAKE\v_rock.ms2
+    file[]: crc = 8984af54; size =      2620; name = ID1\GLQUAKE\v_rock2.ms2
+    file[]: crc = e5cc7619; size =      2416; name = ID1\GLQUAKE\v_shot.ms2
+    file[]: crc = 9591be4e; size =      3208; name = ID1\GLQUAKE\v_shot2.ms2
+    file[]: crc = 6bc81be9; size =      2496; name = ID1\GLQUAKE\w_g_key.ms2
+    file[]: crc = 88c480f9; size =      1936; name = ID1\GLQUAKE\w_spike.ms2
+    file[]: crc = 66a8ccdb; size =      3100; name = ID1\GLQUAKE\wizard.ms2
+    file[]: crc = ef66a181; size =       420; name = ID1\GLQUAKE\zom_gib.ms2
+    file[]: crc = be3055cd; size =      7144; name = ID1\GLQUAKE\zombie.ms2
+    file[]:                                   name = ID1_CD\CDDA.SOU; cdda = 309/146/500/365/445/518/336/389/213/313
 end
 
 //
