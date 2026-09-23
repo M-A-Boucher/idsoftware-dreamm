@@ -1,0 +1,180 @@
+//
+// Strife
+//
+desc[ids-strife]:
+
+name = Strife
+icon = ids-strife.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\SETUP.EXE
+mips = $(MIPS_486DX4_100)
+ramkb = 8192
+videohw = vga
+audiohw = sb16+$(MUSICHW)
+filter = id software, fps
+
+//
+// keyboard configuration
+//
+config[keyboard]:
+    title = Keyboard Setup
+    option[default]:
+        name = Original (Arrow Keys)
+        KEYBINDS = [[[$(CRLF)
+            key_right       77
+            key_left        75
+            key_up          72
+            key_down        80
+            key_strafeleft  51
+            key_straferight 52
+            use_mouse       0
+
+            key_flydown     82
+            key_flycenter   71
+            key_flyup	    73
+            key_lookdown    83
+            key_lookcenter  79
+            key_lookup      81
+            key_invleft     16
+            key_invright    18
+            key_jump        57
+        ]]]
+    end
+    option[wasd]:
+        name = Modern (WASD Keys)
+        KEYBINDS = [[[$(CRLF)
+            key_right		77
+            key_left		75
+            key_up		17
+            key_down		31
+            key_strafeleft	30
+            key_straferight	32
+            key_useHealth	35
+            key_jump		1
+            key_invquery	4
+            key_mission		2
+            key_invPop		3
+            key_invKey		5
+            key_invHome		71
+            key_invEnd		79
+            key_invLeft		16
+            key_invRight	18
+            key_invUse		19
+            key_invDrop		14
+            key_lookUp		72
+            key_lookDown	80
+            key_fire		29
+            key_use		57
+            key_strafe		56
+            key_speed		54
+            use_mouse		1
+            mouseb_fire		0
+            mouseb_strafe	2
+            mouseb_forward	-1
+            mouseb_jump		1
+       ]]]
+    end
+end
+
+//
+// music configuration
+//
+config[music]:
+    title = Music Configuration
+    option[adlib]:
+        name = $(ADLIB_NAME)
+        MUSIC = 2; MUSICHW = adlib
+    end
+    option[sb16]:
+        name = $(SB16_NAME); priority = 1
+        MUSIC = 3; MUSICHW = sb16
+    end
+    option[gmidi]:
+        name = $(GMIDI_NAME)
+        MUSIC = 8; MUSICHW = gmidi
+    end
+end
+
+AUDIO_CONFIGS = [[[$(CRLF)
+    snd_musicdevice $(MUSIC)
+    snd_sfxdevice   3
+    snd_channels    8
+    snd_sbport      544
+    snd_sbirq       7
+    snd_sbdma       1
+    snd_mport       816
+]]]
+
+CONFIG = [[[$(CRLF)
+    $(KEYBINDS)
+    mouse_sensitivity	10
+    sfx_volume		9
+    music_volume	13
+    voice_volume	15
+    show_talk		1
+    use_joystick	0
+    joyb_fire		0
+    joyb_strafe		1
+    joyb_use		3
+    joyb_speed		2
+    joyb_jump		-1
+    screensize		9
+    usegamma		0
+    chatmacro0		"no macro"
+    chatmacro1		"no macro"
+    chatmacro2		"no macro"
+    chatmacro3		"no macro"
+    chatmacro4		"no macro"
+    chatmacro5		"no macro"
+    chatmacro6		"no macro"
+    chatmacro7		"no macro"
+    chatmacro8		"no macro"
+    chatmacro9		"no macro"
+    comport		1
+    $(AUDIO_CONFIGS)
+]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        file_save("$$(rootpath)\\STRIFE.CFG", "$$(CONFIG)");
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = STRIFE1.EXE
+    file[]: crc = 35b75b1e; size =     23008; name = AVI.EXE
+    file[]: crc = 9b4d6182; size =     30724; name = IPXSETUP.EXE
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR
+    file[]: crc = bd12c1d5; size =     16719; name = MULTI.TXT
+    file[]: crc = 0b3dd180; size =     33986; name = SERSETUP.EXE
+    file[]: crc = 9573ab1b; size =  11873080; name = STRIFE.AVI
+    file[]: crc = cabec14d; size =        25; name = STRIFE.BAT
+    file[]: crc = f881033d; size =    753291; name = STRIFE1.EXE
+    file[]: crc = b7581abd; size =  28372168; name = STRIFE1.WAD
+    file[]: crc = 4fecefc4; size =        24; name = VERSION.TXT
+    file[]: crc = cd12ebcf; size =  27319149; name = VOICES.WAD
+end
+
+demo[demo]:
+    name = Demo
+    launch = STRIFE.EXE
+    anchorfile = STRIFE.EXE
+    file[]: crc = 1db8ca38; size =    720397; name = STRIFE.EXE
+    file[]: crc = 3a6ab94d; size =  10493652; name = STRIFE0.WAD
+end
+
+end
