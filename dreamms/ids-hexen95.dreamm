@@ -4,7 +4,7 @@
 desc[ids-hexen95]:
 
 name = Hexen 95
-icon = ids-hexen1.png
+icon = ids-hexen95.png
 machine = pc
 rootpath = C:\HEXEN95
 launch = "$(rootpath)\$(EXENAME).EXE" $(PARAM)
@@ -47,6 +47,13 @@ script[init]:
 end
 
 //
+// show warning for resolution
+//
+warning[resolution]:
+    text = DREAMM does not support full screen resolutions at 640 x 400. This will cause Hexen 95 to pick a different supported full screen resolution.
+end
+
+//
 //Game Launch
 //
 config[mode]:
@@ -67,7 +74,7 @@ config[vidsize]:
     option[480w]:  name = 640×480 WINDOW; RESOLUTION = -640x480w  
     option[200]:  name = 320×200 FULL SCREEN; RESOLUTION = -320x200
     option[240]:  name = 320×240 FULL SCREEN; RESOLUTION = -320x240
-    option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400
+    //option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400
     option[480]:  name = 640×480 FULL SCREEN; RESOLUTION = -640x480  
 end
 
@@ -121,15 +128,6 @@ config[monster]:
     option[off]:  name = Off; MONSTER = -NOMONSTERS
 	option[on]: name = On (Normal); MONSTER = ""; priority = 1
 	
-end
-
-//
-// video configuration
-//
-config[video]:
-    title = Video Configuration
-    option[window]:  name = Cropped to Window; wincrop = true; priority = 1
-    option[desktop]: name = Full Desktop;      wincrop = false
 end
 
 game[pc-cd-en]:

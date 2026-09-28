@@ -4,7 +4,7 @@
 desc[ids-doom95]:
 
 name = Doom 95
-icon = ids-doom.png
+icon = ids-doom95.png
 machine = pc
 rootpath = C:\
 launch = "$(rootpath)\Doom95.exe" $(BASEWAD) $(MONSTER) $(SKILL) $(WARP) $(RESOLUTION) -nosfxformat
@@ -81,6 +81,13 @@ script[init]:
 end
 
 //
+// show warning for resolution
+//
+warning[resolution]:
+    text = DREAMM does not support full screen resolutions at 640 x 400. This will cause Doom 95 to pick a different supported full screen resolution.
+end
+
+//
 // Game Launch
 //
 config[gametype]:
@@ -97,6 +104,15 @@ config[gametype]:
 	option[tnt]: name = TNT Evilution (TNT.WAD); BASEWAD = -nodm -basewad tnt.wad; condition = file_exists("$$(rootpath)\\tnt.wad"); GAMEID = 5
 	option[tnt31]: name = TNT Evilution w/ TNT31 (TNT.WAD + TNT31.WAD); BASEWAD = -nodm -basewad tnt.wad -file tnt31.wad -nowarn; condition = file_exists("$$(rootpath)\\tnt.wad") && file_exists("$$(rootpath)\\tnt31.wad"); GAMEID = 5
 	
+end
+
+//
+// Mouse Settings
+//
+configutil[]:
+	condition = file_exists("$$(rootpath)\\Doom95Mouse.EXE")
+    name = Doom95 Mouse
+    launch = "$(rootpath)\DooM95Mouse.EXE"
 end
 
 //
@@ -326,33 +342,19 @@ config[fdtntmap]:
 end
 
 //
-// video configuration
-//
-config[video]:
-	condition = ("$$(GAMEID)" == 0)
-    title = Video Configuration
-    option[window]:  name = Cropped to Window; wincrop = true
-    option[desktop]: name = Full Desktop;      wincrop = false; priority = 1
-end
-
-//
 // video configuration outside launcher
 //
 config[vidsize]:
 	condition = ("$$(GAMEID)" != 0)
     title = Video Configuration
-    option[200w]:  name = 320×200 WINDOW; RESOLUTION = -320x200w; winres = 640x480x8; wincrop = false
-    option[240w]:  name = 320×240 WINDOW; RESOLUTION = -320x240w; winres = 640x480x8; wincrop = false
-    option[400w]:  name = 640×400 WINDOW; RESOLUTION = -640x400w; winres = 640x480x8; wincrop = false
-    option[480w]:  name = 640×480 WINDOW; RESOLUTION = -640x480w; winres = 800x600x8; wincrop = false
-    option[200wc]:  name = 320×200 WINDOW CROPPED; RESOLUTION = -320x200w; winres = 640x480x8; wincrop = true
-    option[240wc]:  name = 320×240 WINDOW CROPPED; RESOLUTION = -320x240w; winres = 640x480x8; wincrop = true
-    option[400wc]:  name = 640×400 WINDOW CROPPED; RESOLUTION = -640x400w; winres = 640x480x8; wincrop = true
-    option[480wc]:  name = 640×480 WINDOW CROPPED; RESOLUTION = -640x480w; winres = 800x600x8; wincrop = true
-    option[200]:  name = 320×200 FULL SCREEN; RESOLUTION = -320x200; winres = 640x480x8; wincrop = false; priority = 1
-    option[240]:  name = 320×240 FULL SCREEN; RESOLUTION = -320x240; winres = 640x480x8; wincrop = false
-    //option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400; winres = 640x480x8; wincrop = false
-    option[480]:  name = 640×480 FULL SCREEN; RESOLUTION = -640x480; winres = 640x480x8; wincrop = false
+    option[200w]:  name = 320×200 WINDOW; RESOLUTION = -320x200w; winres = 640x480x8
+    option[240w]:  name = 320×240 WINDOW; RESOLUTION = -320x240w; winres = 640x480x8
+    option[400w]:  name = 640×400 WINDOW; RESOLUTION = -640x400w; winres = 640x480x8
+    option[480w]:  name = 640×480 WINDOW; RESOLUTION = -640x480w; winres = 800x600x8
+    option[200]:  name = 320×200 FULL SCREEN; RESOLUTION = -320x200; winres = 640x480x8; priority = 1
+    option[240]:  name = 320×240 FULL SCREEN; RESOLUTION = -320x240; winres = 640x480x8
+    //option[400]:  name = 640×400 FULL SCREEN; RESOLUTION = -640x400; winres = 640x480x8
+    option[480]:  name = 640×480 FULL SCREEN; RESOLUTION = -640x480; winres = 640x480x8
 end
 
 
@@ -633,6 +635,23 @@ addon[dmorec]:
 	pc-cd-en-ida
 	]]]
 	file[]: crc = 20E4DFB5; size = 110080; name = doomlnch.dll
+	
+end
+
+//
+// Mouse Replacement Fix
+//
+addon[mouse]:
+	name = Unoffical Mouse Patch
+	anchorfile = DooM95Mouse.exe
+	upgradeids = [[[,
+	pc-cd-en-ud95
+	pc-cd-en-d295
+	pc-cd-en-fd95
+	pc-cd-en-dce
+	pc-cd-en-ida
+	]]]
+    file[]: crc = 6f71586c; size =    435200; name = DooM95Mouse.exe	
 	
 end
 
