@@ -11,9 +11,31 @@ rootpath = C:\
 launch = $(rootpath)\quake2.exe
 mips = $(MIPS_MAX)
 winres = 1600x1200
-wincrop = true
 audiohw = gmidi
 filter = id software, fps
+
+MODERN_KEYBINDS = [[[$(CRLF)
+    bind w "+forward"
+    bind a "+moveleft"
+    bind s "+back"
+    bind d "+moveright"
+    bind MWHEELUP "weapnext"
+    bind MWHEELDOWN "weapnext"
+    bind CTRL "+movedown"
+    bind q "invprev"
+    bind e "invnext"
+    bind r "invuse"
+    unbind PGDN
+    unbind END
+    unbind INS
+    unbind /
+    unbind c
+    unbind ,
+    unbind .
+    +mlook
+    sensitivity "11"
+    cl_run "1"
+]]]
 
 //
 // controls configuration
@@ -24,32 +46,18 @@ config[controls]:
         name = Customize In-Game (No Overrides)
         KEYBIND_OVERRIDE = $(NULL)
     end
-    option[inverted]:
-        name = Modern (WASD + Mouse)
+    option[mouse]:
+        name = Modern Preset (WASD + Mouse)
         KEYBIND_OVERRIDE = [[[$(CRLF)
-            bind "w" "+forward"
-            bind "a" "+moveleft"
-            bind "s" "+back"
-            bind "d" "+moveright"
-            bind MWHEELUP "weapnext"
-            bind MWHEELDOWN "weapnext"
-            +mlook
+            $(MODERN_KEYBINDS)
             m_pitch "0.022"
-            sensitivity "11"
         ]]]
     end
-    option[mouse]:
-        name = Modern (WASD + Inverted Mouse)
+    option[mouse-inverted]:
+        name = Modern Preset (WASD + Inverted Mouse)
         KEYBIND_OVERRIDE = [[[$(CRLF)
-            bind "w" "+forward"
-            bind "a" "+moveleft"
-            bind "s" "+back"
-            bind "d" "+moveright"
-            bind MWHEELUP "weapnext"
-            bind MWHEELDOWN "weapnext"
-            +mlook
+            $(MODERN_KEYBINDS)
             m_pitch "-0.022"
-            sensitivity "11"
         ]]]
     end
 end
@@ -65,7 +73,7 @@ config[renderer]:
     end
     option[opengl]:
         name = Hardware (OpenGL)
-        RENDERER_OVERRIDE = set vid_ref "hard"
+        RENDERER_OVERRIDE = set vid_ref "gl"
     end
 end
 
@@ -76,43 +84,43 @@ config[resolution]:
     title = Resolution Configuration
     option[320x240]:
         name = 320x240
-        VIDEO_OVERRIDE = set sw_mode "0"
+        VIDEO_OVERRIDE = set sw_mode "0"$(CRLF)set gl_mode "0"
     end
     option[400x300]:
         name = 400x300
-        VIDEO_OVERRIDE = set sw_mode "1"
+        VIDEO_OVERRIDE = set sw_mode "1"$(CRLF)set gl_mode "1"
     end
     option[512x384]:
         name = 512x384
-        VIDEO_OVERRIDE = set sw_mode "2"
+        VIDEO_OVERRIDE = set sw_mode "2"$(CRLF)set gl_mode "2"
     end
     option[640x480]:
         name = 640x480
-        VIDEO_OVERRIDE = set sw_mode "3"
+        VIDEO_OVERRIDE = set sw_mode "3"$(CRLF)set gl_mode "3"
     end
     option[800x600]:
         name = 800x600; priority = 1
-        VIDEO_OVERRIDE = set sw_mode "4"
+        VIDEO_OVERRIDE = set sw_mode "4"$(CRLF)set gl_mode "4"
     end
     option[960x720]:
         name = 960x720
-        VIDEO_OVERRIDE = set sw_mode "5"
+        VIDEO_OVERRIDE = set sw_mode "5"$(CRLF)set gl_mode "5"
     end
     option[1024x768]:
         name = 1024x768
-        VIDEO_OVERRIDE = set sw_mode "6"
+        VIDEO_OVERRIDE = set sw_mode "6"$(CRLF)set gl_mode "6"
     end
     option[1152x864]:
         name = 1152x864
-        VIDEO_OVERRIDE = set sw_mode "7"
+        VIDEO_OVERRIDE = set sw_mode "7"$(CRLF)set gl_mode "7"
     end
     option[1280x960]:
         name = 1280x960
-        VIDEO_OVERRIDE = set sw_mode "8"
+        VIDEO_OVERRIDE = set sw_mode "8"$(CRLF)set gl_mode "8"
     end
     option[1600x1200]:
         name = 1600x1200
-        VIDEO_OVERRIDE = set sw_mode "9"
+        VIDEO_OVERRIDE = set sw_mode "9"$(CRLF)set gl_mode "9"
     end
 end
 
