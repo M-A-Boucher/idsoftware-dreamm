@@ -16,6 +16,29 @@ audiohw = sb16
 HIPNOTIC = 0
 ROGUE = 0
 
+MODERN_KEYBINDS = [[[$(CRLF)
+    bind w "+forward"
+    bind a "+moveleft"
+    bind s "+back"
+    bind d "+moveright"
+    bind "e" "impulse 10"
+    bind CTRL "+movedown"
+    bind MOUSE2 "impulse 10"
+    bind MOUSE3 "+showscores"
+    unbind END
+    unbind ENTER
+    unbind DEL
+    unbind PGDN
+    unbind c
+    unbind z
+    unbind /
+    unbind ,
+    unbind .
+    +mlook
+    +speed
+    sensitivity "6"
+]]]
+
 //
 // renderer configuration
 //
@@ -65,31 +88,21 @@ end
 config[controls]:
     title = Controls Configuration
     option[classic]:
-        name = Classic (Default Quake)
+        name = Customize In-Game (No Overrides)
         KEYBIND_OVERRIDE = $(NULL)
     end
     option[inverted]:
-        name = Modern (WASD + Mouse)
+        name = Modern Preset (WASD + Mouse)
         KEYBIND_OVERRIDE = [[[$(CRLF)
-            bind "w" "+forward"
-            bind "a" "+moveleft"
-            bind "s" "+back"
-            bind "d" "+moveright"
-            +mlook
+            $(MODERN_KEYBINDS)
             m_pitch "0.022000"
-            sensitivity "6"
         ]]]
     end
     option[mouse]:
-        name = Modern (WASD + Inverted Mouse)
+        name = Modern Preset (WASD + Inverted Mouse)
         KEYBIND_OVERRIDE = [[[$(CRLF)
-            bind "w" "+forward"
-            bind "a" "+moveleft"
-            bind "s" "+back"
-            bind "d" "+moveright"
-            +mlook
+            $(MODERN_KEYBINDS)
             m_pitch "-0.022000"
-            sensitivity "6"
         ]]]
     end
 end
