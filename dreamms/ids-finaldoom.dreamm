@@ -1,0 +1,115 @@
+//
+// Final Doom
+//
+desc[ids-finaldoom]:
+
+name = Final Doom
+icon = ids-finaldoom.png
+machine = pc
+osenv = dos
+rootpath = C:\
+EXEC = DOOM2
+mips = $(MIPS_486DX4_100)
+ramkb = 8192
+filter = id software, fps
+videohw = vga
+
+$(include cfg-doom.inc)
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+
+//
+// Base Files
+//
+fragment[base]:
+    file[]:                                   name = DM.DAT      ; optional = true
+    file[]: crc = eadd44a3; size =      7336; name = DM.DOC      ; optional = true
+    file[]: crc = 08f3cbc5; size =     34815; name = DM.EXE      ; optional = true
+    file[]: crc = 339c813a; size =     18051; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 8d3c971c; size =      9017; name = LICENSE.DOC ; optional = true
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR   ; optional = true
+    file[]: crc = 64ea3378; size =     20257; name = SERSETUP.EXE; optional = true
+    file[]: crc = 0025fe95; size =     45745; name = SETUP.EXE   ; optional = true
+end
+
+//
+// Retail CD
+//
+game[plutonia-v1.9]:
+    name = The Plutonia Experiment (v1.9 1996-06-10)
+    imports = base
+    anchorfile = DOOM2.EXE
+    file[]: crc = 12ee2811; size =    722629; name = DOOM2.EXE   ; exactonly = true	// 1996-06-10
+    file[]: crc = 48d1453c; size =  17420824; name = PLUTONIA.WAD; exactonly = true	// 1996-06-10
+end
+
+installer[plutonia-v1.9-inst]:
+    name = The Plutonia Experiment (v1.9 1996-11-21) Installer
+    installid = plutonia-v1.9
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = RESOURCE.1
+    file[]: crc = 972370db; size =   8409267; name = RESOURCE.1
+end
+
+game[tnt-v1.9]:
+    name = TNT: Evilution (v1.9 1996-06-10)
+    imports = base
+    anchorfile = DOOM2.EXE
+    file[]: crc = 12ee2811; size =    722629; name = DOOM2.EXE   ; exactonly = true	// 1996-06-10
+    file[]: crc = 903dcc27; size =  18195736; name = TNT.WAD     ; exactonly = true	// 1996-06-10
+end
+
+installer[tnt-v1.9-inst]:
+    name = TNT: Evilution (v1.9 1996-11-21) Installer
+    installid = tnt-v1.9
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = RESOURCE.1
+    file[]: crc = 095ea7c4; size =   8827838; name = RESOURCE.1
+end
+
+//
+// id Anthology, 2nd edition / gog.com
+//
+game[plutonia-v1.9b]:
+    name = The Plutonia Experiment (v1.9 1996-11-21)
+    imports = base
+    anchorfile = DOOM2.EXE
+    file[]: crc = 503d9154; size =    722629; name = DOOM2.EXE   ; exactonly = true	// 1996-10-09
+    file[]: crc = 15cd1448; size =  18240172; name = PLUTONIA.WAD; exactonly = true	// 1996-11-21
+end
+
+installer[plutonia-v1.9b-inst]:
+    name = The Plutonia Experiment (v1.9 1996-11-21) Installer
+    installid = plutonia-v1.9b
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = RESOURCE.1
+    file[]: crc = f011f540; size =   8721193; name = RESOURCE.1
+end
+
+game[tnt-v1.9b]:
+    name = TNT: Evilution (v1.9 1996-11-21)
+    imports = base
+    anchorfile = DOOM2.EXE
+    file[]: crc = 503d9154; size =    722629; name = DOOM2.EXE   ; exactonly = true	// 1996-10-09
+    file[]: crc = d4bb05c0; size =  18654796; name = TNT.WAD     ; exactonly = true	// 1996-11-14
+end
+
+installer[tnt-v1.9b-inst]:
+    name = TNT: Evilution (v1.9 1996-11-21) Installer
+    installid = tnt-v1.9b
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = RESOURCE.1
+    file[]: crc = d492b17b; size =   9024922; name = RESOURCE.1
+end
+
+end

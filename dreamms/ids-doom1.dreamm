@@ -8,61 +8,210 @@ icon = ids-doom1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\DOOM.EXE -config $(CONFIG_FILE)
+EXEC = DOOM
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
 videohw = vga
 
 $(include cfg-doom.inc)
-   
-DREAMM1R = [[[$(CRLF)
-    COPY DOOM1_1R.1+DOOM1_1R.2+DOOM1_1R.3+DOOM1_1R.4 DOOM1_1R.EXE
-    DOOM1_1R.EXE
-]]]
-
-DREAMM2R = [[[$(CRLF)
-    COPY DOOM1_2R.1+DOOM1_2R.2+DOOM1_1R.3+DOOM1_2R.4 DOOM1_2R.EXE
-    DOOM1_2R.EXE
-]]]
-
-DREAMM6R = [[[$(CRLF)
-    COPY DOOM166R.1+DOOM166R.2+DOOM166R.3+DOOM166R.4 DOOM166R.EXE
-    DOOM166R.EXE
-]]]
-
-DREAMM9R = [[[$(CRLF)
-    COPY DOOMR_19.1+DOOMR_19.2+DOOMR_19.3+DOOMR_19.4 DOOMR_19.EXE
-    DOOMR_19.EXE
-]]]
-
-DREAMM9D = [[[$(CRLF)
-    COPY DOOMS_19.1+DOOMS_19.2 DOOMS_19.EXE
-    DOOMS_19.EXE
-]]]
-
-DREAMMSE = [[[$(CRLF)
-    COPY DOOM_SE.1+DOOM_SE.2+DOOM_SE.3+DOOM_SE.4 DOOM_SE.EXE
-    DOOM_SE.EXE
-]]]
-
-script[init]:
-    condition = is_installer()
-    code = [[[$(CRLF)
-        file_save("$$(rootpath)\\DREAMM1R.BAT", "$$(DREAMM1R)");
-        file_save("$$(rootpath)\\DREAMM2R.BAT", "$$(DREAMM2R)");
-        file_save("$$(rootpath)\\DREAMM6R.BAT", "$$(DREAMM6R)");
-        file_save("$$(rootpath)\\DREAMM9R.BAT", "$$(DREAMM9R)");
-        file_save("$$(rootpath)\\DREAMM9D.BAT", "$$(DREAMM9D)");
-        file_save("$$(rootpath)\\DREAMMSE.BAT", "$$(DREAMMSE)");
-    ]]]
-end
 
 //
 // filesystem
 //
-mount[]: vpath = C:\;         srcpath = $(ifsdeltapath); writable = true;
-mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v0.2 1993-02-04
+//
+demo[v0.2]:
+    name = v0.2 Pre-Alpha Tech Demo 1993-02-04
+    anchorfile = DOOM.WAD
+    launch = $(rootpath)\DOOM.EXE
+    file[]: crc = ab5e87f7; size =    259177; name = doom.exe
+    file[]: crc = 2587d97b; size =    496250; name = doom.wad
+    file[]: crc = 55969e60; size =       118; name = readme.txt
+end
+
+//
+// doom02 1993-02-04
+//
+demo[slides1]:
+    name = Pre-Alpha Slide Show 1993-02-04
+    anchorfile = SCRN2_00.LBM
+    launch = "$(rootpath)\SK.EXE" -n *.lbm
+    file[]: crc = 817e90df; size =     49352; name = SCRN2_00.LBM
+    file[]: crc = 2c1d5cd7; size =     46706; name = SCRN2_01.LBM
+    file[]: crc = 5560f758; size =     48850; name = SCRN2_02.LBM
+    file[]: crc = 942b6a80; size =     47952; name = SCRN2_03.LBM
+    file[]: crc = d5190486; size =     10796; name = SK.EXE
+end
+
+//
+// doompix1.exe (same as doom04.zip without batch file)
+//
+demo[slides2]:
+    name = Pre-Alpha Slide Show 1993-02-15
+    anchorfile = SCREEN00.LBM
+    launch = $(rootpath)\SHOW.BAT
+    file[]: crc = e66db4cf; size =     64824; name = SCREEN00.LBM
+    file[]: crc = 2aa97348; size =     64824; name = SCREEN01.LBM
+    file[]: crc = ae55cbcb; size =     64824; name = SCREEN02.LBM
+    file[]: crc = cd407105; size =     50688; name = SCREEN03.LBM
+    file[]: crc = 3d37e8d7; size =     64824; name = SCREEN04.LBM
+    file[]: crc = eae8c47b; size =       555; name = SHOW.BAT
+    file[]: crc = d5190486; size =     10796; name = SK.EXE
+end
+
+//
+// doom01
+//
+demo[slides3]:
+    name = Pre-Alpha Slide Show 1993-03-01
+    anchorfile = DOOM00.LBM
+    launch = "$(rootpath)\SHOW.BAT
+    file[]: crc = 3f26c50d; size =     64824; name = DOOM00.LBM
+    file[]: crc = e5197fbb; size =     64824; name = DOOM01.LBM
+    file[]: crc = 25533198; size =     64824; name = DOOM02.LBM
+    file[]: crc = 8a4cce47; size =     64824; name = DOOM03.LBM
+    file[]: crc = 9ccf7266; size =     64824; name = DOOM04.LBM
+    file[]: crc = 6e860f87; size =     64824; name = DOOM05.LBM
+    file[]: crc = 2aa90f3d; size =     64824; name = DOOM06.LBM
+    file[]: crc = 19edf62c; size =     64824; name = DOOM07.LBM
+    file[]: crc = 6d60f20c; size =     64824; name = DOOM08.LBM
+    file[]: crc = eae8c47b; size =       555; name = SHOW.BAT
+    file[]: crc = d5190486; size =     10796; name = SK.EXE
+end
+
+//
+// doom03
+//
+demo[slides4]:
+    name = Pre-Alpha Slide Show 1993-03-03
+    anchorfile = DOOM00.LBM
+    launch = "$(rootpath)\SK.EXE" -n *.lbm
+    file[]: crc = 9585aca4; size =     64824; name = DOOM00.LBM
+    file[]: crc = de1ec9fc; size =     64824; name = DOOM01.LBM
+    file[]: crc = 679259d6; size =     64824; name = DOOM02.LBM
+    file[]: crc = 8474a89f; size =     64824; name = DOOM03.LBM
+    file[]: crc = 1b8f20a1; size =     64824; name = DOOM04.LBM
+    file[]: crc = 9df40a47; size =     64824; name = DOOM05.LBM
+    file[]: crc = ddf1073a; size =     64824; name = DOOM06.LBM
+    file[]: crc = 354512f3; size =     64824; name = DOOM07.LBM
+    file[]: crc = 21725ae7; size =     64824; name = DOOM08.LBM
+    file[]: crc = de747ad0; size =     64824; name = DOOM09.LBM
+    file[]: crc = 471b4a03; size =     64824; name = DOOM10.LBM
+    file[]: crc = 378ee94b; size =     64824; name = DOOM11.LBM
+    file[]: crc = d5190486; size =     10796; name = SK.EXE
+end
+
+//
+// v0.3 1993-02-28
+//
+demo[v0.3]:
+    name = v0.3 Pre-Alpha 1993-02-28
+    anchorfile = DOOM.WAD
+    launch = $(rootpath)\DOOM.EXE
+    file[]: crc = d52782c6; size =    226720; name = DOOM.EXE
+    file[]: crc = f97fe671; size =   1901322; name = DOOM.WAD
+    file[]: crc = fd0c82a8; size =      3556; name = README.TXT
+end
+
+//
+// v0.4 1993-04-02
+//
+demo[v0.4]:
+    name = v0.4 Alpha 1993-04-02
+    anchorfile = DOOM.WAD
+    launch = $(rootpath)\DOOM.EXE
+    file[]: crc = a1855db8; size =      2583; name = ALPHREAD.ME
+    file[]: crc = 3c8e144d; size =       152; name = CONFIG.LMP
+    file[]: crc = 69a16bcb; size =    237883; name = DOOM.EXE
+    file[]: crc = c8a8b5ea; size =   2675669; name = DOOM.WAD
+    file[]: crc = 32376422; size =    231179; name = DOS4GW.EXE
+end
+
+//
+// v0.5 1993-05-22
+//
+demo[v0.5]:
+    name = v0.5 Alpha 1993-05-22
+    anchorfile = DOOM.WAD
+    launch = $(rootpath)\DOOM.EXE
+    file[]: crc = f95bf52b; size =       152; name = CONFIG.LMP
+    file[]: crc = 74439ef0; size =    471452; name = DOOM.EXE
+    file[]: crc = 8fe33445; size =   3522207; name = DOOM.WAD
+    file[]: crc = 32376422; size =    231179; name = DOS4GW.EXE
+    file[]: crc = 920aca94; size =      7893; name = notes.txt
+end
+
+//
+// Press Beta 1993-10-04
+//
+demo[v0.8press]:
+    name = Special Pre-Beta Press Release 1993-10-04
+    anchorfile = DOOMPRES.WAD
+    anchordepth = 1
+    launch = $(rootpath)\DOOM.BAT
+    file[]: crc = e0f57612; size =       222; name = DOOM.BAT
+    file[]: crc = 9fc30325; size =       229; name = EASYDOOM.BAT
+    file[]: crc = e8f394be; size =       437; name = FAKEDATE.COM
+    file[]: crc = 4d5b08c7; size =       229; name = HARDDOOM.BAT
+    file[]: crc = ff9bd960; size =   5468456; name = DOOMPRES.WAD
+    file[]: crc = 32376422; size =    231179; name = DOS4GW.EXE
+    file[]: crc = 997e6f39; size =    512839; name = NEWDOOM.EXE
+    file[]: crc = 9dc49fda; size =     10035; name = README.TXT
+    file[]: crc = ad9be07a; size =      7060; name = TEXTURE2.LMP
+end
+
+//
+// Press Beta 1993-10-04, Installer
+//
+installer[v0.8press-installer]:
+    name = Special Pre-Beta Press Release, Installer
+    installid = v0.8press
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DEMO.1
+    anchordepth = 1
+    file[]: crc = 1ba9793d; size =   1408512; name = DEMO.1
+    file[]: crc = d097f863; size =    813970; name = DEMO.2
+    file[]: crc = e0f57612; size =       222; name = DOOM.BAT
+    file[]: crc = 9fc30325; size =       229; name = EASYDOOM.BAT
+    file[]: crc = e8f394be; size =       437; name = FAKEDATE.COM
+    file[]: crc = 4d5b08c7; size =       229; name = HARDDOOM.BAT
+    file[]: crc = 9dc49fda; size =     10035; name = README.TXT
+end
+
+//
+// v1.0/v0.99 Shareware
+//
+game[v1.0-sw]:
+    name = v1.0, Shareware
+    anchorfile = DOOM1.WAD
+    file[]: crc = 0bd4317a; size =    523221; name = DOOM.EXE
+    file[]: crc = eedae672; size =   4207819; name = DOOM1.WAD		; exactonly = true
+    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
+    file[]: crc = c6519331; size =      4680; name = ORDER.FRM		; optional = true
+    file[]: crc = 45b48fb6; size =     30661; name = README.EXE		; optional = true
+    file[]: crc = 1bf40c1f; size =     68599; name = SETUP.EXE 		; optional = true
+    file[]: crc = 7c402627; size =       314; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.0/v0.99, Shareware, Installer
+//
+installer[v1.0-sw-3x760kb-installer]:
+    name = v1.0, Shareware, Installer
+    installid = v1.0-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1_0.1
+    file[]: crc = fb7a6a9b; size =    708608; name = DOOM1_0.1
+    file[]: crc = 90890b90; size =    730112; name = DOOM1_0.2
+    file[]: crc = 2da12eb9; size =    709174; name = DOOM1_0.3
+end
 
 //
 // v1.1
@@ -70,7 +219,7 @@ mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath);
 game[v1.1]:
     name = v1.1
     anchorfile = DOOM.EXE
-    file[]: crc = 2529c9a1; size =    579187; name = DOOM.EXE
+    file[]: crc = 2529c9a1; size =    579187; name = DOOM.EXE	; exactonly = true
     file[]: crc = 66457ab9; size =  10396254; name = DOOM.WAD
     file[]: crc = 65bdd009; size =       439; name = FILE_ID.DIZ ; optional = true
     file[]: crc = 95491c54; size =     68923; name = SETUP.EXE   ; optional = true
@@ -83,12 +232,41 @@ installer[v1.1-4x1.44m-installer]:
     name = v1.1, 4x1.44M, Installer
     installid = v1.1
     mips = $(MIPS_MAX)
-    launch = DREAMM1R.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM1_1R.4
     file[]: crc = ced87853; size =   1439232; name = DOOM1_1R.1
     file[]: crc = 7f0292d2; size =   1457664; name = DOOM1_1R.2
     file[]: crc = ec56b39e; size =   1457664; name = DOOM1_1R.3
     file[]: crc = 765c6658; size =    949445; name = DOOM1_1R.4
+end
+
+//
+// v1.1 Shareware 1993-12-15
+//
+demo[v1.1-sw]:
+    name = v1.1, Shareware
+    anchorfile = DOOM.EXE
+    V11 = true
+    file[]: crc = 6cacbe0d; size =    579187; name = DOOM.EXE
+    file[]: crc = 981dcebb; size =   4274218; name = DOOM1.WAD
+    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
+    file[]: crc = e332d376; size =      4681; name = ORDER.FRM		; optional = true
+    file[]: crc = d196a4c4; size =     32498; name = README.EXE		; optional = true
+    file[]: crc = 95491c54; size =     68923; name = SETUP.EXE		; optional = true
+    file[]: crc = 7c402627; size =       314; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.1, Shareware, 2x1.44M, Installer
+//
+installer[v1.1-sw-2x1.44m-installer]:
+    name = v1.1 Shareware, 2x1.44M, Installer
+    installid = v1.1-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1_1.1
+    file[]: crc = 61f0404a; size =   1180672; name = DOOM1_1.1
+    file[]: crc = c8e07e51; size =   1015543; name = DOOM1_1.2
 end
 
 //
@@ -112,12 +290,129 @@ installer[v1.2-4x1.44m-installer]:
     name = v1.2, 4x1.44M, Installer
     installid = v1.2
     mips = $(MIPS_MAX)
-    launch = DREAMM2R.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM1_2R.4
     file[]: crc = 40055ce6; size =   1437184; name = DOOM1_2R.1
     file[]: crc = 95038ccc; size =   1457664; name = DOOM1_2R.2
     file[]: crc = 1510ad0f; size =   1457664; name = DOOM1_2R.3
     file[]: crc = 040a1717; size =    694319; name = DOOM1_2R.4
+end
+
+//
+// v1.2, Shareware
+//
+demo[v1.2-sw]:
+    name = v1.2, Shareware
+    anchorfile = DOOM1.WAD
+    file[]: crc = 18c0e2db; size =    575767; name = DOOM.EXE
+    file[]: crc = bc842626; size =   4225504; name = DOOM1.WAD
+    file[]: crc = 427272dd; size =     32134; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
+    file[]: crc = caf66956; size =       393; name = MODEM.CFG		; optional = true
+    file[]: crc = 214a5cdd; size =      5619; name = ORDER.FRM		; optional = true
+    file[]: crc = 077c1782; size =     34386; name = README.EXE		; optional = true
+    file[]: crc = 5f1c6289; size =     36567; name = SERSETUP.EXE	; optional = true
+    file[]: crc = db8b4f8b; size =     91931; name = SETUP.EXE		; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.2, Shareware, Installer
+//
+installer[v1.2-sw-installer]:
+    name = v1.2, Shareware, Installer
+    installid = v1.2-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1_2S.1
+    file[]: crc = 35e03b5c; size =   1435648; name = DOOM1_2S.1
+    file[]: crc = 469ab928; size =    802842; name = DOOM1_2S.2
+end
+
+//
+// v1.25, Shareware
+//
+demo[v1.25-sw]:
+    name = v1.25, Shareware
+    anchorfile = DOOM1.WAD
+    imports = v1.2-sw
+    file[]: crc = 3a01b0a4; size =    560547; name = DOOM.EXE
+    file[]: crc = 225d7fb1; size =   4225460; name = DOOM1.WAD
+    file[]: crc = 4a2fe3d0; size =     31013; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = ee2d2b14; size =     34498; name = README.EXE		; optional = true
+    file[]: crc = fe766039; size =     35761; name = SERSETUP.EXE	; optional = true
+    file[]: crc = 7a49c6e3; size =     91931; name = SETUP.EXE		; optional = true
+end
+
+//
+// v1.25, Shareware, 2x1.44M, Installer
+//
+installer[v1.25-sw-2x1.44m-installer]:
+    name = v1.25, Shareware, 2x1.44M, Installer
+    installid = v1.25-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1_25.1
+    file[]: crc = 1b169e40; size =   1428992; name = DOOM1_25.1
+    file[]: crc = 94653782; size =    796551; name = DOOM1_25.2
+end
+
+//
+// v1.4 Beta, Shareware 1994-06-28
+//
+demo[v1.4-sw]:
+    name = v1.4 Beta, Shareware
+    anchorfile = DOOM1.WAD
+    file[]: crc = f3a47813; size =    635361; name = DOOM.EXE
+    file[]: crc = f5c2708d; size =   4261144; name = DOOM1.WAD
+    file[]: crc = 04c16e94; size =       468; name = FILE_ID.DIZ	; optional = true
+    file[]: crc = 414d3358; size =     31025; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
+    file[]: crc = d8576c88; size =        61; name = MODEM.CFG		; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
+    file[]: crc = b278d6a1; size =      2974; name = MODEM.STR		; optional = true
+    file[]: crc = 9f79b13f; size =      5438; name = ORDER.FRM		; optional = true
+    file[]: crc = 90d8ffca; size =     36322; name = README.EXE		; optional = true
+    file[]: crc = 82804147; size =     37179; name = SERSETUP.EXE	; optional = true
+    file[]: crc = 1068e7a3; size =     95635; name = SETUP.EXE		; optional = true
+    file[]: crc = 9f2d30d8; size =       922; name = SYSOP.DOC		; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.5 Beta, Shareware 1994-07-08
+//
+demo[v1.5-sw]:
+    name = v1.5 Beta, Shareware
+    anchorfile = DOOM1.WAD
+    imports = v1.4-sw
+    file[]: crc = 32222aea; size =    656329; name = DOOM.EXE
+    file[]: crc = 8653b0eb; size =   4271324; name = DOOM1.WAD
+    file[]: crc = ab85fcd3; size =       468; name = FILE_ID.DIZ	; optional = true
+    file[]: crc = 44f3420d; size =     11515; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR		; optional = true
+    file[]: crc = 85778371; size =     37410; name = README.EXE		; optional = true
+    file[]: crc = 1bd33621; size =     14802; name = SERSETUP.EXE	; optional = true
+    file[]: crc = 572628cc; size =     95667; name = SETUP.EXE		; optional = true
+    file[]: crc = f04bef1c; size =       922; name = SYSOP.DOC		; optional = true
+end
+
+//
+// v1.6 Beta, Shareware 1994-08-03
+//
+demo[v1.6-sw]:
+    name = v1.6 Beta, Shareware
+    anchorfile = DOOM1.WAD
+    imports = v1.5-sw
+    file[]: crc = b11aa653; size =    658469; name = DOOM.EXE
+    file[]: crc = f26dcad8; size =   4211660; name = DOOM1.WAD
+    file[]: crc = f330aa68; size =       421; name = DOOM16BT.TXT	; optional = true
+    file[]: crc = 81394c5b; size =       468; name = FILE_ID.DIZ	; optional = true
+    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = 7a95b28c; size =      5498; name = ORDER.FRM		; optional = true
+    file[]: crc = 3695018b; size =     37490; name = README.EXE		; optional = true
+    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE	; optional = true
+    file[]: crc = f297d706; size =     95795; name = SETUP.EXE		; optional = true
 end
 
 //
@@ -143,12 +438,119 @@ installer[v1.666-4x1.44m-installer]:
     name = v1.666, 4x1.44M, Installer
     installid = v1.666
     mips = $(MIPS_MAX)
-    launch = DREAMM6R.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM166R.4
     file[]: crc = ab195400; size =   1439232; name = DOOM166R.1
     file[]: crc = 3988c4ff; size =   1457664; name = DOOM166R.2
     file[]: crc = 77f7e774; size =   1457664; name = DOOM166R.3
     file[]: crc = f07ee5c5; size =   1368473; name = DOOM166R.4
+end
+
+//
+// v1.666 early, Shareware
+//
+demo[v1.666a-sw]:
+    name = v1.666 (1994-08-30), Shareware
+    anchorfile = DOOM1.WAD
+    file[]: crc = 5f7ede6f; size =    687001; name = DOOM.EXE
+    file[]: crc = 505fb740; size =   4234124; name = DOOM1.WAD
+    file[]: crc = 2f1a5b2d; size =       470; name = FILE_ID.DIZ	; optional = true
+    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
+    file[]: crc = d8576c88; size =        61; name = MODEM.CFG		; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
+    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR		; optional = true
+    file[]: crc = 954fa009; size =      5814; name = ORDER.FRM		; optional = true
+    file[]: crc = b106b835; size =     37698; name = README.EXE		; optional = true
+    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE	; optional = true
+    file[]: crc = 2a5941e1; size =     95184; name = SETUP.EXE		; optional = true
+    file[]: crc = 09fd51d6; size =       924; name = SYSOP.DOC		; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.666 early, Shareware, CD, Installer from various retail CDs
+//
+installer[v1.666a-sw-cd-installer]:
+    name = v1.666 (1994-08-30), Shareware, CD, Installer
+    installid = v1.666a-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1666.1
+    file[]: crc = 03a349e9; size =   1439232; name = DOOM1666.1
+    file[]: crc = 5053ecb3; size =    985392; name = DOOM1666.2
+end
+
+//
+// v1.666, Shareware 1994-09-01
+//
+demo[v1.666b-sw]:
+    name = v1.666, Shareware
+	anchorfile = DOOM1.WAD
+	imports = v1.666a-sw
+    file[]: crc = 084677c4; size =    687001; name = DOOM.EXE
+end
+
+//
+// v1.666, Shareware, Installer
+//
+installer[v1.666-sw-installer]:
+    name = v1.666, Shareware, Installer
+    installid = v1.666b-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM1666.1
+    file[]: crc = d6c16040; size =   1439232; name = DOOM1666.1
+    file[]: crc = 6bef0f04; size =    985789; name = DOOM1666.2
+end
+
+//
+// v1.8, Shareware 1995-01-23
+//
+demo[v1.8-sw]:
+    name = v1.8, Shareware
+    anchorfile = DOOM1.WAD
+    file[]: crc = 0563536b; size =    709865; name = DOOM.EXE		; exactonly = true
+    file[]: crc = 331ebf07; size =   4196020; name = DOOM1.WAD
+    file[]: crc = ac7512ed; size =       468; name = FILE_ID.DIZ	; optional = true
+    file[]: crc = 83f50542; size =      4690; name = HELPME.TXT		; optional = true
+    file[]: crc = 8bf1d4d4; size =     18051; name = IPXSETUP.EXE	; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG		; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR		; optional = true
+    file[]: crc = 368fe3b2; size =      4617; name = ORDER.FRM		; optional = true
+    file[]: crc = abbcf016; size =     59092; name = README.TXT		; optional = true
+    file[]: crc = cad4343a; size =     20257; name = SERSETUP.EXE	; optional = true
+    file[]: crc = 7c86a122; size =     45884; name = SETUP.EXE		; optional = true
+    file[]: crc = 5b31d45c; size =       717; name = SYSOP.DOC		; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+end
+
+//
+// v1.8, Shareware, 2x1.44M, Installer
+//
+installer[v1.8-sw-2x1.44m-installer]:
+    name = v1.8, Shareware, 2x1.44M, Installer
+    installid = v1.8-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM18S.1
+    file[]: crc = 1a3d4b71; size =   1439232; name = DOOM18S.1
+    file[]: crc = 5f31a304; size =   1026829; name = DOOM18S.2
+end
+
+//
+// v1.8, Shareware, CD, Installer
+//
+installer[v1.8-sw-cd-installer]:
+    name = v1.8, Shareware, CD, Installer
+    installid = v1.8-sw
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM_V18.1
+    file[]: crc = 461d10e9; size =   1439232; name = DOOM_V18.1
+    file[]: crc = 5ee280ee; size =    904448; name = DOOM_V18.2
 end
 
 //
@@ -171,13 +573,13 @@ game[v1.9]:
 end
 
 //
-// v1.9, 4x1.44M, Installer
+// v1.9, Floppy/CD, Installer
 //
-installer[v1.9-4x1.44m-installer]:
-    name = v1.9, 4x1.44M, Installer
+installer[v1.9-installer]:
+    name = v1.9, Installer
     installid = v1.9
     mips = $(MIPS_MAX)
-    launch = DREAMM9R.BAT
+    launch = DEICE.BAT
     anchorfile = DOOMR_19.4
     file[]: crc = 59fb7c45; size =   1439232; name = DOOMR_19.1
     file[]: crc = a6936a46; size =   1457664; name = DOOMR_19.2
@@ -188,11 +590,11 @@ end
 //
 // v1.9, Shareware
 //
-game[v1.9-sw]:
+demo[v1.9-sw]:
     name = v1.9, Shareware
     imports = v1.9
     file[]: crc = 8472e258; size =     33640; name = DM.EXE
-    file[]: crc = be91c727; size =    709905; name = DOOM.EXE
+    file[]: crc = be91c727; size =    709905; name = DOOM.EXE	; exactonly = true
     file[]: crc = 723e60f9; size =  11159840; remove = DOOM.WAD
     file[]: crc = 162b696a; size =   4196020; name = DOOM1.WAD
 end
@@ -204,7 +606,7 @@ installer[v1.9-sw-installer]:
     name = v1.9, Shareware, Installer
     installid = v1.9-sw
     mips = $(MIPS_MAX)
-    launch = DREAMM9D.BAT
+    launch = DEICE.BAT
     anchorfile = DOOMS_19.2
     file[]: crc = b208c1e0; size =   1439232; name = DOOMS_19.1
     file[]: crc = 7d7d90d2; size =    994588; name = DOOMS_19.2
@@ -218,17 +620,17 @@ game[v1.9-ultimate]:
     imports = v1.9
     file[]: crc = baaab071; size =     20937; name = DM.EXE
     file[]: crc = b5ceb8ac; size =    715493; name = DOOM.EXE
-    file[]: crc = 176a13aa; size =  11632640; name = DOOM.WAD
+    file[]: crc = bf0eaac0; size =  12408292; name = DOOM.WAD
 end
 
 //
-// The Ultimate Doom, v1.9, 5x1.44M, Installer
+// The Ultimate Doom, v1.9, Floppy/CD, Installer
 //
-installer[v1.9-5x1.44m-ultimate-installer]:
-    name = The Ultimate Doom, v1.9, 5x1.44M, Installer
+installer[v1.9-ultimate-installer]:
+    name = The Ultimate Doom, v1.9, Installer
     installid = v1.9-ultimate
     mips = $(MIPS_MAX)
-    launch = DREAMMSE.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM_SE.5
     file[]: crc = 7b3fd829; size =   1439232; name = DOOM_SE.1
     file[]: crc = cf3edbfa; size =   1457664; name = DOOM_SE.2

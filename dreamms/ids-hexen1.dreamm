@@ -8,25 +8,12 @@ icon = ids-hexen1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\HEXEN.EXE -config $(CONFIG_FILE)
+EXEC = HEXEN
 mips = $(MIPS_MAX)
 ramkb = 8192
 filter = id software, fps
-videohw = svga
 
 $(include cfg-doom.inc)
-
-INSTALL = [[[$(CRLF)
-    COPY HREG_V10.1+HREG_V10.2+HREG_V10.3+HREG_V10.4+HREG_V10.5 HREG_V10.EXE
-    HREG_V10.EXE
-]]]
-
-script[init]:
-    condition = is_installer()
-    code = [[[$(CRLF)
-        file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
-    ]]]
-end
 
 //
 // filesystem
@@ -66,9 +53,9 @@ installer[v1.0-installer]:
     name = v1.0, Installer
     installid = v1.0
     mips = $(MIPS_MAX)
-    launch = HEXCD10.EXE
-    anchorfile = HEXCD10.EXE
-    file[]: crc = d70e4988; size =  10156135; name = HEXCD10.EXE
+    launch = DEICE.BAT
+    anchorfile = HEXCD10.1
+    file[]: crc = d70e4988; size =  10156135; name = HEXCD10.1
     file[]:                                   name = CDDA.SOU; cdda = 236/195/15/45/68/83/251/144/200/213/215/242/250/187/195/205/164/186/152/244/193; optional = true
 end
 

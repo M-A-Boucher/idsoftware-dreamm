@@ -8,43 +8,14 @@ icon = ids-doom2.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = $(rootpath)\DOOM2.EXE -config $(CONFIG_FILE)
+launch = LAUNCH.BAT
+EXEC = DOOM2
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
 videohw = vga
 
 $(include cfg-doom.inc)
-
-DREAMM2A = [[[$(CRLF)
-    COPY DOOM2LZH.1+DOOM2LZH.2+DOOM2LZH.3+DOOM2LZH.4+DOOM2LZH.5 DOOM2LZH.EXE
-    DOOM2LZH.EXE
-]]]
-
-DREAMM2B = [[[$(CRLF)
-    COPY DOOM2B.1+DOOM2B.2+DOOM2B.3+DOOM2B.4+DOOM2B.5 DOOM2B.EXE
-    DOOM2B.EXE
-]]]
-
-DREAMM2C = [[[$(CRLF)
-    COPY DOOM2C.1+DOOM2C.2+DOOM2C.3+DOOM2C.4+DOOM2C.5 DOOM2C.EXE
-    DOOM2C.EXE
-]]]
-
-DREAMMCD= [[[$(CRLF)
-    COPY DOOM2_19.1+DOOM2_19.2+DOOM2_19.3+DOOM2_19.4+DOOM2_19.5 DOOM2_19.EXE
-    DOOM2_19.EXE
-]]]
-
-script[init]:
-    condition = is_installer()
-    code = [[[$(CRLF)
-        file_save("$$(rootpath)\\DREAMM2A.BAT", "$$(DREAMM2A)");
-        file_save("$$(rootpath)\\DREAMM2B.BAT", "$$(DREAMM2B)");
-        file_save("$$(rootpath)\\DREAMM2C.BAT", "$$(DREAMM2C)");
-        file_save("$$(rootpath)\\DREAMMCD.BAT", "$$(DREAMMCD)");
-    ]]]
-end
 
 //
 // filesystem
@@ -69,13 +40,13 @@ game[v1.666]:
 end
 
 //
-// v1.666, 5x1.44M, Installer
+// v1.666, Floppy/CD, Installer
 //
-installer[v1.666-5x1.44m-installer]:
-    name = v1.666, 5x1.44M, Installer
+installer[v1.666-installer]:
+    name = v1.666, Installer
     installid = v1.666
     mips = $(MIPS_MAX)
-    launch = DREAMM2A.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM2LZH.5
     file[]: crc = 83cd31e5; size =   1439232; name = DOOM2LZH.1
     file[]: crc = 8d38fc66; size =   1457664; name = DOOM2LZH.2
@@ -95,13 +66,13 @@ game[v1.7]:
 end
 
 //
-// v1.7, 5x1.44M, Installer
+// v1.7, Floppy/CD Installer
 //
-installer[v1.7-5x1.44m-installer]:
-    name = v1.7, 5x1.44M, Installer
+installer[v1.7-installer]:
+    name = v1.7, Installer
     installid = v1.7
     mips = $(MIPS_MAX)
-    launch = DREAMM2B.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM2B.5
     file[]: crc = 0d944b61; size =   1439232; name = DOOM2B.1
     file[]: crc = 387b30f7; size =   1457664; name = DOOM2B.2
@@ -127,7 +98,7 @@ installer[v1.7a-cd-installer]:
     name = v1.7a, CD, Installer
     installid = v1.7a
     mips = $(MIPS_MAX)
-    launch = DREAMM2C.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM2C.5
     file[]: crc = b6cf2a5a; size =   1439232; name = DOOM2C.1
     file[]: crc = 018181b2; size =   1457664; name = DOOM2C.2
@@ -162,13 +133,26 @@ installer[v1.9-cd-installer]:
     name = v1.9, CD, Installer
     installid = v1.9
     mips = $(MIPS_MAX)
-    launch = DREAMMCD.BAT
+    launch = DEICE.BAT
     anchorfile = DOOM2_19.5
     file[]: crc = c8a3d2a7; size =   1439232; name = DOOM2_19.1
     file[]: crc = 2e5c1807; size =   1457664; name = DOOM2_19.2
     file[]: crc = 0db0ecfe; size =   1457664; name = DOOM2_19.3
     file[]: crc = 7fd38db1; size =   1457664; name = DOOM2_19.4
     file[]: crc = 29acd033; size =   1428533; name = DOOM2_19.5
+end
+
+//
+// v1.9, id Anthology v2
+//
+installer[v1.9-idv2-installer]:
+    name = v1.9, id Anthology
+    installid = v1.9
+    mips = $(MIPS_MAX)
+    launch = DEICE.BAT
+    anchorfile = DOOM2.DAT
+    file[]: crc = 3461f923; size =       206; name = DOOM2.DAT
+    file[]: crc = ddc4527f; size =   7254527; name = DOOM2.1	// renamed from exe
 end
 
 end

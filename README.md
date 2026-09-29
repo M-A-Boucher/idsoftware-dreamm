@@ -12,6 +12,7 @@ Alternatively:
 
 # Contributors
 - Bartman3010 (for his excellent work on the Doom95 and Hexen95 dreamm files)
+- exmensa (for finding all the Doom, Doom II, Final Doom variants and cleaning up the shared DREAMM file elements)
 
 # Other .dreammpacks
 - 3DRealms/Apogee: https://github.com/M-A-Boucher/3drealms-dreamm

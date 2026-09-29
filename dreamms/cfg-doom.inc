@@ -57,6 +57,10 @@ end
 //
 config[music]:
     title = Music Configuration
+    option[none]:
+        name = None
+        MUSIC = 0; MUSICHW = sb16
+    end
     option[adlib]:
         name = $(ADLIB_NAME)
         MUSIC = 2; MUSICHW = adlib
@@ -81,10 +85,13 @@ end
 //
 config[sound]:
     title = Sound Configuration
+    option[none]:
+        name = None
+        SOUND = 0; SOUNDHW = sb16
+    end
     option[speaker]:
         name = $(SPEAKER_NAME)
         SOUND = 1; SOUNDHW = speaker
-        condition = file_exists("$$(rootpath)\\DOOM.EXE")
     end
     option[sb16]:
         name = $(SB16_NAME); priority = 1
@@ -118,46 +125,108 @@ CONFIG = [[[$(CRLF)
 ]]]
 
 AUDIO_CONFIGS = [[[$(CRLF)
-    snd_musicdevice $(MUSIC)
-    snd_sfxdevice   $(SOUND)
-    snd_channels    8
-    snd_sbport      544
-    snd_sbirq       7
-    snd_sbdma       1
-    snd_mport       816
+    snd_musicdevice    $(MUSIC)
+    snd_sfxdevice      $(SOUND)
+    snd_channels       8
+    snd_sbport         544
+    snd_sbirq          7
+    snd_sbdma          1
+    snd_mport          816
 ]]]
 
 MACRO_CONFIGS = [[[$(CRLF)
-    usegamma        0
-    chatmacro0      "no macro"
-    chatmacro1      "no macro"
-    chatmacro2      "no macro"
-    chatmacro3      "no macro"
-    chatmacro4      "no macro"
-    chatmacro5      "no macro"
-    chatmacro6      "no macro"
-    chatmacro7      "no macro"
-    chatmacro8      "no macro"
-    chatmacro9      "no macro"
+    usegamma           0
+    chatmacro0         "No"
+    chatmacro1         "I'm ready to kick butt!"
+    chatmacro2         "I'm OK."
+    chatmacro3         "I'm not looking too good!"
+    chatmacro4         "Help!"
+    chatmacro5         "You suck!"
+    chatmacro6         "Next time, scumbag..."
+    chatmacro7         "Come here!"
+    chatmacro8         "I'll take care of it."
+    chatmacro9         "Yes"
 ]]]
 
-script[autoconfig]:
+//
+// ENDDOOM configuration
+//
+config[enddoom]:
+    condition = !is_installer()
+    title = Exit Screen
+    option[show]:
+        name = Show
+        END = true
+        launch = $(rootpath)\RUN.BAT
+    end
+    option[hide]:
+        name = Skip; priority = 1
+        END = false
+        launch = LAUNCH.BAT
+    end
+end
+
+// Generate batch to display ENDDOOM
+ENDDOOM = [[[
+        @ECHO OFF
+        $(EXEC).EXE -config $(CONFIG_FILE)
+        PAUSE
+]]]
+
+// Installer script
+DEICE = [[[$(CRLF)
+    @ECHO OFF
+    COPY *.1 1.1
+    COPY *.2 1.2
+    COPY *.3 1.3
+    COPY *.4 1.4
+    COPY *.5 1.5
+    COPY 1.1+1.2+1.3+1.4+1.5 INSTALL.EXE
+    INSTALL.EXE -n
+]]]
+
+// Launch script
+LAUNCH = [[[$(CRLF)
+    NOVERT
+    $(EXEC).EXE -config $(CONFIG_FILE)
+]]]
+
+script[init]:
     code = [[[$(CRLF)
-        file = "$$(rootpath)\\DREAMM.CFG";
+        video_suppress(true);
 
-        if (file_exists(file))
+        if (is_installer())
+          file_save("$$(rootpath)\\DEICE.BAT", "$$(DEICE)");
+
+        if (is_game() || is_demo())
         {
-          content = file_load_string(file);
-          content = substr(content, 0, strstr(content, "snd_musicdevice"));
-          content = content + "$$(AUDIO_CONFIGS)$$(CRLF)";
-          content = content + "$$(MACRO_CONFIGS)$$(CRLF)";
-          content = content + "$$(KEYBINDS)$$(CRLF)";
-        }
-        else
-        {
-          content = "$$(CONFIG)";
+          file_save("$$(rootpath)\\LAUNCH.BAT", "$$(LAUNCH)");
+
+          file = "$$(rootpath)\\$$(CONFIG_FILE)";
+
+          if (file_exists(file))
+          {
+            content = file_load_string(file);
+            content = substr(content, 0, strstr(content, "snd_musicdevice"));
+            content = content + "$$(AUDIO_CONFIGS)$$(CRLF)";
+            content = content + "$$(MACRO_CONFIGS)$$(CRLF)";
+            content = content + "$$(KEYBINDS)$$(CRLF)";
+          }
+          else
+          {
+            content = "$$(CONFIG)";
+          }
+
+          file_save(file, content);
+
+          if ("$$(END)")
+            file_save("$$(rootpath)\\RUN.BAT", "$$(ENDDOOM)");
+
+          // NOVERT by Istvan Pataki, 'minified' by eientei
+          file_save("$$(rootpath)\\NOVERT.COM", "`h:EB 1C 00 00 00 00 3D 03 00 74 05 3D 0B 00 75 09 9C 2E FF 1E 02 01 33 D2 CF 2E FF 2E 02 01 B8 33 35 CD 21 89 1E 02 01 8C 06 04 01 B8 33 25 BA 06 01 CD 21 BA 1E 01 C1 EA 04 42 B8 00 31 CD 21");
         }
 
-        file_save(file, content);
+        while (video_text()) wait("videomode"); 
+        video_suppress(false);
     ]]]
 end
