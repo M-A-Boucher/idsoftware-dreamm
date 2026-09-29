@@ -8,7 +8,7 @@ icon = ids-doom1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-EXEC = DOOM
+EXEC = DOOM.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
@@ -21,14 +21,16 @@ $(include cfg-doom.inc)
 //
 mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
-
 //
 // v0.2 1993-02-04
 //
 demo[v0.2]:
     name = v0.2 Pre-Alpha Tech Demo 1993-02-04
     anchorfile = DOOM.WAD
-    launch = $(rootpath)\DOOM.EXE
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = DOOM.EXE
     file[]: crc = ab5e87f7; size =    259177; name = doom.exe
     file[]: crc = 2587d97b; size =    496250; name = doom.wad
     file[]: crc = 55969e60; size =       118; name = readme.txt
@@ -40,7 +42,10 @@ end
 demo[slides1]:
     name = Pre-Alpha Slide Show 1993-02-04
     anchorfile = SCRN2_00.LBM
-    launch = "$(rootpath)\SK.EXE" -n *.lbm
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = SK.EXE -n *.lbm
     file[]: crc = 817e90df; size =     49352; name = SCRN2_00.LBM
     file[]: crc = 2c1d5cd7; size =     46706; name = SCRN2_01.LBM
     file[]: crc = 5560f758; size =     48850; name = SCRN2_02.LBM
@@ -54,7 +59,10 @@ end
 demo[slides2]:
     name = Pre-Alpha Slide Show 1993-02-15
     anchorfile = SCREEN00.LBM
-    launch = $(rootpath)\SHOW.BAT
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = SHOW.BAT
     file[]: crc = e66db4cf; size =     64824; name = SCREEN00.LBM
     file[]: crc = 2aa97348; size =     64824; name = SCREEN01.LBM
     file[]: crc = ae55cbcb; size =     64824; name = SCREEN02.LBM
@@ -70,7 +78,10 @@ end
 demo[slides3]:
     name = Pre-Alpha Slide Show 1993-03-01
     anchorfile = DOOM00.LBM
-    launch = "$(rootpath)\SHOW.BAT
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = SHOW.BAT
     file[]: crc = 3f26c50d; size =     64824; name = DOOM00.LBM
     file[]: crc = e5197fbb; size =     64824; name = DOOM01.LBM
     file[]: crc = 25533198; size =     64824; name = DOOM02.LBM
@@ -90,7 +101,10 @@ end
 demo[slides4]:
     name = Pre-Alpha Slide Show 1993-03-03
     anchorfile = DOOM00.LBM
-    launch = "$(rootpath)\SK.EXE" -n *.lbm
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = SK.EXE -n *.lbm
     file[]: crc = 9585aca4; size =     64824; name = DOOM00.LBM
     file[]: crc = de1ec9fc; size =     64824; name = DOOM01.LBM
     file[]: crc = 679259d6; size =     64824; name = DOOM02.LBM
@@ -112,7 +126,9 @@ end
 demo[v0.3]:
     name = v0.3 Pre-Alpha 1993-02-28
     anchorfile = DOOM.WAD
-    launch = $(rootpath)\DOOM.EXE
+	NOENDDOOM = true
+	NOKEYS = true
+	NOSOUND = true
     file[]: crc = d52782c6; size =    226720; name = DOOM.EXE
     file[]: crc = f97fe671; size =   1901322; name = DOOM.WAD
     file[]: crc = fd0c82a8; size =      3556; name = README.TXT
@@ -124,7 +140,8 @@ end
 demo[v0.4]:
     name = v0.4 Alpha 1993-04-02
     anchorfile = DOOM.WAD
-    launch = $(rootpath)\DOOM.EXE
+	NOKEYS = true
+	NOSOUND = true
     file[]: crc = a1855db8; size =      2583; name = ALPHREAD.ME
     file[]: crc = 3c8e144d; size =       152; name = CONFIG.LMP
     file[]: crc = 69a16bcb; size =    237883; name = DOOM.EXE
@@ -138,7 +155,8 @@ end
 demo[v0.5]:
     name = v0.5 Alpha 1993-05-22
     anchorfile = DOOM.WAD
-    launch = $(rootpath)\DOOM.EXE
+	NOKEYS = true
+	NOSOUND = true
     file[]: crc = f95bf52b; size =       152; name = CONFIG.LMP
     file[]: crc = 74439ef0; size =    471452; name = DOOM.EXE
     file[]: crc = 8fe33445; size =   3522207; name = DOOM.WAD
@@ -152,8 +170,10 @@ end
 demo[v0.8press]:
     name = Special Pre-Beta Press Release 1993-10-04
     anchorfile = DOOMPRES.WAD
-    anchordepth = 1
-    launch = $(rootpath)\DOOM.BAT
+	anchordepth = 1
+	NOKEYS = true
+	NOSOUND = true
+	EXEC = DOOM.BAT
     file[]: crc = e0f57612; size =       222; name = DOOM.BAT
     file[]: crc = 9fc30325; size =       229; name = EASYDOOM.BAT
     file[]: crc = e8f394be; size =       437; name = FAKEDATE.COM
@@ -174,7 +194,7 @@ installer[v0.8press-installer]:
     mips = $(MIPS_MAX)
     launch = DEICE.BAT
     anchorfile = DEMO.1
-    anchordepth = 1
+	anchordepth = 1
     file[]: crc = 1ba9793d; size =   1408512; name = DEMO.1
     file[]: crc = d097f863; size =    813970; name = DEMO.2
     file[]: crc = e0f57612; size =       222; name = DOOM.BAT
@@ -246,7 +266,7 @@ end
 demo[v1.1-sw]:
     name = v1.1, Shareware
     anchorfile = DOOM.EXE
-    V11 = true
+	V11 = true
     file[]: crc = 6cacbe0d; size =    579187; name = DOOM.EXE
     file[]: crc = 981dcebb; size =   4274218; name = DOOM1.WAD
     file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
@@ -335,7 +355,7 @@ end
 demo[v1.25-sw]:
     name = v1.25, Shareware
     anchorfile = DOOM1.WAD
-    imports = v1.2-sw
+	imports = v1.2-sw
     file[]: crc = 3a01b0a4; size =    560547; name = DOOM.EXE
     file[]: crc = 225d7fb1; size =   4225460; name = DOOM1.WAD
     file[]: crc = 4a2fe3d0; size =     31013; name = IPXSETUP.EXE	; optional = true
@@ -385,7 +405,7 @@ end
 demo[v1.5-sw]:
     name = v1.5 Beta, Shareware
     anchorfile = DOOM1.WAD
-    imports = v1.4-sw
+	imports = v1.4-sw
     file[]: crc = 32222aea; size =    656329; name = DOOM.EXE
     file[]: crc = 8653b0eb; size =   4271324; name = DOOM1.WAD
     file[]: crc = ab85fcd3; size =       468; name = FILE_ID.DIZ	; optional = true
@@ -403,7 +423,7 @@ end
 demo[v1.6-sw]:
     name = v1.6 Beta, Shareware
     anchorfile = DOOM1.WAD
-    imports = v1.5-sw
+	imports = v1.5-sw
     file[]: crc = b11aa653; size =    658469; name = DOOM.EXE
     file[]: crc = f26dcad8; size =   4211660; name = DOOM1.WAD
     file[]: crc = f330aa68; size =       421; name = DOOM16BT.TXT	; optional = true
@@ -451,7 +471,7 @@ end
 //
 demo[v1.666a-sw]:
     name = v1.666 (1994-08-30), Shareware
-    anchorfile = DOOM1.WAD
+	anchorfile = DOOM1.WAD
     file[]: crc = 5f7ede6f; size =    687001; name = DOOM.EXE
     file[]: crc = 505fb740; size =   4234124; name = DOOM1.WAD
     file[]: crc = 2f1a5b2d; size =       470; name = FILE_ID.DIZ	; optional = true
@@ -509,7 +529,7 @@ end
 //
 demo[v1.8-sw]:
     name = v1.8, Shareware
-    anchorfile = DOOM1.WAD
+	anchorfile = DOOM1.WAD
     file[]: crc = 0563536b; size =    709865; name = DOOM.EXE		; exactonly = true
     file[]: crc = 331ebf07; size =   4196020; name = DOOM1.WAD
     file[]: crc = ac7512ed; size =       468; name = FILE_ID.DIZ	; optional = true

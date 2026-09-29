@@ -9,7 +9,7 @@ machine = pc
 osenv = dos
 rootpath = C:\
 launch = LAUNCH.BAT
-EXEC = DOOM2
+EXEC = DOOM2.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
@@ -143,10 +143,10 @@ installer[v1.9-cd-installer]:
 end
 
 //
-// v1.9, id Anthology v2
+// v1.9, id Anthology CD, Installer
 //
 installer[v1.9-idv2-installer]:
-    name = v1.9, id Anthology
+    name = v1.9, id Anthology, CD, Installer
     installid = v1.9
     mips = $(MIPS_MAX)
     launch = DEICE.BAT

@@ -1,6 +1,12 @@
-launch = LAUNCH.BAT
 audiohw = $(SOUNDHW)+$(MUSICHW)
 CONFIG_FILE = DREAMM.CFG
+NOENDDOOM = false
+NOKEYS = false
+NOSOUND = false
+MUSIC = 0
+MUSICHW = sb16
+SOUND = 0
+SOUNDHW = sb16
 
 //
 // keyboard configuration
@@ -30,6 +36,7 @@ config[keyboard]:
         ]]]
     end
     option[wasd]:
+	condition = !$(NOKEYS)
         name = Modern (WASD Keys)
         KEYBINDS = [[[$(CRLF)
             key_left        16
@@ -57,6 +64,7 @@ end
 // music configuration
 //
 config[music]:
+	condition = !$(NOSOUND)
     title = Music Configuration
         option[none]:
         name = None
@@ -85,6 +93,7 @@ end
 // sound configuration
 //
 config[sound]:
+	condition = !$(NOSOUND)
     title = Sound Configuration
         option[none]:
         name = None
@@ -180,13 +189,13 @@ DEICE = [[[$(CRLF)
 // Launch script
 LAUNCH = [[[$(CRLF)
     NOVERT
-    $(EXEC).EXE -config $(CONFIG_FILE)
+    $(EXEC)
 ]]]
 
 // Generate batch to display ENDDOOM
 LAUNCHEND = [[[$(CRLF)
     NOVERT
-    $(EXEC).EXE -config $(CONFIG_FILE)
+    $(EXEC)
     PAUSE
 ]]]
 
