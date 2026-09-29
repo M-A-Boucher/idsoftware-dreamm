@@ -1,3 +1,4 @@
+launch = LAUNCH.BAT
 audiohw = $(SOUNDHW)+$(MUSICHW)
 CONFIG_FILE = DREAMM.CFG
 
@@ -57,7 +58,7 @@ end
 //
 config[music]:
     title = Music Configuration
-    option[none]:
+        option[none]:
         name = None
         MUSIC = 0; MUSICHW = sb16
     end
@@ -85,7 +86,7 @@ end
 //
 config[sound]:
     title = Sound Configuration
-    option[none]:
+        option[none]:
         name = None
         SOUND = 0; SOUNDHW = sb16
     end
@@ -157,21 +158,12 @@ config[enddoom]:
     option[show]:
         name = Show
         END = true
-        launch = $(rootpath)\RUN.BAT
     end
     option[hide]:
         name = Skip; priority = 1
         END = false
-        launch = LAUNCH.BAT
     end
 end
-
-// Generate batch to display ENDDOOM
-ENDDOOM = [[[
-        @ECHO OFF
-        $(EXEC).EXE -config $(CONFIG_FILE)
-        PAUSE
-]]]
 
 // Installer script
 DEICE = [[[$(CRLF)
@@ -191,6 +183,13 @@ LAUNCH = [[[$(CRLF)
     $(EXEC).EXE -config $(CONFIG_FILE)
 ]]]
 
+// Generate batch to display ENDDOOM
+LAUNCHEND = [[[$(CRLF)
+    NOVERT
+    $(EXEC).EXE -config $(CONFIG_FILE)
+    PAUSE
+]]]
+
 script[init]:
     code = [[[$(CRLF)
         video_suppress(true);
@@ -199,8 +198,8 @@ script[init]:
           file_save("$$(rootpath)\\DEICE.BAT", "$$(DEICE)");
 
         if (is_game() || is_demo())
-        {
-          file_save("$$(rootpath)\\LAUNCH.BAT", "$$(LAUNCH)");
+        {          
+          file_save("$$(rootpath)\\LAUNCH.BAT", "$$(END)" ? "$$(LAUNCHEND)" : "$$(LAUNCH)");
 
           file = "$$(rootpath)\\$$(CONFIG_FILE)";
 
@@ -219,8 +218,6 @@ script[init]:
 
           file_save(file, content);
 
-          if ("$$(END)")
-            file_save("$$(rootpath)\\RUN.BAT", "$$(ENDDOOM)");
 
           // NOVERT by Istvan Pataki, 'minified' by eientei
           file_save("$$(rootpath)\\NOVERT.COM", "`h:EB 1C 00 00 00 00 3D 03 00 74 05 3D 0B 00 75 09 9C 2E FF 1E 02 01 33 D2 CF 2E FF 2E 02 01 B8 33 35 CD 21 89 1E 02 01 8C 06 04 01 B8 33 25 BA 06 01 CD 21 BA 1E 01 C1 EA 04 42 B8 00 31 CD 21");
