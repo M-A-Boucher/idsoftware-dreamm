@@ -1,3 +1,4 @@
+launch = LAUNCH.BAT
 audiohw = $(SOUNDHW)+$(MUSICHW)
 CONFIG_FILE = DREAMM.CFG
 NOENDDOOM = false

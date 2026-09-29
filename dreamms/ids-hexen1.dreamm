@@ -8,7 +8,6 @@ icon = ids-hexen1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = LAUNCH.BAT
 EXEC = HEXEN.EXE -config  $(CONFIG_FILE)
 mips = $(MIPS_MAX)
 ramkb = 8192

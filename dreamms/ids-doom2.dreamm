@@ -8,7 +8,6 @@ icon = ids-doom2.png
 machine = pc
 osenv = dos
 rootpath = C:\
-launch = LAUNCH.BAT
 EXEC = DOOM2.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
