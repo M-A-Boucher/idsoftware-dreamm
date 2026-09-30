@@ -8,12 +8,13 @@ icon = ids-hexen1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-EXEC = HEXEN.EXE -config  $(CONFIG_FILE)
+EXEC = HEXEN.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_MAX)
 ramkb = 8192
 filter = id software, fps
 
 $(include cfg-doom.inc)
+EXPERIENCE = $(NULL)
 
 //
 // filesystem
