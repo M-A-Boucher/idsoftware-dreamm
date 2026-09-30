@@ -164,7 +164,7 @@ MACRO_CONFIGS = [[[$(CRLF)
 // ENDDOOM configuration
 //
 config[enddoom]:
-    condition = !is_installer() && !NOENDDOOM
+    condition = !is_installer() && !$(NOENDDOOM)
     title = Exit Screen
     option[show]:
         name = Show
