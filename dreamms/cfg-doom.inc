@@ -22,7 +22,7 @@ config[keyboard]:
         KEYBINDS = $(NULL)
     end
     option[modern]:
-        name = Modern Preset (Keyboard + Mouse No Y-Axis Hack)
+        name = Modern Preset (WASD Layout + No Y-Axis Mouse Hack)
         NOVERT = NOVERT
         KEYBINDS = [[[$(CRLF)
             key_left        16
@@ -67,6 +67,12 @@ config[keyboard]:
             mouseb_forward -1
             mouseb_jump     1
         ]]]
+    end
+    option[custom]:
+        name = Customized Keybinds
+        condition = file_exists("$$(rootpath)\\SETUP.EXE")
+        KEYBINDS = $(NULL)
+        EXEC = $(rootpath)\SETUP.EXE
     end
 end
 
