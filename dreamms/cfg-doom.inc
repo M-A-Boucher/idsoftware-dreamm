@@ -1,14 +1,33 @@
 launch = LAUNCH.BAT
 audiohw = $(SOUNDHW)+$(MUSICHW)
 CONFIG_FILE = DREAMM.CFG
-END = false
+END = $(NULL)
 NOENDDOOM = false
 NOKEYS = false
 NOSOUND = false
+NOVERT = $(NULL)
 MUSIC = 0
 MUSICHW = sb16
 SOUND = 0
 SOUNDHW = sb16
+ORIGINAL = [[[$(CRLF)
+    key_right       77
+    key_left        75
+    key_up          72
+    key_down        80
+    key_strafeleft  51
+    key_straferight 52
+
+    key_flydown     82
+    key_flycenter   71
+    key_flyup	    73
+    key_lookdown    83
+    key_lookcenter  79
+    key_lookup      81
+    key_invleft     16
+    key_invright    18
+    key_jump        57
+]]]
 
 //
 // keyboard configuration
@@ -16,30 +35,24 @@ SOUNDHW = sb16
 config[keyboard]:
     title = Keyboard Setup
     option[default]:
-        name = Original (Arrow Keys)
+        name = Original Preset (Keyboard)
         KEYBINDS = [[[$(CRLF)
-            key_right       77
-            key_left        75
-            key_up          72
-            key_down        80
-            key_strafeleft  51
-            key_straferight 52
+            $(ORIGINAL)
             use_mouse       0
-
-            key_flydown     82
-            key_flycenter   71
-            key_flyup	    73
-            key_lookdown    83
-            key_lookcenter  79
-            key_lookup      81
-            key_invleft     16
-            key_invright    18
-            key_jump        57
+        ]]]
+    end
+    option[mouse]:
+	condition = !$(NOKEYS)
+        name = Original Mouse Preset (Keyboard + Mouse)
+        KEYBINDS = [[[$(CRLF)
+            $(ORIGINAL)
+            use_mouse       1
         ]]]
     end
     option[wasd]:
 	condition = !$(NOKEYS)
-        name = Modern (WASD Keys)
+        name = Modern Preset (Keyboard + Mouse No Y-Axis Hack)
+        NOVERT = NOVERT
         KEYBINDS = [[[$(CRLF)
             key_left        16
             key_right       18
@@ -51,7 +64,7 @@ config[keyboard]:
 
             key_flydown     82
             key_flycenter   71
-            key_flyup.      73
+            key_flyup       73
             key_lookdown    83
             key_lookcenter  79
             key_lookup      81
@@ -168,7 +181,7 @@ config[enddoom]:
     title = Exit Screen
     option[show]:
         name = Show
-        END = true
+        SHOWEND = PAUSE
     end
     option[hide]:
         name = Skip; priority = 1
@@ -189,16 +202,10 @@ DEICE = [[[$(CRLF)
 
 // Launch script
 LAUNCH = [[[$(CRLF)
-    NOVERT
-    $(EXEC)
-]]]
-
-// Generate batch to display ENDDOOM
-LAUNCHEND = [[[$(CRLF)
     @ECHO OFF
-    NOVERT
+    $(NOVERT)
     $(EXEC)
-    PAUSE
+    $(SHOWEND)
 ]]]
 
 script[init]:
@@ -208,7 +215,7 @@ script[init]:
 
         if (is_game() || is_demo())
         {          
-          file_save("$$(rootpath)\\LAUNCH.BAT", "$$(END)" ? "$$(LAUNCHEND)" : "$$(LAUNCH)");
+          file_save("$$(rootpath)\\LAUNCH.BAT", "$$(LAUNCH)");
 
           file = "$$(rootpath)\\$$(CONFIG_FILE)";
 

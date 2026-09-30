@@ -98,7 +98,7 @@ end
 //
 game[v1.3]:
     name = v1.3, Shadow of the Serpent Riders
-    EXEC = XXHRTIC
+    EXEC = XXHRTIC.EXE -config $(CONFIG_FILE)
     anchorfile = HERETIC.WAD
     file[]: crc = 5b16049e; size =  14189976; name = HERETIC.WAD
     file[]: crc = 2a85dfa2; size =     19203; name = VIOHT.EXE

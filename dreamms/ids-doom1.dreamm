@@ -27,10 +27,10 @@ mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
 demo[v0.2]:
     name = v0.2 Pre-Alpha Tech Demo 1993-02-04
     anchorfile = DOOM.WAD
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = DOOM.EXE
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = DOOM.EXE
     file[]: crc = ab5e87f7; size =    259177; name = doom.exe
     file[]: crc = 2587d97b; size =    496250; name = doom.wad
     file[]: crc = 55969e60; size =       118; name = readme.txt
@@ -42,10 +42,10 @@ end
 demo[slides1]:
     name = Pre-Alpha Slide Show 1993-02-04
     anchorfile = SCRN2_00.LBM
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = SK.EXE -n *.lbm
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = SK.EXE -n *.lbm
     file[]: crc = 817e90df; size =     49352; name = SCRN2_00.LBM
     file[]: crc = 2c1d5cd7; size =     46706; name = SCRN2_01.LBM
     file[]: crc = 5560f758; size =     48850; name = SCRN2_02.LBM
@@ -59,10 +59,10 @@ end
 demo[slides2]:
     name = Pre-Alpha Slide Show 1993-02-15
     anchorfile = SCREEN00.LBM
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = SHOW.BAT
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = SHOW.BAT
     file[]: crc = e66db4cf; size =     64824; name = SCREEN00.LBM
     file[]: crc = 2aa97348; size =     64824; name = SCREEN01.LBM
     file[]: crc = ae55cbcb; size =     64824; name = SCREEN02.LBM
@@ -78,10 +78,10 @@ end
 demo[slides3]:
     name = Pre-Alpha Slide Show 1993-03-01
     anchorfile = DOOM00.LBM
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = SHOW.BAT
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = SHOW.BAT
     file[]: crc = 3f26c50d; size =     64824; name = DOOM00.LBM
     file[]: crc = e5197fbb; size =     64824; name = DOOM01.LBM
     file[]: crc = 25533198; size =     64824; name = DOOM02.LBM
@@ -101,10 +101,10 @@ end
 demo[slides4]:
     name = Pre-Alpha Slide Show 1993-03-03
     anchorfile = DOOM00.LBM
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = SK.EXE -n *.lbm
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = SK.EXE -n *.lbm
     file[]: crc = 9585aca4; size =     64824; name = DOOM00.LBM
     file[]: crc = de1ec9fc; size =     64824; name = DOOM01.LBM
     file[]: crc = 679259d6; size =     64824; name = DOOM02.LBM
@@ -126,9 +126,9 @@ end
 demo[v0.3]:
     name = v0.3 Pre-Alpha 1993-02-28
     anchorfile = DOOM.WAD
-	NOENDDOOM = true
-	NOKEYS = true
-	NOSOUND = true
+    NOENDDOOM = true
+    NOKEYS = true
+    NOSOUND = true
     file[]: crc = d52782c6; size =    226720; name = DOOM.EXE
     file[]: crc = f97fe671; size =   1901322; name = DOOM.WAD
     file[]: crc = fd0c82a8; size =      3556; name = README.TXT
@@ -140,8 +140,8 @@ end
 demo[v0.4]:
     name = v0.4 Alpha 1993-04-02
     anchorfile = DOOM.WAD
-	NOKEYS = true
-	NOSOUND = true
+    NOKEYS = true
+    NOSOUND = true
     file[]: crc = a1855db8; size =      2583; name = ALPHREAD.ME
     file[]: crc = 3c8e144d; size =       152; name = CONFIG.LMP
     file[]: crc = 69a16bcb; size =    237883; name = DOOM.EXE
@@ -155,8 +155,8 @@ end
 demo[v0.5]:
     name = v0.5 Alpha 1993-05-22
     anchorfile = DOOM.WAD
-	NOKEYS = true
-	NOSOUND = true
+    NOKEYS = true
+    NOSOUND = true
     file[]: crc = f95bf52b; size =       152; name = CONFIG.LMP
     file[]: crc = 74439ef0; size =    471452; name = DOOM.EXE
     file[]: crc = 8fe33445; size =   3522207; name = DOOM.WAD
@@ -170,10 +170,10 @@ end
 demo[v0.8press]:
     name = Special Pre-Beta Press Release 1993-10-04
     anchorfile = DOOMPRES.WAD
-	anchordepth = 1
-	NOKEYS = true
-	NOSOUND = true
-	EXEC = DOOM.BAT
+    anchordepth = 1
+    NOKEYS = true
+    NOSOUND = true
+    EXEC = DOOM.BAT
     file[]: crc = e0f57612; size =       222; name = DOOM.BAT
     file[]: crc = 9fc30325; size =       229; name = EASYDOOM.BAT
     file[]: crc = e8f394be; size =       437; name = FAKEDATE.COM
@@ -194,7 +194,7 @@ installer[v0.8press-installer]:
     mips = $(MIPS_MAX)
     launch = DEICE.BAT
     anchorfile = DEMO.1
-	anchordepth = 1
+    anchordepth = 1
     file[]: crc = 1ba9793d; size =   1408512; name = DEMO.1
     file[]: crc = d097f863; size =    813970; name = DEMO.2
     file[]: crc = e0f57612; size =       222; name = DOOM.BAT
@@ -239,7 +239,7 @@ end
 game[v1.1]:
     name = v1.1
     anchorfile = DOOM.EXE
-    file[]: crc = 2529c9a1; size =    579187; name = DOOM.EXE	; exactonly = true
+    file[]: crc = 2529c9a1; size =    579187; name = DOOM.EXE	 ; exactonly = true
     file[]: crc = 66457ab9; size =  10396254; name = DOOM.WAD
     file[]: crc = 65bdd009; size =       439; name = FILE_ID.DIZ ; optional = true
     file[]: crc = 95491c54; size =     68923; name = SETUP.EXE   ; optional = true
@@ -266,14 +266,14 @@ end
 demo[v1.1-sw]:
     name = v1.1, Shareware
     anchorfile = DOOM.EXE
-	V11 = true
+    V11 = true
     file[]: crc = 6cacbe0d; size =    579187; name = DOOM.EXE
     file[]: crc = 981dcebb; size =   4274218; name = DOOM1.WAD
-    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
-    file[]: crc = e332d376; size =      4681; name = ORDER.FRM		; optional = true
-    file[]: crc = d196a4c4; size =     32498; name = README.EXE		; optional = true
-    file[]: crc = 95491c54; size =     68923; name = SETUP.EXE		; optional = true
-    file[]: crc = 7c402627; size =       314; name = VENDOR.DOC		; optional = true
+    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC ; optional = true
+    file[]: crc = e332d376; size =      4681; name = ORDER.FRM   ; optional = true
+    file[]: crc = d196a4c4; size =     32498; name = README.EXE  ; optional = true
+    file[]: crc = 95491c54; size =     68923; name = SETUP.EXE   ; optional = true
+    file[]: crc = 7c402627; size =       314; name = VENDOR.DOC  ; optional = true
 end
 
 //
@@ -326,14 +326,14 @@ demo[v1.2-sw]:
     anchorfile = DOOM1.WAD
     file[]: crc = 18c0e2db; size =    575767; name = DOOM.EXE
     file[]: crc = bc842626; size =   4225504; name = DOOM1.WAD
-    file[]: crc = 427272dd; size =     32134; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC	; optional = true
-    file[]: crc = caf66956; size =       393; name = MODEM.CFG		; optional = true
-    file[]: crc = 214a5cdd; size =      5619; name = ORDER.FRM		; optional = true
-    file[]: crc = 077c1782; size =     34386; name = README.EXE		; optional = true
-    file[]: crc = 5f1c6289; size =     36567; name = SERSETUP.EXE	; optional = true
-    file[]: crc = db8b4f8b; size =     91931; name = SETUP.EXE		; optional = true
-    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+    file[]: crc = 427272dd; size =     32134; name = IPXSETUP.EXE; optional = true
+    file[]: crc = df547e41; size =      6689; name = LICENSE.DOC ; optional = true
+    file[]: crc = caf66956; size =       393; name = MODEM.CFG   ; optional = true
+    file[]: crc = 214a5cdd; size =      5619; name = ORDER.FRM   ; optional = true
+    file[]: crc = 077c1782; size =     34386; name = README.EXE  ; optional = true
+    file[]: crc = 5f1c6289; size =     36567; name = SERSETUP.EXE; optional = true
+    file[]: crc = db8b4f8b; size =     91931; name = SETUP.EXE   ; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC  ; optional = true
 end
 
 //
@@ -358,10 +358,10 @@ demo[v1.25-sw]:
 	imports = v1.2-sw
     file[]: crc = 3a01b0a4; size =    560547; name = DOOM.EXE
     file[]: crc = 225d7fb1; size =   4225460; name = DOOM1.WAD
-    file[]: crc = 4a2fe3d0; size =     31013; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = ee2d2b14; size =     34498; name = README.EXE		; optional = true
-    file[]: crc = fe766039; size =     35761; name = SERSETUP.EXE	; optional = true
-    file[]: crc = 7a49c6e3; size =     91931; name = SETUP.EXE		; optional = true
+    file[]: crc = 4a2fe3d0; size =     31013; name = IPXSETUP.EXE; optional = true
+    file[]: crc = ee2d2b14; size =     34498; name = README.EXE  ; optional = true
+    file[]: crc = fe766039; size =     35761; name = SERSETUP.EXE; optional = true
+    file[]: crc = 7a49c6e3; size =     91931; name = SETUP.EXE   ; optional = true
 end
 
 //
@@ -385,18 +385,18 @@ demo[v1.4-sw]:
     anchorfile = DOOM1.WAD
     file[]: crc = f3a47813; size =    635361; name = DOOM.EXE
     file[]: crc = f5c2708d; size =   4261144; name = DOOM1.WAD
-    file[]: crc = 04c16e94; size =       468; name = FILE_ID.DIZ	; optional = true
-    file[]: crc = 414d3358; size =     31025; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
-    file[]: crc = d8576c88; size =        61; name = MODEM.CFG		; optional = true
-    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
-    file[]: crc = b278d6a1; size =      2974; name = MODEM.STR		; optional = true
-    file[]: crc = 9f79b13f; size =      5438; name = ORDER.FRM		; optional = true
-    file[]: crc = 90d8ffca; size =     36322; name = README.EXE		; optional = true
-    file[]: crc = 82804147; size =     37179; name = SERSETUP.EXE	; optional = true
-    file[]: crc = 1068e7a3; size =     95635; name = SETUP.EXE		; optional = true
-    file[]: crc = 9f2d30d8; size =       922; name = SYSOP.DOC		; optional = true
-    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+    file[]: crc = 04c16e94; size =       468; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = 414d3358; size =     31025; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC ; optional = true
+    file[]: crc = d8576c88; size =        61; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = b278d6a1; size =      2974; name = MODEM.STR   ; optional = true
+    file[]: crc = 9f79b13f; size =      5438; name = ORDER.FRM   ; optional = true
+    file[]: crc = 90d8ffca; size =     36322; name = README.EXE  ; optional = true
+    file[]: crc = 82804147; size =     37179; name = SERSETUP.EXE; optional = true
+    file[]: crc = 1068e7a3; size =     95635; name = SETUP.EXE   ; optional = true
+    file[]: crc = 9f2d30d8; size =       922; name = SYSOP.DOC   ; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC  ; optional = true
 end
 
 //
@@ -408,13 +408,13 @@ demo[v1.5-sw]:
 	imports = v1.4-sw
     file[]: crc = 32222aea; size =    656329; name = DOOM.EXE
     file[]: crc = 8653b0eb; size =   4271324; name = DOOM1.WAD
-    file[]: crc = ab85fcd3; size =       468; name = FILE_ID.DIZ	; optional = true
-    file[]: crc = 44f3420d; size =     11515; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR		; optional = true
-    file[]: crc = 85778371; size =     37410; name = README.EXE		; optional = true
-    file[]: crc = 1bd33621; size =     14802; name = SERSETUP.EXE	; optional = true
-    file[]: crc = 572628cc; size =     95667; name = SETUP.EXE		; optional = true
-    file[]: crc = f04bef1c; size =       922; name = SYSOP.DOC		; optional = true
+    file[]: crc = ab85fcd3; size =       468; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = 44f3420d; size =     11515; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR   ; optional = true
+    file[]: crc = 85778371; size =     37410; name = README.EXE  ; optional = true
+    file[]: crc = 1bd33621; size =     14802; name = SERSETUP.EXE; optional = true
+    file[]: crc = 572628cc; size =     95667; name = SETUP.EXE   ; optional = true
+    file[]: crc = f04bef1c; size =       922; name = SYSOP.DOC   ; optional = true
 end
 
 //
@@ -426,13 +426,13 @@ demo[v1.6-sw]:
 	imports = v1.5-sw
     file[]: crc = b11aa653; size =    658469; name = DOOM.EXE
     file[]: crc = f26dcad8; size =   4211660; name = DOOM1.WAD
-    file[]: crc = f330aa68; size =       421; name = DOOM16BT.TXT	; optional = true
-    file[]: crc = 81394c5b; size =       468; name = FILE_ID.DIZ	; optional = true
-    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = 7a95b28c; size =      5498; name = ORDER.FRM		; optional = true
-    file[]: crc = 3695018b; size =     37490; name = README.EXE		; optional = true
-    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE	; optional = true
-    file[]: crc = f297d706; size =     95795; name = SETUP.EXE		; optional = true
+    file[]: crc = f330aa68; size =       421; name = DOOM16BT.TXT; optional = true
+    file[]: crc = 81394c5b; size =       468; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 7a95b28c; size =      5498; name = ORDER.FRM   ; optional = true
+    file[]: crc = 3695018b; size =     37490; name = README.EXE  ; optional = true
+    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE; optional = true
+    file[]: crc = f297d706; size =     95795; name = SETUP.EXE   ; optional = true
 end
 
 //
@@ -474,18 +474,18 @@ demo[v1.666a-sw]:
 	anchorfile = DOOM1.WAD
     file[]: crc = 5f7ede6f; size =    687001; name = DOOM.EXE
     file[]: crc = 505fb740; size =   4234124; name = DOOM1.WAD
-    file[]: crc = 2f1a5b2d; size =       470; name = FILE_ID.DIZ	; optional = true
-    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
-    file[]: crc = d8576c88; size =        61; name = MODEM.CFG		; optional = true
-    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
-    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR		; optional = true
-    file[]: crc = 954fa009; size =      5814; name = ORDER.FRM		; optional = true
-    file[]: crc = b106b835; size =     37698; name = README.EXE		; optional = true
-    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE	; optional = true
-    file[]: crc = 2a5941e1; size =     95184; name = SETUP.EXE		; optional = true
-    file[]: crc = 09fd51d6; size =       924; name = SYSOP.DOC		; optional = true
-    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+    file[]: crc = 2f1a5b2d; size =       470; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = 97fd6e5d; size =     13723; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC ; optional = true
+    file[]: crc = d8576c88; size =        61; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = 8a8dd2ec; size =      3048; name = MODEM.STR   ; optional = true
+    file[]: crc = 954fa009; size =      5814; name = ORDER.FRM   ; optional = true
+    file[]: crc = b106b835; size =     37698; name = README.EXE  ; optional = true
+    file[]: crc = 1eae6b20; size =     15458; name = SERSETUP.EXE; optional = true
+    file[]: crc = 2a5941e1; size =     95184; name = SETUP.EXE   ; optional = true
+    file[]: crc = 09fd51d6; size =       924; name = SYSOP.DOC   ; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC  ; optional = true
 end
 
 //
@@ -530,21 +530,21 @@ end
 demo[v1.8-sw]:
     name = v1.8, Shareware
 	anchorfile = DOOM1.WAD
-    file[]: crc = 0563536b; size =    709865; name = DOOM.EXE		; exactonly = true
+    file[]: crc = 0563536b; size =    709865; name = DOOM.EXE	 ; exactonly = true
     file[]: crc = 331ebf07; size =   4196020; name = DOOM1.WAD
-    file[]: crc = ac7512ed; size =       468; name = FILE_ID.DIZ	; optional = true
-    file[]: crc = 83f50542; size =      4690; name = HELPME.TXT		; optional = true
-    file[]: crc = 8bf1d4d4; size =     18051; name = IPXSETUP.EXE	; optional = true
-    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC	; optional = true
-    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG		; optional = true
-    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM		; optional = true
-    file[]: crc = a320697b; size =      3405; name = MODEM.STR		; optional = true
-    file[]: crc = 368fe3b2; size =      4617; name = ORDER.FRM		; optional = true
-    file[]: crc = abbcf016; size =     59092; name = README.TXT		; optional = true
-    file[]: crc = cad4343a; size =     20257; name = SERSETUP.EXE	; optional = true
-    file[]: crc = 7c86a122; size =     45884; name = SETUP.EXE		; optional = true
-    file[]: crc = 5b31d45c; size =       717; name = SYSOP.DOC		; optional = true
-    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC		; optional = true
+    file[]: crc = ac7512ed; size =       468; name = FILE_ID.DIZ ; optional = true
+    file[]: crc = 83f50542; size =      4690; name = HELPME.TXT  ; optional = true
+    file[]: crc = 8bf1d4d4; size =     18051; name = IPXSETUP.EXE; optional = true
+    file[]: crc = 32b25472; size =      7608; name = LICENSE.DOC ; optional = true
+    file[]: crc = e4f84b43; size =        67; name = MODEM.CFG   ; optional = true
+    file[]: crc = 264c0c20; size =        67; name = MODEM.NUM   ; optional = true
+    file[]: crc = a320697b; size =      3405; name = MODEM.STR   ; optional = true
+    file[]: crc = 368fe3b2; size =      4617; name = ORDER.FRM   ; optional = true
+    file[]: crc = abbcf016; size =     59092; name = README.TXT  ; optional = true
+    file[]: crc = cad4343a; size =     20257; name = SERSETUP.EXE; optional = true
+    file[]: crc = 7c86a122; size =     45884; name = SETUP.EXE   ; optional = true
+    file[]: crc = 5b31d45c; size =       717; name = SYSOP.DOC   ; optional = true
+    file[]: crc = 590e98b8; size =       396; name = VENDOR.DOC  ; optional = true
 end
 
 //
