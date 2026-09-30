@@ -10,6 +10,8 @@ MUSIC = 0
 MUSICHW = sb16
 SOUND = 0
 SOUNDHW = sb16
+SETUP = false
+EXPERIENCE = $(NULL)
 
 //
 // keyboard configuration
@@ -73,6 +75,7 @@ config[keyboard]:
         condition = file_exists("$$(rootpath)\\SETUP.EXE")
         KEYBINDS = $(NULL)
         EXEC = $(rootpath)\SETUP.EXE
+        SETUP = true
     end
 end
 
@@ -80,7 +83,7 @@ end
 // music configuration
 //
 config[music]:
-	condition = !$(NOSOUND)
+    condition = !$(NOSOUND)
     title = Music Configuration
         option[none]:
         name = None
@@ -109,7 +112,7 @@ end
 // sound configuration
 //
 config[sound]:
-	condition = !$(NOSOUND)
+    condition = !$(NOSOUND)
     title = Sound Configuration
         option[none]:
         name = None
@@ -122,6 +125,23 @@ config[sound]:
     option[sb16]:
         name = $(SB16_NAME); priority = 1
         SOUND = 3; SOUNDHW = sb16
+    end
+end
+
+//
+// experience configuration
+//
+config[experience]:
+    condition = !is_installer() && !$(NOENDDOOM)
+    title = Experience Configuration
+    option[show]:
+        name = Full (Show Loading and Exit Screens)
+        EXPERIENCE = PAUSE
+    end
+    option[hide]:
+        name = Trimmed (Hide Loading and Exit Screens); priority = 1
+        EXPERIENCE = $(NULL)
+        condition = !$(SETUP)
     end
 end
 
@@ -176,20 +196,6 @@ MACRO_CONFIGS = [[[$(CRLF)
     chatmacro9         "Yes"
 ]]]
 
-//
-// ENDDOOM configuration
-//
-config[enddoom]:
-    condition = !is_installer() && !$(NOENDDOOM)
-    title = Exit Screen
-    option[show]:
-        name = Show
-        SHOWEND = PAUSE
-    end
-    option[hide]:
-        name = Skip; priority = 1
-    end
-end
 
 // Installer script
 DEICE = [[[$(CRLF)
@@ -208,7 +214,7 @@ LAUNCH = [[[$(CRLF)
     @ECHO OFF
     $(NOVERT)
     $(EXEC)
-    $(SHOWEND)
+    $(EXPERIENCE)
 ]]]
 
 script[init]:
@@ -217,7 +223,10 @@ script[init]:
           file_save("$$(rootpath)\\DEICE.BAT", "$$(DEICE)");
 
         if (is_game() || is_demo())
-        {          
+        {
+          if (!"$$(EXPERIENCE)")
+            video_suppress(true);
+
           file_save("$$(rootpath)\\LAUNCH.BAT", "$$(LAUNCH)");
 
           file = "$$(rootpath)\\$$(CONFIG_FILE)";
@@ -239,6 +248,12 @@ script[init]:
 
           // NOVERT by Istvan Pataki, 'minified' by eientei
           file_save("$$(rootpath)\\NOVERT.COM", "`h:EB 1C 00 00 00 00 3D 03 00 74 05 3D 0B 00 75 09 9C 2E FF 1E 02 01 33 D2 CF 2E FF 2E 02 01 B8 33 35 CD 21 89 1E 02 01 8C 06 04 01 B8 33 25 BA 06 01 CD 21 BA 1E 01 C1 EA 04 42 B8 00 31 CD 21");
+
+          if (!"$$(EXPERIENCE)")
+          {
+             while (video_text()) wait("videomode");
+             video_suppress(false);
+          }
         }
     ]]]
 end
