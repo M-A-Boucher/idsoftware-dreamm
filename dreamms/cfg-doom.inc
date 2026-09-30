@@ -10,47 +10,18 @@ MUSIC = 0
 MUSICHW = sb16
 SOUND = 0
 SOUNDHW = sb16
-ORIGINAL = [[[$(CRLF)
-    key_right       77
-    key_left        75
-    key_up          72
-    key_down        80
-    key_strafeleft  51
-    key_straferight 52
-
-    key_flydown     82
-    key_flycenter   71
-    key_flyup	    73
-    key_lookdown    83
-    key_lookcenter  79
-    key_lookup      81
-    key_invleft     16
-    key_invright    18
-    key_jump        57
-]]]
 
 //
 // keyboard configuration
 //
 config[keyboard]:
     title = Keyboard Setup
-    option[default]:
-        name = Original Preset (Keyboard)
-        KEYBINDS = [[[$(CRLF)
-            $(ORIGINAL)
-            use_mouse       0
-        ]]]
+    condition = !$(NOKEYS)
+    option[original]:
+        name = Original Preset
+        KEYBINDS = $(NULL)
     end
-    option[mouse]:
-	condition = !$(NOKEYS)
-        name = Original Mouse Preset (Keyboard + Mouse)
-        KEYBINDS = [[[$(CRLF)
-            $(ORIGINAL)
-            use_mouse       1
-        ]]]
-    end
-    option[wasd]:
-	condition = !$(NOKEYS)
+    option[modern]:
         name = Modern Preset (Keyboard + Mouse No Y-Axis Hack)
         NOVERT = NOVERT
         KEYBINDS = [[[$(CRLF)
@@ -60,8 +31,8 @@ config[keyboard]:
             key_down        31
             key_strafeleft  30 
             key_straferight 32 
-            use_mouse       1
 
+            // Heretic/Hexen
             key_flydown     82
             key_flycenter   71
             key_flyup       73
@@ -71,6 +42,30 @@ config[keyboard]:
             key_invleft     16
             key_invright    18
             key_jump        57
+
+            // Strife
+            key_useHealth   35
+            key_jump        -1
+            key_invquery    4
+            key_mission     2
+            key_invPop      3
+            key_invKey      5
+            key_invHome     71
+            key_invEnd      79
+            key_invLeft     16
+            key_invRight    18
+            key_invUse      19
+            key_invDrop     14
+            key_lookUp      72
+            key_lookDown    80
+            key_fire        29
+            key_use         57
+            key_strafe      56
+            key_speed       54
+            mouseb_fire     0
+            mouseb_strafe   2
+            mouseb_forward -1
+            mouseb_jump     1
         ]]]
     end
 end
@@ -126,8 +121,10 @@ end
 
 CONFIG = [[[$(CRLF)
     mouse_sensitivity  10
-    sfx_volume         8
-    music_volume       8
+    sfx_volume         10
+    music_volume       10
+    voice_volume       15   // Strife-only
+    show_talk          1    // Strife-only
     show_messages      1
     key_fire           29
     key_use            57
@@ -141,9 +138,10 @@ CONFIG = [[[$(CRLF)
     joyb_strafe        1
     joyb_use           3
     joyb_speed         2
+    joyb_jump          -1   // Strife-only
     screenblocks       10
     detaillevel        0
-    showmessages       1
+    usegamma           0
     $(AUDIO_CONFIGS)
     $(MACRO_CONFIGS)
     $(KEYBINDS)
@@ -160,7 +158,6 @@ AUDIO_CONFIGS = [[[$(CRLF)
 ]]]
 
 MACRO_CONFIGS = [[[$(CRLF)
-    usegamma           0
     chatmacro0         "No"
     chatmacro1         "I'm ready to kick butt!"
     chatmacro2         "I'm OK."
