@@ -16,8 +16,8 @@ audiohw = sb16+$(MUSICHW)
 filter = rogue, velocity, fps, rpg
 
 $(include cfg-doom.inc)
-NOENDDOOM = true
 CONFIG_FILE = STRIFE.CFG
+EXPERIENCE = $(NULL)
 
 //
 // filesystem
