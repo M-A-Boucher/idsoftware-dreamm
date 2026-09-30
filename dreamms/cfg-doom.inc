@@ -1,6 +1,7 @@
 launch = LAUNCH.BAT
 audiohw = $(SOUNDHW)+$(MUSICHW)
 CONFIG_FILE = DREAMM.CFG
+END = false
 NOENDDOOM = false
 NOKEYS = false
 NOSOUND = false
@@ -163,7 +164,7 @@ MACRO_CONFIGS = [[[$(CRLF)
 // ENDDOOM configuration
 //
 config[enddoom]:
-    condition = !is_installer()
+    condition = !is_installer() && !NOENDDOOM
     title = Exit Screen
     option[show]:
         name = Show
@@ -171,7 +172,6 @@ config[enddoom]:
     end
     option[hide]:
         name = Skip; priority = 1
-        END = false
     end
 end
 
@@ -195,6 +195,7 @@ LAUNCH = [[[$(CRLF)
 
 // Generate batch to display ENDDOOM
 LAUNCHEND = [[[$(CRLF)
+    @ECHO OFF
     NOVERT
     $(EXEC)
     PAUSE
@@ -202,8 +203,6 @@ LAUNCHEND = [[[$(CRLF)
 
 script[init]:
     code = [[[$(CRLF)
-        video_suppress(true);
-
         if (is_installer())
           file_save("$$(rootpath)\\DEICE.BAT", "$$(DEICE)");
 
@@ -228,12 +227,8 @@ script[init]:
 
           file_save(file, content);
 
-
           // NOVERT by Istvan Pataki, 'minified' by eientei
           file_save("$$(rootpath)\\NOVERT.COM", "`h:EB 1C 00 00 00 00 3D 03 00 74 05 3D 0B 00 75 09 9C 2E FF 1E 02 01 33 D2 CF 2E FF 2E 02 01 B8 33 35 CD 21 89 1E 02 01 8C 06 04 01 B8 33 25 BA 06 01 CD 21 BA 1E 01 C1 EA 04 42 B8 00 31 CD 21");
         }
-
-        while (video_text()) wait("videomode"); 
-        video_suppress(false);
     ]]]
 end
