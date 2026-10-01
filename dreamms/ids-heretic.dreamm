@@ -1,14 +1,14 @@
 //
 // Heretic
 //
-desc[ids-heretic]:
+desc[ids-heretic1]:
 
 name = Heretic
-icon = ids-heretic.png
+icon = ids-heretic1.png
 machine = pc
 osenv = dos
 rootpath = C:\
-EXEC= HERETIC.EXE -config $(CONFIG_FILE)
+EXEC = HERETIC.EXE -config $(CONFIG_FILE)
 mips = $(MIPS_486DX4_100)
 ramkb = 8192
 filter = id software, fps
