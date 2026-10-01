@@ -17,7 +17,7 @@ filter = rogue, velocity, fps, rpg
 
 $(include cfg-doom.inc)
 CONFIG_FILE = STRIFE.CFG
-EXPERIENCE = $(NULL)
+NOENDDOOM = true
 
 //
 // filesystem
@@ -48,7 +48,7 @@ end
 
 demo[demo]:
     name = Demo
-    launch = STRIFE.EXE
+    EXEC = STRIFE.EXE
     anchorfile = STRIFE.EXE
     file[]: crc = 1db8ca38; size =    720397; name = STRIFE.EXE
     file[]: crc = 3a6ab94d; size =  10493652; name = STRIFE0.WAD
