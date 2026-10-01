@@ -14,7 +14,7 @@ ramkb = 8192
 filter = id software, fps
 
 $(include cfg-doom.inc)
-EXPERIENCE = $(NULL)
+NOENDDOOM = true
 
 //
 // filesystem
