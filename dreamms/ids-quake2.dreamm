@@ -95,11 +95,11 @@ config[resolution]:
         VIDEO_OVERRIDE = set sw_mode "2"$(CRLF)set gl_mode "2"
     end
     option[640x480]:
-        name = 640x480
+        name = 640x480; priority = 1
         VIDEO_OVERRIDE = set sw_mode "3"$(CRLF)set gl_mode "3"
     end
     option[800x600]:
-        name = 800x600; priority = 1
+        name = 800x600
         VIDEO_OVERRIDE = set sw_mode "4"$(CRLF)set gl_mode "4"
     end
     option[960x720]:
