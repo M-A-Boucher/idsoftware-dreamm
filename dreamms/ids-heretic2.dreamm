@@ -1,0 +1,545 @@
+//
+// Heretic II
+//
+desc[ids-heretic2]:
+
+name = Heretic II
+icon = ids-heretic2.png
+machine = pc
+osenv = windows
+rootpath = C:\
+launch = $(rootpath)\Heretic2.exe
+mips = $(MIPS_MAX)
+winres = 1600x1200
+audiohw = gmidi
+filter = id software, fps
+
+MODERN_KEYBINDS = [[[$(CRLF)
+    bind    1               "use staff"
+    bind    2               "use fball"
+    bind    3               "use hell"
+    bind    4               "use array"
+    bind    5               "use rain"
+    bind    6               "use fwall"
+    bind    7               "use phoen"
+    bind    8               "use sphere"
+    bind    9               "use mace"
+
+    bind    z               "use powerup"
+    bind    x               "use ring"
+    bind    c               "use meteor"
+    bind    v               "use morph"
+    bind    b               "use tele"
+    bind 	n		"use lshield"
+
+    bind shift +speed
+    bind ctrl +creep
+    bind alt +command
+
+    bind_double shift +creep
+
+    bind w +forward
+    bind s +back
+    bind a +moveleft
+    bind d +moveright
+    bind q +movedown
+    bind e +action
+    bind space +moveup
+
+    bind_double e +mlook
+    bind_double a +roll_left
+    bind_double d +roll_right
+
+    bind_command a weapprev
+    bind_command d weapnext
+    bind_command 1 "use powerup"
+    bind_command 2 "use ring"
+    bind_command 3 "use meteor"
+    bind_command 4 "use morph"
+    bind_command 5 "use tele"
+    bind_command 6 "use lshield"
+
+
+    // Mouse and other stuff...
+    bind mouse1 +attack
+    bind mouse2 +defend
+    bind mouse3 +forward
+
+    bind_command mouse2 +action
+
+    bind PAUSE   "pause"
+    bind ESCAPE  "togglemenu"
+    bind ~       "toggleconsole"
+    bind `       "toggleconsole"
+    bind F1      "cmd help"
+    bind t       "messagemode"
+    bind +       "sizeup"
+    bind =       "sizeup"
+    bind -       "sizedown"
+]]]
+
+//
+// controls configuration
+//
+config[controls]:
+    title = Controls Configuration
+    option[classic]:
+        name = Customize In-Game (No Overrides)
+        KEYBIND_OVERRIDE = $(NULL)
+    end
+    option[mouse]:
+        name = Modern Preset (WASD + Mouse)
+        KEYBIND_OVERRIDE = $(MODERN_KEYBINDS)
+    end
+end
+
+//
+// renderer configuration
+//
+config[renderer]:
+    title = Renderer Configuration
+    option[software]:
+        name = Software
+        RENDERER_OVERRIDE = set vid_ref "soft"
+    end
+    option[opengl]:
+        name = Hardware (OpenGL)
+        RENDERER_OVERRIDE = set vid_ref "gl"
+    end
+end
+
+//
+// resolution configuration
+//
+config[resolution]:
+    title = Resolution Configuration
+    option[320x240]:
+        name = 320x240
+        VIDEO_OVERRIDE = set vid_mode "0"
+    end
+    option[400x300]:
+        name = 400x300
+        VIDEO_OVERRIDE = set vid_mode "1"
+    end
+    option[512x384]:
+        name = 512x384
+        VIDEO_OVERRIDE = set vid_mode "2"
+    end
+    option[640x480]:
+        name = 640x480; priority = 1
+        VIDEO_OVERRIDE = set vid_mode "3"
+    end
+    option[800x600]:
+        name = 800x600
+        VIDEO_OVERRIDE = vid_mode "4"
+    end
+    option[960x720]:
+        name = 960x720
+        VIDEO_OVERRIDE = vid_mode "5"
+    end
+    option[1024x768]:
+        name = 1024x768
+        VIDEO_OVERRIDE = vid_mode "6"
+    end
+    option[1152x864]:
+        name = 1152x864
+        VIDEO_OVERRIDE = vid_mode "7"
+    end
+    option[1280x960]:
+        name = 1280x960
+        VIDEO_OVERRIDE = vid_mode "8"
+    end
+    option[1600x1200]:
+        name = 1600x1200
+        VIDEO_OVERRIDE = vid_mode "9"
+    end
+end
+
+//
+// sound quality configuration
+//
+config[sound]:
+    title = Sound Quality Configuration
+    option[low]:
+        name = Low
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "11"
+            set s_loadas8bit "1"
+        ]]]
+    end
+    option[high]:
+        name = High; priority = 1
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "22"
+            set s_loadas8bit "0"
+        ]]]
+    end
+end
+
+CFG = [[[$(CRLF)
+    $(KEYBIND_OVERRIDE)
+    $(RENDERER_OVERRIDE)
+    $(VIDEO_OVERRIDE)
+    $(SOUND_OVERRIDE)
+    set vid_fullscreen "1"
+]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        if (is_game())
+          drive_set_label("D", "HERETIC_II");
+
+          file_save("$$(rootpath)\\base\\autoexec.cfg", "$$(CFG)");
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = Heretic2.exe
+    anchordepth = 3
+    file[]: crc = 94991bbe; size =      1956; name = H2_Help.htm
+    file[]: crc = 3708d4ec; size =    225280; name = H2Common.dll
+    file[]: crc = 9110f555; size =        58; name = H2Dedicated.bat
+    file[]: crc = 6ba76188; size =     28672; name = Heretic2.exe
+    file[]: crc = 9793182f; size =    417792; name = quake2.dll
+    file[]: crc = 83761c0a; size =    241664; name = ref_gl.dll
+    file[]: crc = 4dfa0d79; size =    229376; name = ref_soft.dll
+    file[]: crc = 72e91437; size =     81920; name = SndDll.dll
+    file[]: crc = eb390493; size =    266240; name = base\Client Effects
+    file[]: crc = 84f5e96c; size =       195; name = base\coop.lst
+    file[]: crc = 674b8a22; size =       798; name = base\dedicated.cfg
+    file[]: crc = 76f633eb; size =      5889; name = base\Default.cfg
+    file[]: crc = 9c664df6; size =       576; name = base\dm.lst
+    file[]: crc = c5642104; size =   1359872; name = base\gamex86
+    file[]: crc = cf3b093d; size = 215960229; name = base\Htic2-0.pak
+    file[]: crc = f845ae39; size =  43625414; name = base\Htic2-1.pak
+    file[]: crc = 6b4b5155; size =     28672; name = base\Player
+    file[]: crc = 439b0f87; size =       329; name = base\user.cfg
+    file[]: crc = f831c8be; size =    121360; name = base\Art\symbol.bmp
+    file[]: crc = 7ea4f240; size =      1418; name = base\config\!KB+Mouse.cfg
+    file[]: crc = 134352ad; size =      1387; name = base\config\!Keyboard.cfg
+    file[]: crc = 19b1ae2b; size =      1043; name = base\config\GamePad-4Button.cfg
+    file[]: crc = dd1782a5; size =      1179; name = base\config\GamePad-6Button.cfg
+    file[]: crc = 79d19c07; size =      1240; name = base\config\GamePad-8Button.cfg
+    file[]: crc = 04d3534f; size =     88421; name = base\skins\!Brigand.m8
+    file[]: crc = d2533cd4; size =     33808; name = base\skins\!Brigand_i.m8
+    file[]: crc = 76bd22b3; size =     88421; name = base\skins\!Corvus.m8
+    file[]: crc = 387289d2; size =     33808; name = base\skins\!Corvus_i.m8
+    file[]: crc = 2e639c68; size =     88421; name = base\skins\!Nubian.m8
+    file[]: crc = 685eee5b; size =     33808; name = base\skins\!Nubian_i.m8
+    file[]: crc = 3f4b3a34; size =     88421; name = base\skins\!Rogue.m8
+    file[]: crc = b2a307cd; size =     33808; name = base\skins\!Rogue_i.m8
+    file[]: crc = 14c61aa8; size =     88421; name = base\skins\Amazon.m8
+    file[]: crc = b6adcb32; size =     33808; name = base\skins\Amazon_i.m8
+    file[]: crc = b3c954f4; size =     88421; name = base\skins\Demon.m8
+    file[]: crc = d6977008; size =     33808; name = base\skins\Demon_i.m8
+    file[]: crc = 723b81d9; size =     88421; name = base\skins\Patchwork.m8
+    file[]: crc = 87f48c02; size =     33808; name = base\skins\Patchwork_i.m8
+    file[]: crc = 4c641279; size =     88421; name = base\skins\Ronin.m8
+    file[]: crc = c1cd63cd; size =     33808; name = base\skins\Ronin_i.m8
+    file[]: crc = 3f6d552a; size =     88421; name = base\skins\SoulTaker.m8
+    file[]: crc = 639542e6; size =     33808; name = base\skins\SoulTaker_i.m8
+    file[]: crc = adc226fc; size =     88421; name = base\skins\Spider.m8
+    file[]: crc = fdbf797f; size =     33808; name = base\skins\Spider_i.m8
+    file[]: crc = e0478a3c; size =     88421; name = base\skins\ThiefKing.m8
+    file[]: crc = 6b360804; size =     33808; name = base\skins\ThiefKing_i.m8
+    file[]: crc = e2dd3d0f; size =     88421; name = base\skins\Valkyrie.m8
+    file[]: crc = 248990a8; size =     33808; name = base\skins\Valkyrie_i.m8
+    file[]: crc = 8a1bd3fe; size =   5341188; name = base\VIDEO\Bumper.smk
+    file[]: crc = 0542cf5a; size =  59452948; name = base\VIDEO\Intro.smk
+    file[]: crc = 3b8f352f; size =  34893244; name = base\VIDEO\Outro.smk
+    file[]: crc = 2305def2; size =    138752; name = Drivers\3dfxGL_Ht2.dll
+    file[]: crc = 7d96e6f2; size =    132096; name = Drivers\G200Gl.dll
+    file[]: crc = 70e58073; size =     96256; name = Drivers\SMACKW32.DLL
+    file[]: crc = 61d48207; size =    897024; name = Drivers\Veritegl.dll
+    file[]: crc = f831c8be; size =    121360; name = CD\setup\setup.bmp
+    file[]:                                   name = CD\CDDA.SOU; cdda = 176/185/213/181/181/190/180/178/176/187/180/181/131/126
+end
+
+//
+// v1.06a
+//
+game[v1.06a]:
+    name = v1.06a
+    imports = v1.0
+    anchorfile = Heretic2.exe
+    file[]: crc = e1873c78; size =    214528; name = a3dapi.dll
+    file[]: crc = 52575bcf; size =    114688; name = A3DSnd.dll
+    file[]: crc = 85081376; size =       289; name = anet.inf
+    file[]: crc = 907c35f7; size =       480; name = DS_PLCMD.lnk
+    file[]: crc = 4fb6e750; size =     57856; name = Dxver.dll
+    file[]: crc = f26a8fa1; size =     77824; name = EAXSnd.dll
+    file[]: crc = babc9cea; size =    571904; name = game.exe
+    file[]: crc = 986c00d3; size =     80896; name = GETINFO.DLL
+    file[]: crc = dff9810e; size =     77824; name = H2Common.dll
+    file[]: crc = 2084591e; size =     40960; name = Heretic2.exe
+    file[]: crc = 6fd1220f; size =    466944; name = quake2.dll
+    file[]: crc = 5c7752a8; size =    253952; name = ref_gl.dll
+    file[]: crc = 3fb3e9ca; size =    245760; name = ref_soft.dll
+    file[]: crc = c8dab865; size =     73728; name = WinSnd.dll
+    file[]: crc = 9843bb03; size =    366592; name = base\a3dapi.dll
+    file[]: crc = f994f8aa; size =    286720; name = base\Client Effects
+    file[]: crc = 6a77a849; size =      5968; name = base\Default.cfg
+    file[]: crc = 8be579f8; size =       895; name = base\dm.lst
+    file[]: crc = a3f5f918; size =     10949; name = base\Gamemsg.txt
+    file[]: crc = 81627486; size =   1392640; name = base\gamex86
+    file[]: crc = 750b2d19; size =      5169; name = base\Menus.cfg
+    file[]: crc = 21f45b82; size =    221184; name = base\Player
+    file[]: crc = 4016c305; size =      1455; name = base\config\!KB+Mouse.cfg
+    file[]: crc = 1966d8a1; size =      1435; name = base\config\!Keyboard.cfg
+    file[]: crc = c186de37; size =      1053; name = base\config\InteractPowerpadPro.cfg
+    file[]: crc = 528ad9c9; size =      1081; name = base\config\PantherXL.cfg
+    file[]: crc = 5be88a9c; size =      1406; name = base\ds\dungeon\cage.os
+    file[]: crc = fe45b145; size =   1152540; name = base\maps\dmbloodfeud.bsp
+    file[]: crc = efff4bff; size =    985224; name = base\maps\dmcitadel.bsp
+    file[]: crc = c353832c; size =    574704; name = base\maps\DMdarkness.bsp
+    file[]: crc = 30f1e749; size =    710276; name = base\maps\dmjersey.bsp
+    file[]: crc = 5848a76c; size =   1315992; name = base\maps\DMLava.bsp
+    file[]: crc = e74b3f1a; size =    422496; name = base\maps\dmlight.bsp
+    file[]: crc = b5b4437c; size =   2003376; name = base\maps\dmoutpost.bsp
+    file[]: crc = 2b3eb137; size =    804232; name = base\maps\dmoz.bsp
+    file[]: crc = b749ed69; size =   1197828; name = base\maps\dmstonehenge.bsp
+    file[]: crc = f6fb218a; size =   1282924; name = base\maps\dmtorture.bsp
+    file[]: crc = 43ea2a1c; size =   3022516; name = base\maps\dmtower.bsp
+    file[]: crc = 8c56b133; size =      7293; name = base\maps\levelread.txt
+    file[]: crc = 9042f273; size =    644980; name = base\maps\rendm.bsp
+    file[]: crc = 48e344b7; size =      6501; name = base\models\items\Defense\tornado\!skin.pcx.m8
+    file[]: crc = bc389e0d; size =      6320; name = base\models\items\Defense\tornado\tris.fm
+    file[]: crc = b2b4a4a4; size =     88421; name = base\models\player\corvette\!skin.m8
+    file[]: crc = 23f98c6f; size =      5064; name = base\pics\icons\arm_gold.m32
+    file[]: crc = ea4bb4a7; size =      5064; name = base\pics\icons\arm_silver.m32
+    file[]: crc = 3337dd53; size =      1168; name = base\pics\icons\blue-mana.m8
+    file[]: crc = 19e3aa4d; size =      2064; name = base\pics\icons\blue-mana2.m8
+    file[]: crc = 3e235486; size =      1168; name = base\pics\icons\breath.m8
+    file[]: crc = 22f91166; size =      2064; name = base\pics\icons\breath2.m8
+    file[]: crc = 637d7b49; size =      1168; name = base\pics\icons\green-mana.m8
+    file[]: crc = ec646ef1; size =      2064; name = base\pics\icons\green-mana2.m8
+    file[]: crc = bc4094d8; size =      2064; name = base\pics\icons\i_ammo-hellstaff.m8
+    file[]: crc = ee7e069e; size =      2064; name = base\pics\icons\i_ammo-phoen.m8
+    file[]: crc = 3389215a; size =      2064; name = base\pics\icons\i_ammo-redrain.m8
+    file[]: crc = 7299b921; size =      2064; name = base\pics\icons\i_array.m8
+    file[]: crc = e812386b; size =      2064; name = base\pics\icons\i_fball.m8
+    file[]: crc = 04371986; size =      2064; name = base\pics\icons\i_fwall.m8
+    file[]: crc = 9b362741; size =      2064; name = base\pics\icons\i_health.m8
+    file[]: crc = 30116e9c; size =      2064; name = base\pics\icons\i_health2.m8
+    file[]: crc = ff6a0df7; size =      2064; name = base\pics\icons\i_hell.m8
+    file[]: crc = fe3e150b; size =      2064; name = base\pics\icons\i_mace.m8
+    file[]: crc = b59c19a2; size =      2064; name = base\pics\icons\i_meteor.m8
+    file[]: crc = 7eef546b; size =      2064; name = base\pics\icons\i_morph.m8
+    file[]: crc = e13f4805; size =      2064; name = base\pics\icons\i_phoen.m8
+    file[]: crc = e04b1abb; size =      2064; name = base\pics\icons\i_player.m8
+    file[]: crc = 509214bd; size =      2064; name = base\pics\icons\i_rain.m8
+    file[]: crc = cf27c156; size =      2064; name = base\pics\icons\i_ring.m8
+    file[]: crc = 525b3fb6; size =      2064; name = base\pics\icons\i_shield.m8
+    file[]: crc = f5d5c590; size =      2064; name = base\pics\icons\i_sphere.m8
+    file[]: crc = 6c179345; size =      2064; name = base\pics\icons\i_staff.m8
+    file[]: crc = dc592a64; size =      2064; name = base\pics\icons\i_tele.m8
+    file[]: crc = 0b963878; size =      2064; name = base\pics\icons\i_tome.m8
+    file[]: crc = 96117f36; size =      2064; name = base\pics\icons\i_tornado.m8
+    file[]: crc = 53850b95; size =      1168; name = base\pics\icons\lifebar_back.m8
+    file[]: crc = 70d71592; size =      1168; name = base\pics\icons\powerup.m8
+    file[]: crc = 02974740; size =      2064; name = base\pics\icons\powerup2.m8
+    file[]: crc = f29d2737; size =      1480; name = base\pics\menu\num_0.m32
+    file[]: crc = 612b3934; size =      1168; name = base\pics\menu\num_0.m8
+    file[]: crc = f5c04541; size =      1480; name = base\pics\menu\num_1.m32
+    file[]: crc = f8a51501; size =      1168; name = base\pics\menu\num_1.m8
+    file[]: crc = 517aa4f3; size =      1480; name = base\pics\menu\num_2.m32
+    file[]: crc = f48e1b56; size =      1168; name = base\pics\menu\num_2.m8
+    file[]: crc = ebed08ab; size =      1480; name = base\pics\menu\num_3.m32
+    file[]: crc = 257ad701; size =      1168; name = base\pics\menu\num_3.m8
+    file[]: crc = ef22f60a; size =      1480; name = base\pics\menu\num_4.m32
+    file[]: crc = 314667f4; size =      1168; name = base\pics\menu\num_4.m8
+    file[]: crc = 009c030f; size =      1480; name = base\pics\menu\num_5.m32
+    file[]: crc = 565548bd; size =      1168; name = base\pics\menu\num_5.m8
+    file[]: crc = 979b5860; size =      1480; name = base\pics\menu\num_6.m32
+    file[]: crc = 91803350; size =      1168; name = base\pics\menu\num_6.m8
+    file[]: crc = 5ebede26; size =      1480; name = base\pics\menu\num_7.m32
+    file[]: crc = 3fbb2048; size =      1168; name = base\pics\menu\num_7.m8
+    file[]: crc = ec0e424f; size =      1480; name = base\pics\menu\num_8.m32
+    file[]: crc = 2c26c14e; size =      1168; name = base\pics\menu\num_8.m8
+    file[]: crc = 5676bde3; size =      1480; name = base\pics\menu\num_9.m32
+    file[]: crc = 6baeda3e; size =      1168; name = base\pics\menu\num_9.m8
+    file[]: crc = 2b6e3830; size =      1480; name = base\pics\menu\num_neg.m32
+    file[]: crc = 85da9219; size =      1168; name = base\pics\menu\num_neg.m8
+    file[]: crc = 9db8a5e9; size =      1480; name = base\pics\menu\num_red0.m32
+    file[]: crc = 2ea22685; size =      1168; name = base\pics\menu\num_red0.m8
+    file[]: crc = 460fa61b; size =      1480; name = base\pics\menu\num_red1.m32
+    file[]: crc = 86b92f02; size =      1168; name = base\pics\menu\num_red1.m8
+    file[]: crc = 4c9c9925; size =      1480; name = base\pics\menu\num_red2.m32
+    file[]: crc = 5ce9da31; size =      1168; name = base\pics\menu\num_red2.m8
+    file[]: crc = 9a593230; size =      1480; name = base\pics\menu\num_red3.m32
+    file[]: crc = 42d033b6; size =      1168; name = base\pics\menu\num_red3.m8
+    file[]: crc = 2a4cf0d8; size =      1480; name = base\pics\menu\num_red4.m32
+    file[]: crc = 62750182; size =      1168; name = base\pics\menu\num_red4.m8
+    file[]: crc = 072ec799; size =      1480; name = base\pics\menu\num_red5.m32
+    file[]: crc = 0bb53410; size =      1168; name = base\pics\menu\num_red5.m8
+    file[]: crc = b469fb5c; size =      1480; name = base\pics\menu\num_red6.m32
+    file[]: crc = f82c7844; size =      1168; name = base\pics\menu\num_red6.m8
+    file[]: crc = 58e4ea77; size =      1480; name = base\pics\menu\num_red7.m32
+    file[]: crc = aebbc3ca; size =      1168; name = base\pics\menu\num_red7.m8
+    file[]: crc = 93e5c3e3; size =      1480; name = base\pics\menu\num_red8.m32
+    file[]: crc = f7e07b00; size =      1168; name = base\pics\menu\num_red8.m8
+    file[]: crc = fb31f4f9; size =      1480; name = base\pics\menu\num_red9.m32
+    file[]: crc = 7e69d6ae; size =      1168; name = base\pics\menu\num_red9.m8
+    file[]: crc = 73fb8b34; size =     17424; name = base\pics\misc\aparticle.m8
+    file[]: crc = ce8e887c; size =     17424; name = base\pics\misc\backtile.m8
+    file[]: crc = 20572dc8; size =      1992; name = base\pics\misc\bigdot.m32
+    file[]: crc = c8169b82; size =     66576; name = base\pics\misc\conback.m8
+    file[]: crc = 475cd00f; size =     66504; name = base\pics\misc\conchars.m32
+    file[]: crc = cf8ad67a; size =     66576; name = base\pics\misc\ddlogo.m8
+    file[]: crc = d41f76d8; size =      1224; name = base\pics\misc\dot.m32
+    file[]: crc = 5e9c5393; size =    263112; name = base\pics\misc\font.m32
+    file[]: crc = b4511deb; size =      2064; name = base\pics\misc\loading.m8
+    file[]: crc = 4a8fb016; size =      2064; name = base\pics\misc\net.m8
+    file[]: crc = 5526b0b7; size =     66504; name = base\pics\misc\particle.m32
+    file[]: crc = 03608962; size =      5136; name = base\pics\misc\pause.m8
+    file[]: crc = a14327ec; size =     66504; name = base\pics\misc\reflect.m32
+    file[]: crc = ffafec8c; size =     33736; name = base\pics\misc\textback.m32
+    file[]: crc = 711f93b2; size =      2064; name = base\pics\misc\turtle.m8
+    file[]: crc = b40392e5; size =     62718; name = base\players\female\chokedeath.wav
+    file[]: crc = efbf5f9a; size =     17292; name = base\players\female\cough1.wav
+    file[]: crc = 6fdaea92; size =     21256; name = base\players\female\cough2.wav
+    file[]: crc = 0aacc0db; size =     27908; name = base\players\female\cough3.wav
+    file[]: crc = a799626d; size =     33542; name = base\players\female\death1.wav
+    file[]: crc = 307d22fe; size =     31750; name = base\players\female\death2.wav
+    file[]: crc = b2b4a4a4; size =     88421; name = base\players\female\Domino.m8
+    file[]: crc = c87f73d3; size =     33808; name = base\players\female\Domino_i.m8
+    file[]: crc = 33161dbf; size =     88421; name = base\players\female\DominoDmg.m8
+    file[]: crc = cebdeb6e; size =     88421; name = base\players\female\Dominop1.m8
+    file[]: crc = ae2eae3f; size =     88421; name = base\players\female\DominoP1Dmg.m8
+    file[]: crc = a4fe14b2; size =     88421; name = base\players\female\DominoP2.m8
+    file[]: crc = d56bb734; size =     88421; name = base\players\female\DominoP2Dmg.m8
+    file[]: crc = 14d58c15; size =     61262; name = base\players\female\drowndeath.wav
+    file[]: crc = ba49a694; size =      5116; name = base\players\female\drowning1.wav
+    file[]: crc = 94c11260; size =      4658; name = base\players\female\drowning2.wav
+    file[]: crc = c645dbc2; size =     10714; name = base\players\female\fall.wav
+    file[]: crc = 39b1bd6f; size =     29628; name = base\players\female\firedeath.wav
+    file[]: crc = 4143c1c9; size =     51074; name = base\players\female\gasp1.wav
+    file[]: crc = b4a9af47; size =     38708; name = base\players\female\gasp2.wav
+    file[]: crc = be07f053; size =     14672; name = base\players\female\gethealth.wav
+    file[]: crc = 23a8341c; size =     21700; name = base\players\female\gib.wav
+    file[]: crc = 858d3d6f; size =      9342; name = base\players\female\grab.wav
+    file[]: crc = efbd5415; size =     88421; name = base\players\female\Kiera.m8
+    file[]: crc = bfe18665; size =     33808; name = base\players\female\Kiera_i.m8
+    file[]: crc = 636aeac8; size =     88421; name = base\players\female\KieraDmg.m8
+    file[]: crc = b68fbcc2; size =     88421; name = base\players\female\KieraP1.m8
+    file[]: crc = 6d1db31c; size =     88421; name = base\players\female\KieraP1Dmg.m8
+    file[]: crc = 62db7f29; size =     88421; name = base\players\female\KieraP2.m8
+    file[]: crc = 0bf16dae; size =     88421; name = base\players\female\KieraP2Dmg.m8
+    file[]: crc = 1486a543; size =     45196; name = base\players\female\nomana.wav
+    file[]: crc = 6f6a7cca; size =      7966; name = base\players\female\offwall.wav
+    file[]: crc = 5f4c6a69; size =     14554; name = base\players\female\ow.wav
+    file[]: crc = 6657a4de; size =      9710; name = base\players\female\pain1.wav
+    file[]: crc = 5197e0cc; size =      9492; name = base\players\female\pain2.wav
+    file[]: crc = 74d37704; size =     18460; name = base\players\female\phew.wav
+    file[]: crc = d3e9f0d8; size =     88421; name = base\players\female\Reflect.m8
+    file[]: crc = 8581670a; size =   3429692; name = base\players\female\tris.fm
+    file[]: crc = dba0576f; size =     32908; name = base\players\female\waterresurface.wav
+    file[]: crc = 14c61aa8; size =     88421; name = base\players\male\Amazon.m8
+    file[]: crc = b6adcb32; size =     33808; name = base\players\male\Amazon_i.m8
+    file[]: crc = 43762491; size =     88421; name = base\players\male\AmazonDmg.m8
+    file[]: crc = 04d3534f; size =     88421; name = base\players\male\Brigand.m8
+    file[]: crc = d2533cd4; size =     33808; name = base\players\male\Brigand_i.m8
+    file[]: crc = 3c9e6096; size =     88421; name = base\players\male\BrigandDmg.m8
+    file[]: crc = 005873a5; size =     88421; name = base\players\male\BrigandP1.m8
+    file[]: crc = 69448d68; size =     88421; name = base\players\male\BrigandP1Dmg.m8
+    file[]: crc = ee8e5cdf; size =     88421; name = base\players\male\BrigandP2.m8
+    file[]: crc = 058fa7c4; size =     88421; name = base\players\male\BrigandP2Dmg.m8
+    file[]: crc = f6490433; size =     68156; name = base\players\male\chokedeath.wav
+    file[]: crc = 76bd22b3; size =     88421; name = base\players\male\Corvus.m8
+    file[]: crc = 387289d2; size =     33808; name = base\players\male\Corvus_i.m8
+    file[]: crc = 42805aad; size =     88421; name = base\players\male\CorvusDmg.m8
+    file[]: crc = 93fadff3; size =     88421; name = base\players\male\CorvusP1.m8
+    file[]: crc = 1f706a0d; size =     88421; name = base\players\male\CorvusP1Dmg.m8
+    file[]: crc = 8c58729a; size =     88421; name = base\players\male\CorvusP2.m8
+    file[]: crc = 0698a9fd; size =     88421; name = base\players\male\CorvusP2Dmg.m8
+    file[]: crc = e2e1729b; size =     31180; name = base\players\male\cough1.wav
+    file[]: crc = 85746aa1; size =     22300; name = base\players\male\cough2.wav
+    file[]: crc = 1abb9aad; size =     29480; name = base\players\male\cough3.wav
+    file[]: crc = 59c421d2; size =     10094; name = base\players\male\death1.wav
+    file[]: crc = 6c2b16a7; size =     25234; name = base\players\male\death2.wav
+    file[]: crc = b3c954f4; size =     88421; name = base\players\male\Demon.m8
+    file[]: crc = d6977008; size =     33808; name = base\players\male\Demon_i.m8
+    file[]: crc = 55975e58; size =     88421; name = base\players\male\DemonDmg.m8
+    file[]: crc = 55480b48; size =     32082; name = base\players\male\drowndeath.wav
+    file[]: crc = 81fb7e28; size =      5262; name = base\players\male\drowning1.wav
+    file[]: crc = de1c813d; size =      4878; name = base\players\male\drowning2.wav
+    file[]: crc = 49d9ac0b; size =     10612; name = base\players\male\fall.wav
+    file[]: crc = f6136540; size =     79906; name = base\players\male\firedeath.wav
+    file[]: crc = 6ed76f92; size =    102426; name = base\players\male\gasp1.wav
+    file[]: crc = 6a4f2f62; size =     88096; name = base\players\male\gasp2.wav
+    file[]: crc = 117a6db7; size =     26306; name = base\players\male\gethealth.wav
+    file[]: crc = 5c0e14d2; size =     21060; name = base\players\male\gib.wav
+    file[]: crc = ed6b118e; size =      3450; name = base\players\male\Grab.wav
+    file[]: crc = f926abd6; size =     18246; name = base\players\male\nomana.wav
+    file[]: crc = 2e639c68; size =     88421; name = base\players\male\Nubian.m8
+    file[]: crc = 685eee5b; size =     33808; name = base\players\male\Nubian_i.m8
+    file[]: crc = 27c4f4ef; size =     88421; name = base\players\male\NubianDmg.m8
+    file[]: crc = d740f91a; size =     88421; name = base\players\male\NubianP1.m8
+    file[]: crc = def806f5; size =     88421; name = base\players\male\NubianP1Dmg.m8
+    file[]: crc = e9aef067; size =     88421; name = base\players\male\NubianP2.m8
+    file[]: crc = e0829b50; size =     88421; name = base\players\male\NubianP2Dmg.m8
+    file[]: crc = ef175d51; size =      7046; name = base\players\male\offwall.wav
+    file[]: crc = facc6748; size =     20938; name = base\players\male\ow.wav
+    file[]: crc = 0198b428; size =     11004; name = base\players\male\pain1.wav
+    file[]: crc = 22c6a387; size =     11900; name = base\players\male\pain2.wav
+    file[]: crc = 723b81d9; size =     88421; name = base\players\male\Patchwork.m8
+    file[]: crc = 87f48c02; size =     33808; name = base\players\male\Patchwork_i.m8
+    file[]: crc = d83487e2; size =     88421; name = base\players\male\PatchworkDmg.m8
+    file[]: crc = 3cf39670; size =     15214; name = base\players\male\phew.wav
+    file[]: crc = 1da237f9; size =     88421; name = base\players\male\reflect.m8
+    file[]: crc = 3f4b3a34; size =     88421; name = base\players\male\Rogue.m8
+    file[]: crc = b2a307cd; size =     33808; name = base\players\male\Rogue_i.m8
+    file[]: crc = ff1181a7; size =     88421; name = base\players\male\RogueDmg.m8
+    file[]: crc = 17add3e6; size =     88421; name = base\players\male\RogueP1.m8
+    file[]: crc = 6c0642b6; size =     88421; name = base\players\male\RogueP1Dmg.m8
+    file[]: crc = e4e889cd; size =     88421; name = base\players\male\RogueP2.m8
+    file[]: crc = c4effa24; size =     88421; name = base\players\male\RogueP2Dmg.m8
+    file[]: crc = 4c641279; size =     88421; name = base\players\male\Ronin.m8
+    file[]: crc = c1cd63cd; size =     33808; name = base\players\male\Ronin_i.m8
+    file[]: crc = b29042a7; size =     88421; name = base\players\male\RoninDmg.m8
+    file[]: crc = bc7cf25d; size =     88421; name = base\players\male\SirLoin.m8
+    file[]: crc = ab15ac04; size =     33808; name = base\players\male\SirLoin_i.m8
+    file[]: crc = d465f72e; size =     88421; name = base\players\male\SirLoinDmg.m8
+    file[]: crc = 3f6d552a; size =     88421; name = base\players\male\SoulTaker.m8
+    file[]: crc = 639542e6; size =     33808; name = base\players\male\SoulTaker_i.m8
+    file[]: crc = 5e0b7d10; size =     88421; name = base\players\male\SoulTakerDmg.m8
+    file[]: crc = adc226fc; size =     88421; name = base\players\male\Spider.m8
+    file[]: crc = fdbf797f; size =     33808; name = base\players\male\Spider_i.m8
+    file[]: crc = ce2da912; size =     88421; name = base\players\male\SpiderDmg.m8
+    file[]: crc = e0478a3c; size =     88421; name = base\players\male\ThiefKing.m8
+    file[]: crc = 6b360804; size =     33808; name = base\players\male\ThiefKing_i.m8
+    file[]: crc = c7a22764; size =     88421; name = base\players\male\ThiefKingDmg.m8
+    file[]: crc = e51bd397; size =   3424428; name = base\players\male\tris.fm
+    file[]: crc = b60800c1; size =     88421; name = base\players\male\Valkyrie.m8
+    file[]: crc = 248990a8; size =     33808; name = base\players\male\Valkyrie_i.m8
+    file[]: crc = 0d314c0b; size =     88421; name = base\players\male\ValkyrieDmg.m8
+    file[]: crc = d4ce667f; size =     68660; name = base\players\male\waterresurface.wav
+    file[]: crc = e7ac4024; size =     23128; name = base\sound\Weapons\tornadospell.wav
+    file[]: crc = b16c7ec4; size =        92; name = base\sprites\fx\wake_add.sp2
+    file[]: crc = 20f94004; size =      6501; name = base\sprites\fx\wake_add_0.m8
+    file[]: crc = e0d3a85c; size =        92; name = base\sprites\lens\halo1.sp2
+    file[]: crc = 0f9ef0f4; size =      6501; name = base\sprites\lens\halo1_0.m8
+    file[]: crc = 5fea609b; size =        92; name = base\sprites\lens\halo2.sp2
+    file[]: crc = d714d4eb; size =      2405; name = base\sprites\lens\halo2_0.m8
+    file[]: crc = a4d4ce7c; size =        92; name = base\sprites\lens\halo3.sp2
+    file[]: crc = b81671e7; size =      6501; name = base\sprites\lens\halo3_0.m8
+    file[]: crc = 2fe5b2e6; size =       172; name = base\sprites\spells\phoenix.sp2
+    file[]: crc = 399853da; size =     22885; name = base\sprites\spells\phoenix_0.m8
+    file[]: crc = 7fd8c99d; size =     22885; name = base\sprites\spells\phoenix_1.m8
+    file[]: crc = 931f7af7; size =    124444; name = user\save\save0\game.ssv
+    file[]: crc = c72c203b; size =      2752; name = user\save\save0\server.ssv
+    file[]: crc = 29359113; size =    921656; name = CD\Setup\setup.bmp
+end
+
+end
