@@ -1,0 +1,46 @@
+//
+// Dangerous Dave in Copyright Infringement
+//
+desc[ids-ddaveici]:
+
+name = Dangerous Dave in Copyright Infringement
+icon = ids-ddave4.png
+machine = pc
+osenv = dos
+rootpath = C:\
+launch = $(rootpath)\DAVE2.EXE
+mips = $(MIPS_386DX_33)
+ramkb = 4096
+videohw = vga
+audiohw = speaker
+filter = id software, action
+
+configutil[editor]:
+    name = Open Editor
+    launch = TED.EXE
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)  ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = DAVE2.EXE
+    file[]: crc = 80e350a3; size =        46; name = CTLPANEL.DD2
+    file[]: crc = aa44a1e0; size =     25714; name = DAVE2.EXE
+    file[]: crc = ef11c7ae; size =       959; name = DEMO1.DD2
+    file[]: crc = acd89b1f; size =     73232; name = EGAPICS.DD2
+    file[]: crc = 1f770d16; size =      9184; name = LEVEL01.DD2
+    file[]: crc = 8ff7d496; size =      4832; name = LEVEL02.DD2
+    file[]: crc = 470aba9f; size =        50; name = SCORES.DD2
+    file[]: crc = a3849312; size =      3020; name = SOUNDS.DD2
+    file[]: crc = 4ee89a54; size =     22961; name = TED.EXE
+end
+
+end
