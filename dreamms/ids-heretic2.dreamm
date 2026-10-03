@@ -114,43 +114,43 @@ end
 config[resolution]:
     title = Resolution Configuration
     option[320x240]:
-        name = 320x240
+        name = 320×240
         VIDEO_OVERRIDE = set vid_mode "0"
     end
     option[400x300]:
-        name = 400x300
+        name = 400×300
         VIDEO_OVERRIDE = set vid_mode "1"
     end
     option[512x384]:
-        name = 512x384
+        name = 512×384
         VIDEO_OVERRIDE = set vid_mode "2"
     end
     option[640x480]:
-        name = 640x480; priority = 1
+        name = 640×480; priority = 1
         VIDEO_OVERRIDE = set vid_mode "3"
     end
     option[800x600]:
-        name = 800x600
+        name = 800×600
         VIDEO_OVERRIDE = vid_mode "4"
     end
     option[960x720]:
-        name = 960x720
+        name = 960×720
         VIDEO_OVERRIDE = vid_mode "5"
     end
     option[1024x768]:
-        name = 1024x768
+        name = 1024×768
         VIDEO_OVERRIDE = vid_mode "6"
     end
     option[1152x864]:
-        name = 1152x864
+        name = 1152×864
         VIDEO_OVERRIDE = vid_mode "7"
     end
     option[1280x960]:
-        name = 1280x960
+        name = 1280×960
         VIDEO_OVERRIDE = vid_mode "8"
     end
     option[1600x1200]:
-        name = 1600x1200
+        name = 1600×1200
         VIDEO_OVERRIDE = vid_mode "9"
     end
 end

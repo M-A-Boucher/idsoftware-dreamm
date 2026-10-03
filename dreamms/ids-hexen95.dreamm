@@ -16,7 +16,6 @@ MONSTER = ""
 SKILL = ""
 EXENAME = HLAUNCH
 SKILLSTART = 0
-CDLABEL = ""
 GAMEID = 0
 PARAM = ""
 SKILL = ""
@@ -26,10 +25,9 @@ CLASSNO = ""
 //
 // filesystem
 //
-mount[]: vpath = C:\; srcpath = $(ifsdeltapath); writable = true
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
-mount[]: vpath = D:\; srcpath = $(ifsinstallpath)\CD
-mount[]: vpath = D:\$(CDLABEL); srcpath = $(ifsinstallpath)\CD
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD; condition = file_exists("$$(rootpath)\\CD\\CDDA.SOU")
 
 //
 // Registry
@@ -88,7 +86,6 @@ config[classes]:
 	option[class0]: name = FIGHTER; CLASS = -class 0; CLASSNO = 0
     option[class1]: name = CLERIC;  CLASS = -class 1; CLASSNO = 1
 	option[class2]: name = MAGE;    CLASS = -class 2; CLASSNO = 2
-
 end
 
 //
@@ -127,7 +124,6 @@ config[monster]:
     title = Monsters
     option[off]:  name = Off; MONSTER = -NOMONSTERS
 	option[on]: name = On (Normal); MONSTER = ""; priority = 1
-	
 end
 
 game[pc-cd-en]:
@@ -141,11 +137,8 @@ game[pc-cd-en]:
     file[]: crc = ad4d15b6; size =     40960; name = HEXIPX.DLL
     file[]: crc = 9dcc7b9c; size =    137216; name = HEXMODEM.DLL
     file[]: crc = e1ac86f1; size =     37376; name = HEXSER.DLL
-    file[]: crc = c420d6fc; size =    932864; name = HLAUNCH.EXE
-    file[]: crc = fbf7f824; size =     16384; name = README.DOC
-    file[]: crc = 17317858; size =      4859; name = README.TXT	
-	
-	//CD-ROM
-	file[]: name = CD\CDDA.SOU; cdda = 238/197/17/47/70/85/253/146/202/215/217/244/252/189/197/207/166/188/154/246/195
+    file[]: crc = c420d6fc; size =    932864; name = HLAUNCH.EXE	
+	file[]:                                   name = CD\CDDA.SOU; cdda = 238/197/17/47/70/85/253/146/202/215/217/244/252/189/197/207/166/188/154/246/195
+end
 
 end

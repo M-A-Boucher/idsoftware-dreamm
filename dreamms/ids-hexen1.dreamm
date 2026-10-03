@@ -21,7 +21,7 @@ NOENDDOOM = true
 //
 mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
-mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD; optional = true
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD; condition = file_exists("$$(rootpath)\\CD\\CDDA.SOU")
 
 //
 // v1.0

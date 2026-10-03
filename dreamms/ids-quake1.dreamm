@@ -113,40 +113,40 @@ end
 config[graphics]:
     title = Graphics Configuration
     option[320x200]:
-        name = 320x200
+        name = 320×200
         VIDEO_OVERRIDE = vid_mode 0
     end
     option[320x240]:
-        name = 320x240
+        name = 320×240
         VIDEO_OVERRIDE = vid_mode 3
     end
     option[360x350]:
-        name = 360x350
+        name = 360×350
         VIDEO_OVERRIDE = vid_mode 6
     end
     option[360x400]:
-        name = 360x400
+        name = 360×400
         VIDEO_OVERRIDE = vid_mode 8
     end
     option[640x400]:
-        name = 640x400
+        name = 640×400
         VIDEO_OVERRIDE = vid_mode 11
     end
     option[640x480]:
-        name = 640x480
+        name = 640×480
         priority = 1
         VIDEO_OVERRIDE = vid_mode 12
     end
     option[800x600]:
-        name = 800x600
+        name = 800×600
         VIDEO_OVERRIDE = vid_mode 13
     end
     option[1024x768]:
-        name = 1024x768
+        name = 1024×768
         VIDEO_OVERRIDE = vid_mode 14
     end
     option[1280x1024]:
-        name = 1280x1024
+        name = 1280×1024
         VIDEO_OVERRIDE = vid_mode 15
     end
 end
