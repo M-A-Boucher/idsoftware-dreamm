@@ -176,20 +176,25 @@ config[sound]:
     end
 end
 
-CFG = [[[$(CRLF)
-    $(KEYBIND_OVERRIDE)
+AUTOEXEC = [[[$(CRLF)
     $(RENDERER_OVERRIDE)
     $(VIDEO_OVERRIDE)
     $(SOUND_OVERRIDE)
     set vid_fullscreen "1"
+    set gl_driver "OpenGL32"
+    set s_primary "0"
+    set compass "1"
+]]]
+
+USER = [[[$(CRLF)
+    $(KEYBIND_OVERRIDE)
 ]]]
 
 script[init]:
     code = [[[$(CRLF)
-        if (is_game())
-          drive_set_label("D", "HERETIC_II");
-
-          file_save("$$(rootpath)\\base\\autoexec.cfg", "$$(CFG)");
+        drive_set_label("D", "HERETIC_II");
+        file_save("$$(rootpath)\\base\\autoexec.cfg", "$$(AUTOEXEC)");
+        file_save("$$(rootpath)\\base\\user.cfg", "$$(USER)");
     ]]]
 end
 
@@ -198,7 +203,7 @@ end
 //
 mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
 mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
-mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD
+mount[]: vpath = D:\        ; srcpath = $(ifsinstallpath)\CD; condition = file_exists("$$(rootpath)\\CD\\CDDA.SOU")
 
 //
 // v1.0
@@ -207,7 +212,6 @@ game[v1.0]:
     name = v1.0
     anchorfile = Heretic2.exe
     anchordepth = 3
-    file[]: crc = 94991bbe; size =      1956; name = H2_Help.htm
     file[]: crc = 3708d4ec; size =    225280; name = H2Common.dll
     file[]: crc = 9110f555; size =        58; name = H2Dedicated.bat
     file[]: crc = 6ba76188; size =     28672; name = Heretic2.exe
@@ -218,19 +222,18 @@ game[v1.0]:
     file[]: crc = eb390493; size =    266240; name = base\Client Effects
     file[]: crc = 84f5e96c; size =       195; name = base\coop.lst
     file[]: crc = 674b8a22; size =       798; name = base\dedicated.cfg
-    file[]: crc = 76f633eb; size =      5889; name = base\Default.cfg
+    file[]: crc = 76f633eb; size =      5889; name = base\Default.cfg               ; optional = true
     file[]: crc = 9c664df6; size =       576; name = base\dm.lst
     file[]: crc = c5642104; size =   1359872; name = base\gamex86
     file[]: crc = cf3b093d; size = 215960229; name = base\Htic2-0.pak
     file[]: crc = f845ae39; size =  43625414; name = base\Htic2-1.pak
     file[]: crc = 6b4b5155; size =     28672; name = base\Player
-    file[]: crc = 439b0f87; size =       329; name = base\user.cfg
-    file[]: crc = f831c8be; size =    121360; name = base\Art\symbol.bmp
-    file[]: crc = 7ea4f240; size =      1418; name = base\config\!KB+Mouse.cfg
-    file[]: crc = 134352ad; size =      1387; name = base\config\!Keyboard.cfg
-    file[]: crc = 19b1ae2b; size =      1043; name = base\config\GamePad-4Button.cfg
-    file[]: crc = dd1782a5; size =      1179; name = base\config\GamePad-6Button.cfg
-    file[]: crc = 79d19c07; size =      1240; name = base\config\GamePad-8Button.cfg
+    file[]: crc = 439b0f87; size =       329; name = base\user.cfg                  ; optional = true
+    file[]: crc = 7ea4f240; size =      1418; name = base\config\!KB+Mouse.cfg      ; optional = true
+    file[]: crc = 134352ad; size =      1387; name = base\config\!Keyboard.cfg      ; optional = true
+    file[]: crc = 19b1ae2b; size =      1043; name = base\config\GamePad-4Button.cfg; optional = true
+    file[]: crc = dd1782a5; size =      1179; name = base\config\GamePad-6Button.cfg; optional = true
+    file[]: crc = 79d19c07; size =      1240; name = base\config\GamePad-8Button.cfg; optional = true
     file[]: crc = 04d3534f; size =     88421; name = base\skins\!Brigand.m8
     file[]: crc = d2533cd4; size =     33808; name = base\skins\!Brigand_i.m8
     file[]: crc = 76bd22b3; size =     88421; name = base\skins\!Corvus.m8
@@ -262,7 +265,7 @@ game[v1.0]:
     file[]: crc = 7d96e6f2; size =    132096; name = Drivers\G200Gl.dll
     file[]: crc = 70e58073; size =     96256; name = Drivers\SMACKW32.DLL
     file[]: crc = 61d48207; size =    897024; name = Drivers\Veritegl.dll
-    file[]: crc = f831c8be; size =    121360; name = CD\setup\setup.bmp
+    file[]: crc = f831c8be; size =    121360; name = CD\setup\setup.bmp             ; exactonly = true
     file[]:                                   name = CD\CDDA.SOU; cdda = 176/185/213/181/181/190/180/178/176/187/180/181/131/126
 end
 
@@ -275,8 +278,6 @@ game[v1.06a]:
     anchorfile = Heretic2.exe
     file[]: crc = e1873c78; size =    214528; name = a3dapi.dll
     file[]: crc = 52575bcf; size =    114688; name = A3DSnd.dll
-    file[]: crc = 85081376; size =       289; name = anet.inf
-    file[]: crc = 907c35f7; size =       480; name = DS_PLCMD.lnk
     file[]: crc = 4fb6e750; size =     57856; name = Dxver.dll
     file[]: crc = f26a8fa1; size =     77824; name = EAXSnd.dll
     file[]: crc = babc9cea; size =    571904; name = game.exe
@@ -289,16 +290,16 @@ game[v1.06a]:
     file[]: crc = c8dab865; size =     73728; name = WinSnd.dll
     file[]: crc = 9843bb03; size =    366592; name = base\a3dapi.dll
     file[]: crc = f994f8aa; size =    286720; name = base\Client Effects
-    file[]: crc = 6a77a849; size =      5968; name = base\Default.cfg
+    file[]: crc = 6a77a849; size =      5968; name = base\Default.cfg                   ; optional = true
     file[]: crc = 8be579f8; size =       895; name = base\dm.lst
     file[]: crc = a3f5f918; size =     10949; name = base\Gamemsg.txt
     file[]: crc = 81627486; size =   1392640; name = base\gamex86
     file[]: crc = 750b2d19; size =      5169; name = base\Menus.cfg
     file[]: crc = 21f45b82; size =    221184; name = base\Player
-    file[]: crc = 4016c305; size =      1455; name = base\config\!KB+Mouse.cfg
-    file[]: crc = 1966d8a1; size =      1435; name = base\config\!Keyboard.cfg
-    file[]: crc = c186de37; size =      1053; name = base\config\InteractPowerpadPro.cfg
-    file[]: crc = 528ad9c9; size =      1081; name = base\config\PantherXL.cfg
+    file[]: crc = 4016c305; size =      1455; name = base\config\!KB+Mouse.cfg          ; optional = true
+    file[]: crc = 1966d8a1; size =      1435; name = base\config\!Keyboard.cfg          ; optional = true
+    file[]: crc = c186de37; size =      1053; name = base\config\InteractPowerpadPro.cfg; optional = true
+    file[]: crc = 528ad9c9; size =      1081; name = base\config\PantherXL.cfg          ; optional = true
     file[]: crc = 5be88a9c; size =      1406; name = base\ds\dungeon\cage.os
     file[]: crc = fe45b145; size =   1152540; name = base\maps\dmbloodfeud.bsp
     file[]: crc = efff4bff; size =    985224; name = base\maps\dmcitadel.bsp
@@ -537,9 +538,10 @@ game[v1.06a]:
     file[]: crc = 2fe5b2e6; size =       172; name = base\sprites\spells\phoenix.sp2
     file[]: crc = 399853da; size =     22885; name = base\sprites\spells\phoenix_0.m8
     file[]: crc = 7fd8c99d; size =     22885; name = base\sprites\spells\phoenix_1.m8
-    file[]: crc = 931f7af7; size =    124444; name = user\save\save0\game.ssv
-    file[]: crc = c72c203b; size =      2752; name = user\save\save0\server.ssv
-    file[]: crc = 29359113; size =    921656; name = CD\Setup\setup.bmp
+    file[]: crc = 931f7af7; size =    124444; name = user\save\save0\game.ssv            ; optional = true
+    file[]: crc = c72c203b; size =      2752; name = user\save\save0\server.ssv          ; optional = true
+    file[]: crc = 29359113; size =    921656; name = CD\Setup\setup.bmp                  ; exactonly = true
+    file[]:                                   name = CD\CDDA.SOU; cdda = 178/187/214/183/183/192/182/179/178/189/181/183/130
 end
 
 end
