@@ -60,4 +60,16 @@ installer[v1.0-installer]:
     file[]:                                   name = CDDA.SOU; cdda = 236/195/15/45/68/83/251/144/200/213/215/242/250/187/195/205/164/186/152/244/193; optional = true
 end
 
+//
+// v1.0, Demo
+//
+demo[v1.0-demo]:
+    name = v1.0, Demo
+    EXPERIENCE = PAUSE
+    imports = v1.0
+    file[]: crc = 031d5117; size =    875885; name = HEXEN.EXE
+    file[]: crc = 77cd26c4; size =  10644136; name = HEXEN.WAD
+    file[]: remove = CD\CDDA.SOU
+end
+
 end

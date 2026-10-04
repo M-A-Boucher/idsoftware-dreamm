@@ -150,19 +150,17 @@ config[graphics]:
     end
 end
 
+// Installer script
 INSTALL = [[[$(CRLF)
-    COPY QUAKE101.1+QUAKE101.2 QUAKE101.EXE
-    QUAKE101.EXE
-]]]
-
-INSTALL_106 = [[[$(CRLF)
-    REN RESOURCE.1 RESOURCE.EXE
-    RESOURCE.EXE
-]]]
-
-INSTALL_SW = [[[$(CRLF)
-    COPY QSW101.1+QSW101.2+QSW101.3+QSW101.4+QSW101.5+QSW101.6+QSW101.7 QSW101.EXE
-    QSW101.EXE
+    COPY *.1 1.1
+    COPY *.2 1.2
+    COPY *.3 1.3
+    COPY *.4 1.4
+    COPY *.5 1.5
+    COPY *.6 1.6
+    COPY *.7 1.7
+    COPY 1.1+1.2+1.3+1.4+1.5+1.6+1.7 INSTALL.EXE
+    INSTALL.EXE -n
 ]]]
 
 CFG = [[[$(CRLF)
@@ -175,8 +173,6 @@ script[init]:
         if (is_installer())
         {
           file_save("$$(rootpath)\\DREAMM.BAT", "$$(INSTALL)");
-          file_save("$$(rootpath)\\DREAMMSW.BAT", "$$(INSTALL_106)");
-          file_save("$$(rootpath)\\DREAMMSW.BAT", "$$(INSTALL_SW)");
         }
 
         if (is_game())
@@ -193,16 +189,8 @@ mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/ID1_CD        ; condit
 mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/HIPNOTIC_CD   ; condition = is_game(); disc = 2; optional = true
 mount[]: vpath = D:\;         srcpath = $(ifsinstallpath)/ROGUE_CD      ; condition = is_game(); disc = 3; optional = true
 
-
-script[hipnotic]:
-    condition = $(HIPNOTIC)
-    code = disc_insert(2);
-end
-
-script[rogue]:
-    condition = $(ROGUE)
-    code = disc_insert(3);
-end
+script[hipnotic]: condition = $(HIPNOTIC); code = disc_insert(2)
+script[rogue]:    condition = $(ROGUE)   ; code = disc_insert(3)
 
 //
 // v1.01, CD
@@ -253,7 +241,7 @@ installer[v1.01-sw-installer]:
     name = v1.01, Shareware, Installer
     installid = v1.01-sw
     mips = $(MIPS_MAX)
-    launch = DREAMMSW.BAT
+    launch = DREAMM.BAT
     anchorfile = QSW101.7
     file[]: crc = 7efa06e3; size =   1397174; name = QSW101.1
     file[]: crc = 34063b2d; size =   1433600; name = QSW101.2

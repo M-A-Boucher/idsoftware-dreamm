@@ -138,7 +138,6 @@ LAUNCH = [[[$(CRLF)
 
 script[init]:
     code = [[[$(CRLF)
-
         func ini_update(ini, ikey, ival)
         {
           delim = ikey + "$(TAB)$(TAB)";
@@ -252,7 +251,6 @@ script[init]:
             cfg = ini_update(cfg, "key_invDrop", "14");
             cfg = ini_update(cfg, "mouseb_jump", "-1");
           }
-
 
           file_save("$$(rootpath)\\$$(CONFIG_FILE)", cfg);
 
