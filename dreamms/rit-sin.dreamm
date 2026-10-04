@@ -1,0 +1,319 @@
+//
+// Sin
+//
+desc[rit-sin]:
+
+name = Sin
+icon = rit-sin.png
+machine = pc
+osenv = windows
+rootpath = C:\
+launch = $(rootpath)\sin.exe
+mips = $(MIPS_MAX)
+winres = 1600x1200
+audiohw = gmidi
+filter = ritual, fps
+
+MODERN_KEYBINDS = [[[$(CRLF)
+    bind w "+forward"
+    bind a "+moveleft"
+    bind s "+back"
+    bind d "+moveright"
+    bind MWHEELUP "weapnext"
+    bind MWHEELDOWN "weapnext"
+    bind CTRL "+movedown"
+    bind q "invprev"
+    bind e "invnext"
+    bind r "invuse"
+    unbind PGDN
+    unbind END
+    unbind INS
+    unbind /
+    unbind c
+    unbind ,
+    unbind .
+    +mlook
+    sensitivity "11"
+    cl_run "1"
+]]]
+
+//
+// controls configuration
+//
+config[controls]:
+    title = Controls Configuration
+    option[classic]:
+        name = Customize In-Game (No Overrides)
+        KEYBIND_OVERRIDE = $(NULL)
+    end
+    option[mouse]:
+        name = Modern Preset (WASD + Mouse)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
+            $(MODERN_KEYBINDS)
+            m_pitch "0.022"
+        ]]]
+    end
+    option[mouse-inverted]:
+        name = Modern Preset (WASD + Inverted Mouse)
+        KEYBIND_OVERRIDE = [[[$(CRLF)
+            $(MODERN_KEYBINDS)
+            m_pitch "-0.022"
+        ]]]
+    end
+end
+
+//
+// renderer configuration
+//
+config[renderer]:
+    title = Renderer Configuration
+    option[software]:
+        name = Software
+        RENDERER_OVERRIDE = set vid_ref "soft"
+    end
+    option[opengl]:
+        name = Hardware (OpenGL)
+        RENDERER_OVERRIDE = set vid_ref "gl"
+    end
+end
+
+//
+// resolution configuration
+//
+config[resolution]:
+    title = Resolution Configuration
+    option[320x240]:
+        name = 320×240
+        VIDEO_OVERRIDE = set sw_mode "0"$(CRLF)set gl_mode "0"
+    end
+    option[400x300]:
+        name = 400×300
+        VIDEO_OVERRIDE = set sw_mode "1"$(CRLF)set gl_mode "1"
+    end
+    option[512x384]:
+        name = 512×384
+        VIDEO_OVERRIDE = set sw_mode "2"$(CRLF)set gl_mode "2"
+    end
+    option[640x480]:
+        name = 640×480; priority = 1
+        VIDEO_OVERRIDE = set sw_mode "3"$(CRLF)set gl_mode "3"
+    end
+    option[800x600]:
+        name = 800×600
+        VIDEO_OVERRIDE = set sw_mode "4"$(CRLF)set gl_mode "4"
+    end
+    option[960x720]:
+        name = 960×720
+        VIDEO_OVERRIDE = set sw_mode "5"$(CRLF)set gl_mode "5"
+    end
+    option[1024x768]:
+        name = 1024×768
+        VIDEO_OVERRIDE = set sw_mode "6"$(CRLF)set gl_mode "6"
+    end
+    option[1152x864]:
+        name = 1152×864
+        VIDEO_OVERRIDE = set sw_mode "7"$(CRLF)set gl_mode "7"
+    end
+    option[1280x960]:
+        name = 1280×960
+        VIDEO_OVERRIDE = set sw_mode "8"$(CRLF)set gl_mode "8"
+    end
+    option[1600x1200]:
+        name = 1600×1200
+        VIDEO_OVERRIDE = set sw_mode "9"$(CRLF)set gl_mode "9"
+    end
+end
+
+//
+// sound quality configuration
+//
+config[sound]:
+    title = Sound Quality Configuration
+    option[low]:
+        name = Low
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "11"
+            set s_loadas8bit "1"
+        ]]]
+    end
+    option[high]:
+        name = High; priority = 1
+        SOUND_OVERRIDE = [[[$(CRLF)
+            set s_khz "22"
+            set s_loadas8bit "0"
+        ]]]
+    end
+end
+
+CFG = [[[$(CRLF)
+bind 1 "use Fists"
+bind 2 "use Magnum"
+bind 3 "use Shotgun"
+bind 4 "use AssaultRifle"
+bind 5 "use Chaingun"
+bind 6 "use SpiderMine"
+bind 7 "use RocketLauncher"
+bind 8 "use PulseRifle"
+bind 9 "use QuantumDestabilizer"
+bind 0 "use SniperRifle"
+
+alias toggleviewmode "cmd toggleviewmode"
+
+set developer 0
+
+
+
+]]]
+
+script[init]:
+    code = [[[$(CRLF)
+        if (is_game())
+          file_save("$$(rootpath)\\base\\autoexec.cfg", "$$(CFG)");
+    ]]]
+end
+
+//
+// filesystem
+//
+mount[]: vpath = C:\        ; srcpath = $(ifsdeltapath)     ; writable = true;
+mount[]: vpath = $(rootpath); srcpath = $(ifsinstallpath)
+
+//
+// v1.0
+//
+game[v1.0]:
+    name = v1.0
+    anchorfile = pak0.sin
+    anchordepth = 3
+    file[]: crc = 5c36b460; size =    137728; name = 3dfxgl.dll
+    file[]: crc = 3ce96d80; size =   1707008; name = 3dfxglicd.dll
+    file[]: crc = 5fdc883c; size =    233472; name = pvrgl.dll
+    file[]: crc = e863f099; size =   1303040; name = ragegl.dll
+    file[]: crc = 18425b6a; size =    268800; name = ref_gl.dll
+    file[]: crc = 7112f59f; size =    251392; name = ref_soft.dll
+    file[]: crc = 2e6ee791; size =        39; name = runsin.bat
+    file[]: crc = 7822e58d; size =    536064; name = sin.exe
+    file[]: crc = 6150303b; size =      2238; name = sin.ico
+    file[]: crc = 60655562; size =    183808; name = veritegl.dll
+    file[]: crc = a2ea733e; size =       318; name = base\autoexec.cfg
+    file[]: crc = c43f0641; size =      3151; name = base\default.cfg
+    file[]: crc = 6345c30d; size =      1591; name = base\defaultk.cfg
+    file[]: crc = 2fbb381b; size =      1720; name = base\defaultm.cfg
+    file[]: crc = a48ce2ee; size =       106; name = base\GameSpy.cfg
+    file[]: crc = 3dabed05; size =   2025472; name = base\gamex86.dll
+    file[]: crc = 4d01d5b9; size =      1250; name = base\madcatz.cfg
+    file[]: crc = f2755e1b; size = 194635743; name = base\pak0.sin
+    file[]: crc = f2b9bb23; size = 193031131; name = base\pak1.sin
+    file[]: crc = 437bc52e; size =  86675171; name = base\pak2.sin
+    file[]: crc = 9385b170; size = 101165584; name = base\pak3.sin
+    file[]: crc = 89f62e15; size =      1292; name = base\pxlsin.cfg
+    file[]: crc = f6a88d81; size =      1417; name = base\vm_hw_high.cfg
+    file[]: crc = b85894b7; size =      1404; name = base\vm_hw_low.cfg
+    file[]: crc = 2cfe353f; size =      1400; name = base\vm_hw_mid.cfg
+    file[]: crc = 12c56dcc; size =      1405; name = base\vm_sw_high.cfg
+    file[]: crc = ac8f2345; size =      1396; name = base\vm_sw_low.cfg
+    file[]: crc = 4187a878; size =      1392; name = base\vm_sw_mid.cfg
+    file[]: crc = 8ed66078; size =      2932; name = base\wwsin.cfg
+    file[]: crc = 121ecc22; size =      1116; name = help\chapters.html
+    file[]: crc = 3d620131; size =       310; name = help\frame.html
+    file[]: crc = 01e59c72; size =       313; name = help\frame2.html
+    file[]: crc = 1523faa5; size =      4019; name = help\freeport.html
+    file[]: crc = 5e003768; size =      9529; name = help\hardcore.html
+    file[]: crc = 794f0f24; size =      8392; name = help\hcmemos.html
+    file[]: crc = 733ab361; size =       186; name = help\index.html
+    file[]: crc = 4ad606aa; size =       977; name = help\install.html
+    file[]: crc = df417c8d; size =      8011; name = help\mltiplyr.html
+    file[]: crc = f4845e36; size =      1579; name = help\page1.html
+    file[]: crc = 3aaf0e18; size =     11313; name = help\setup.html
+    file[]: crc = b7055634; size =     12426; name = help\sla.html
+    file[]: crc = f55c987d; size =      3898; name = help\spread1.html
+    file[]: crc = 86769fb8; size =      2813; name = help\spread2.html
+    file[]: crc = 55550eed; size =      1790; name = help\spread3.html
+    file[]: crc = f3fb3c9d; size =      1999; name = help\spread4.html
+    file[]: crc = bdfeef1c; size =      3209; name = help\spread5.html
+    file[]: crc = 5c204556; size =      1515; name = help\spread6.html
+    file[]: crc = 570a0fb8; size =      1587; name = help\spread7.html
+    file[]: crc = 713f9c3a; size =      2476; name = help\spread8.html
+    file[]: crc = 8b728bc5; size =      1553; name = help\spread9.html
+    file[]: crc = a951d5c1; size =      1544; name = help\spred10.html
+    file[]: crc = 162e2894; size =      2233; name = help\spred11.html
+    file[]: crc = ea776b87; size =      3009; name = help\spred12.html
+    file[]: crc = e893da47; size =      1296; name = help\spred13.html
+    file[]: crc = d4b177a3; size =       921; name = help\spred14.html
+    file[]: crc = 4b1ab2ca; size =      4020; name = help\spred15.html
+    file[]: crc = 42417aa4; size =       868; name = help\spred16.html
+    file[]: crc = 8bf00d19; size =      2726; name = help\support.html
+    file[]: crc = da2c72d7; size =      5492; name = help\troubles.html
+    file[]: crc = 72d476ce; size =      8121; name = help\images\aid1.jpg
+    file[]: crc = 616c5008; size =      8152; name = help\images\aid2.jpg
+    file[]: crc = 69594e58; size =     10981; name = help\images\aid3.jpg
+    file[]: crc = 95ac677d; size =     21437; name = help\images\aid4.jpg
+    file[]: crc = 07db5937; size =      9257; name = help\images\aid5.jpg
+    file[]: crc = 4959b920; size =     10557; name = help\images\aid6.jpg
+    file[]: crc = 7a712307; size =     10178; name = help\images\aid7.jpg
+    file[]: crc = 5de8dfec; size =     13329; name = help\images\armor1.jpg
+    file[]: crc = 8d5cce99; size =     15574; name = help\images\armor2.jpg
+    file[]: crc = f7b1ce73; size =     14104; name = help\images\armor3.jpg
+    file[]: crc = f06ed5e9; size =     21474; name = help\images\cover.jpg
+    file[]: crc = 10fbdfd5; size =      9947; name = help\images\page1a.jpg
+    file[]: crc = 9ecace0d; size =     59653; name = help\images\page1b.jpg
+    file[]: crc = 319f8822; size =    115040; name = help\images\screen1.jpg
+    file[]: crc = 4058cc26; size =    105934; name = help\images\screen2.jpg
+    file[]: crc = 8c99fad0; size =     95563; name = help\images\screen3.jpg
+    file[]: crc = da22ecce; size =    110243; name = help\images\screen4.jpg
+    file[]: crc = fb4eaddc; size =    135529; name = help\images\screen5.jpg
+    file[]: crc = c13e6c41; size =    111083; name = help\images\screen6.jpg
+    file[]: crc = 4b15fa77; size =    100132; name = help\images\screen7.jpg
+    file[]: crc = e34b8cb6; size =    112086; name = help\images\screen8.jpg
+    file[]: crc = ef46eb9a; size =    134306; name = help\images\screen9.jpg
+    file[]: crc = 1a330df8; size =     34887; name = help\images\spread1a.jpg
+    file[]: crc = f678055e; size =      4207; name = help\images\spread1b.jpg
+    file[]: crc = 96dbd509; size =      5253; name = help\images\spread1c.jpg
+    file[]: crc = ba9ac2b0; size =      6398; name = help\images\spread1d.jpg
+    file[]: crc = 239734b5; size =     11737; name = help\images\spread1e.jpg
+    file[]: crc = 66cf7f8a; size =     12372; name = help\images\spread2a.jpg
+    file[]: crc = 1b991a81; size =      4662; name = help\images\spread2b.jpg
+    file[]: crc = 72af3f73; size =     26674; name = help\images\spread2c.jpg
+    file[]: crc = 32dd4317; size =     45703; name = help\images\spread2d.jpg
+    file[]: crc = 6c41f5df; size =     29661; name = help\images\spread3a.jpg
+    file[]: crc = dc66870e; size =     36747; name = help\images\spread3b.jpg
+    file[]: crc = 5b0d1cba; size =     31393; name = help\images\spread3c.jpg
+    file[]: crc = a0745302; size =     37137; name = help\images\spread4a.jpg
+    file[]: crc = 115fefa1; size =     26192; name = help\images\spread4b.jpg
+    file[]: crc = 3ce0961c; size =     51041; name = help\images\spread4c.jpg
+    file[]: crc = 395c2fd5; size =     31167; name = help\images\spread4d.jpg
+    file[]: crc = d7d126f8; size =     41730; name = help\images\spread5a.jpg
+    file[]: crc = d0585fbd; size =     50228; name = help\images\spread6a.jpg
+    file[]: crc = bdeeb42b; size =     25057; name = help\images\spread6b.jpg
+    file[]: crc = 532bdffb; size =     35641; name = help\images\spread7a.jpg
+    file[]: crc = 6f7f5067; size =     73468; name = help\images\spread7b.jpg
+    file[]: crc = 4f1bf354; size =     36879; name = help\images\spread8a.jpg
+    file[]: crc = ad24ed92; size =     34067; name = help\images\spread8b.jpg
+    file[]: crc = 3940c836; size =     34677; name = help\images\spread9a.jpg
+    file[]: crc = 3fe2b1a5; size =     56550; name = help\images\spread9b.jpg
+    file[]: crc = 3b419d73; size =     53677; name = help\images\spred10a.jpg
+    file[]: crc = 7e3ead88; size =     33827; name = help\images\spred10b.jpg
+    file[]: crc = 0d71a8b2; size =     23761; name = help\images\spred11a.jpg
+    file[]: crc = 26e1a7c6; size =     34901; name = help\images\spred11b.jpg
+    file[]: crc = a9412717; size =     26721; name = help\images\spred12a.jpg
+    file[]: crc = fab361fa; size =     25960; name = help\images\spred12b.jpg
+    file[]: crc = 7b9a343b; size =     40769; name = help\images\spred13a.jpg
+    file[]: crc = 5c2a6808; size =     48612; name = help\images\spred13b.jpg
+    file[]: crc = 81b72366; size =     53831; name = help\images\spred14a.jpg
+    file[]: crc = 79f10ce2; size =     64564; name = help\images\spred14b.jpg
+    file[]: crc = e42a9459; size =     13494; name = help\images\spred15a.jpg
+    file[]: crc = 01201c03; size =      7113; name = help\images\spred15b.jpg
+    file[]: crc = 805efbe5; size =     17291; name = help\images\spred15c.jpg
+    file[]: crc = 7f5164e4; size =      6583; name = help\images\spred15d.jpg
+    file[]: crc = 9aaf7fa5; size =      9102; name = help\images\spred15e.jpg
+    file[]: crc = df42fe16; size =     86876; name = help\images\spred16a.jpg
+    file[]: crc = 6b8db843; size =     13848; name = help\images\toys1.jpg
+    file[]: crc = 6275c7b8; size =      5743; name = help\images\toys2.jpg
+    file[]: crc = 0d58daf8; size =     10441; name = help\images\toys3.jpg
+    file[]: crc = 1d409560; size =      6678; name = help\images\toys4.jpg
+    file[]: crc = 3d87e15e; size =      7726; name = help\images\toys5.jpg
+    file[]: crc = ff86d880; size =      4027; name = help\images\toys6.jpg
+end
+
+
+end
