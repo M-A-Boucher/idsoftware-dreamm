@@ -61,6 +61,23 @@ installer[v1.0-installer]:
 end
 
 //
+// v1.1
+//
+game[v1.1]:
+    name = v1.1
+    imports = v1.0
+    file[]: crc = b67b9aa4; size =       838; name = DM.DAT
+    file[]: crc = 5b8a403f; size =     34815; name = DM.EXE
+    file[]: crc = bbc55df2; size =    923019; name = HEXEN.EXE
+    file[]: crc = dca9114c; size =  20083672; name = HEXEN.WAD
+    file[]: crc = 33fd60df; size =    164864; name = HEXRUN.EXE
+    file[]: crc = c420d6fc; size =    932864; name = HLAUNCH.EXE
+    file[]: crc = 5938701c; size =     18019; name = IPXSETUP.EXE
+    file[]: crc = 22d8b741; size =     44928; name = SETUP.EXE
+    file[]:                                   name = CD\CDDA = 238/197/17/47/70/85/253/146/202/215/217/244/252/189/197/207/166/188/154/246/195; optional = true
+end
+
+//
 // v1.0, Demo
 //
 demo[v1.0-demo]:
